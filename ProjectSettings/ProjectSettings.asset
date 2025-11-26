@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: 5330a662beeefe340a9255f883181ad7
+  productGUID: 23cf44f8861495e478ca68d9c88a8fe4
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: 1117
+  productName: My project 1103
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -253,7 +253,7 @@ PlayerSettings:
   iOSAutomaticallyDetectAndAddCapabilities: 1
   appleEnableProMotion: 0
   shaderPrecisionModel: 0
-  clonedFromGUID: f8a2677fe88e1be4e991f58927b4d732
+  clonedFromGUID: 9c18872768a24e34cbb604ec34700f2e
   templatePackageId: 
   templateDefaultScene: Assets/Scenes/SampleScene.unity
   useCustomMainManifest: 0
@@ -850,14 +850,14 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: 1117
+  metroPackageName: My project 1103
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: 1117
+  metroApplicationDescription: My project 1103
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -930,10 +930,10 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 680d6b31-db85-4206-8b6a-9674c873bf83
+  cloudProjectId: 0a17a1da-49f8-4568-8434-7935bf1d61cc
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Reko's Nightmare
+  projectName: My project 1103
   organizationId: ungpp7123
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0

@@ -1,11 +1,7 @@
 fileFormatVersion: 2
-guid: 25dd0eb06cc627449a9bfc2ef65d78a5
-MonoImporter:
+guid: 132dc37d69d2ee44d875f70a6440b245
+DefaultImporter:
   externalObjects: {}
-  serializedVersion: 2
-  defaultReferences: []
-  executionOrder: 0
-  icon: {instanceID: 0}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -14,5 +10,5 @@ AssetOrigin:
   productId: 245475
   packageName: 2D Platformer Controller (with animated character)
   packageVersion: 1.0.0
-  assetPath: Assets/SupanthaPaul/2D Platformer Controller/Scripts/Input/InputSystem.cs
+  assetPath: Assets/1112/Scenes/Demo.unity
   uploadId: 558839

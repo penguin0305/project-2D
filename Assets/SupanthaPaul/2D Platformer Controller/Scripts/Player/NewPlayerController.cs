@@ -1,9 +1,24 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 namespace SupanthaPaul
 {
 	public class PlayerController : MonoBehaviour
 	{
+		// Health
+		[Header("Health")]
+		[SerializeField] public int maxHealth = 5;
+		[HideInInspector] public int currentHealth = 5;
+		[HideInInspector] public bool isDead = false;
+
+		[Header("ItemUsed")]
+		[SerializeField] public int maxItem = 5;
+		[HideInInspector] public int currentItem = 5;
+
+		[SerializeField] private TextMeshProUGUI HelthNum;
+		[SerializeField] private TextMeshProUGUI ItemNum;
+
 		[SerializeField] private float speed;
 		[Header("Jumping")]
 		[SerializeField] private float jumpForce;
@@ -40,6 +55,8 @@ namespace SupanthaPaul
 		public Vector2 wallClimbForce = new Vector2(4f, 14f);
 
 		private Rigidbody2D m_rb;
+		//추가
+		private Collider2D m_coll;
 		private ParticleSystem m_dustParticle;
 		private bool m_facingRight = true;
 		private readonly float m_groundedRememberTime = 0.25f;
@@ -78,7 +95,25 @@ namespace SupanthaPaul
 			m_extraJumpForce = jumpForce * 0.7f;
 
 			m_rb = GetComponent<Rigidbody2D>();
+			m_coll = GetComponent<Collider2D>();
 			m_dustParticle = GetComponentInChildren<ParticleSystem>();
+
+
+			if (HelthNum == null)
+			{
+
+				GameObject go = GameObject.Find("HelthNum");
+				if (go != null) HelthNum = go.GetComponent<TextMeshProUGUI>();
+			}
+
+			if (ItemNum == null)
+			{
+				GameObject go = GameObject.Find("ItemNum");
+				if (go != null) ItemNum = go.GetComponent<TextMeshProUGUI>();
+			}
+
+			HelthNum.text = currentHealth.ToString();
+			ItemNum.text = currentItem.ToString();
 		}
 
 		private void FixedUpdate()
@@ -88,14 +123,14 @@ namespace SupanthaPaul
 			var position = transform.position;
 			// check if on wall
 			m_onWall = Physics2D.OverlapCircle((Vector2)position + grabRightOffset, grabCheckRadius, whatIsGround)
-			          || Physics2D.OverlapCircle((Vector2)position + grabLeftOffset, grabCheckRadius, whatIsGround);
+					  || Physics2D.OverlapCircle((Vector2)position + grabLeftOffset, grabCheckRadius, whatIsGround);
 			m_onRightWall = Physics2D.OverlapCircle((Vector2)position + grabRightOffset, grabCheckRadius, whatIsGround);
 			m_onLeftWall = Physics2D.OverlapCircle((Vector2)position + grabLeftOffset, grabCheckRadius, whatIsGround);
 
 			// calculate player and wall sides as integers
 			CalculateSides();
 
-			if((m_wallGrabbing || isGrounded) && m_wallJumping)
+			if ((m_wallGrabbing || isGrounded) && m_wallJumping)
 			{
 				m_wallJumping = false;
 			}
@@ -103,15 +138,15 @@ namespace SupanthaPaul
 			if (isCurrentlyPlayable)
 			{
 				// horizontal movement
-				if(m_wallJumping)
+				if (m_wallJumping)
 				{
 					m_rb.linearVelocity = Vector2.Lerp(m_rb.linearVelocity, (new Vector2(moveInput * speed, m_rb.linearVelocity.y)), 1.5f * Time.fixedDeltaTime);
 				}
 				else
 				{
-					if(canMove && !m_wallGrabbing)
+					if (canMove && !m_wallGrabbing)
 						m_rb.linearVelocity = new Vector2(moveInput * speed, m_rb.linearVelocity.y);
-					else if(!canMove)
+					else if (!canMove)
 						m_rb.linearVelocity = new Vector2(0f, m_rb.linearVelocity.y);
 				}
 				// better jump physics
@@ -139,7 +174,7 @@ namespace SupanthaPaul
 					else
 					{
 						m_dashTime -= Time.deltaTime;
-						if(m_facingRight)
+						if (m_facingRight)
 							m_rb.linearVelocity = Vector2.right * dashSpeed;
 						else
 							m_rb.linearVelocity = Vector2.left * dashSpeed;
@@ -147,13 +182,14 @@ namespace SupanthaPaul
 				}
 
 				// wall grab
-				if(m_onWall && !isGrounded && m_rb.linearVelocity.y <= 0f && m_playerSide == m_onWallSide)
+				if (m_onWall && !isGrounded && m_rb.linearVelocity.y <= 0f && m_playerSide == m_onWallSide)
 				{
 					actuallyWallGrabbing = true;    // for animation
 					m_wallGrabbing = true;
 					m_rb.linearVelocity = new Vector2(moveInput * speed, -slideSpeed);
 					m_wallStick = m_wallStickTime;
-				} else
+				}
+				else
 				{
 					m_wallStick -= Time.deltaTime;
 					actuallyWallGrabbing = false;
@@ -165,11 +201,11 @@ namespace SupanthaPaul
 
 				// enable/disable dust particles
 				float playerVelocityMag = m_rb.linearVelocity.sqrMagnitude;
-				if(m_dustParticle.isPlaying && playerVelocityMag == 0f)
+				if (m_dustParticle.isPlaying && playerVelocityMag == 0f)
 				{
 					m_dustParticle.Stop();
 				}
-				else if(!m_dustParticle.isPlaying && playerVelocityMag > 0f)
+				else if (!m_dustParticle.isPlaying && playerVelocityMag > 0f)
 				{
 					m_dustParticle.Play();
 				}
@@ -179,6 +215,19 @@ namespace SupanthaPaul
 
 		private void Update()
 		{
+			// 사망 판정
+			if (isDead)
+			{
+				canMove = false;
+				return;
+			}
+
+			// 공격 추가
+			if (InputSystem.Used() && canMove && !isDashing && !m_wallGrabbing)
+			{
+				Used();
+			}
+
 			// horizontal input
 			moveInput = InputSystem.HorizontalRaw();
 
@@ -203,7 +252,7 @@ namespace SupanthaPaul
 					// dash effect
 					PoolManager.instance.ReuseObject(dashEffect, transform.position, Quaternion.identity);
 					// if player in air while dashing
-					if(!isGrounded)
+					if (!isGrounded)
 					{
 						m_hasDashedInAir = true;
 					}
@@ -211,26 +260,26 @@ namespace SupanthaPaul
 				}
 			}
 			m_dashCooldown -= Time.deltaTime;
-			
+
 			// if has dashed in air once but now grounded
 			if (m_hasDashedInAir && isGrounded)
 				m_hasDashedInAir = false;
-			
+
 			// Jumping
-			if(InputSystem.Jump() && m_extraJumps > 0 && !isGrounded && !m_wallGrabbing)	// extra jumping
+			if (InputSystem.Jump() && m_extraJumps > 0 && !isGrounded && !m_wallGrabbing)   // extra jumping
 			{
 				m_rb.linearVelocity = new Vector2(m_rb.linearVelocity.x, m_extraJumpForce); ;
 				m_extraJumps--;
 				// jumpEffect
 				PoolManager.instance.ReuseObject(jumpEffect, groundCheck.position, Quaternion.identity);
 			}
-			else if(InputSystem.Jump() && (isGrounded || m_groundedRemember > 0f))	// normal single jumping
+			else if (InputSystem.Jump() && (isGrounded || m_groundedRemember > 0f)) // normal single jumping
 			{
 				m_rb.linearVelocity = new Vector2(m_rb.linearVelocity.x, jumpForce);
 				// jumpEffect
 				PoolManager.instance.ReuseObject(jumpEffect, groundCheck.position, Quaternion.identity);
 			}
-			else if(InputSystem.Jump() && m_wallGrabbing && moveInput!=m_onWallSide )		// wall jumping off the wall
+			else if (InputSystem.Jump() && m_wallGrabbing && moveInput != m_onWallSide)     // wall jumping off the wall
 			{
 				m_wallGrabbing = false;
 				m_wallJumping = true;
@@ -239,7 +288,7 @@ namespace SupanthaPaul
 					Flip();
 				m_rb.AddForce(new Vector2(-m_onWallSide * wallJumpForce.x, wallJumpForce.y), ForceMode2D.Impulse);
 			}
-			else if(InputSystem.Jump() && m_wallGrabbing && moveInput != 0 && (moveInput == m_onWallSide))      // wall climbing jump
+			else if (InputSystem.Jump() && m_wallGrabbing && moveInput != 0 && (moveInput == m_onWallSide))      // wall climbing jump
 			{
 				m_wallGrabbing = false;
 				m_wallJumping = true;
@@ -280,6 +329,76 @@ namespace SupanthaPaul
 			Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
 			Gizmos.DrawWireSphere((Vector2)transform.position + grabRightOffset, grabCheckRadius);
 			Gizmos.DrawWireSphere((Vector2)transform.position + grabLeftOffset, grabCheckRadius);
+		}
+		//충돌감지
+		private void OnCollisionEnter2D(Collision2D collision)
+		{
+			if (collision.gameObject.CompareTag("Enemy"))
+			{
+				if (isDead) return;
+
+				currentHealth -= 1;
+				HelthNum.text = currentHealth.ToString();
+				Debug.Log($"데미지 감지");
+
+
+				if (currentHealth <= 0)
+				{
+					currentHealth = 0;
+					Die();
+				}
+			}
+		}
+
+		private void Die()
+		{
+			isDead = true;
+			canMove = false;
+			isCurrentlyPlayable = false;
+			m_rb.linearVelocity = Vector2.zero;
+			Time.timeScale = 0f;
+			Debug.Log("플레이어 사망");
+		}
+
+
+		public void Heal(int Heal)
+		{
+			if (isDead) return;
+
+			currentHealth += 1;
+			if (currentHealth > maxHealth)
+			{
+				currentHealth = maxHealth;
+			}
+			HelthNum.text = currentHealth.ToString();
+			Debug.Log($"체력 회복");
+
+		}
+
+		// 아이템 사용
+		private void Used()
+		{
+			if (currentItem > 0)
+			{
+				currentItem--;
+				ItemNum.text = currentItem.ToString();
+				Debug.Log($"아이템 사용");
+			}
+			else
+			{
+				Debug.Log("아이템 부족");
+
+			}
+		}
+		public void ReloadItem(int amount)
+		{
+			currentItem += amount;
+			if (currentItem > maxItem)
+			{
+				currentItem = maxItem;
+			}
+			ItemNum.text = currentItem.ToString();
+			Debug.Log($"아이템 획득");
 		}
 	}
 }

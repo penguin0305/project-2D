@@ -7,7 +7,7 @@ namespace SupanthaPaul
 	public class CameraFollow : MonoBehaviour
 	{
 	    [SerializeField]
-		private Transform target;
+		public Transform target;
 		[SerializeField]
 		private float smoothSpeed = 0.125f;
 		public Vector3 offset;
@@ -18,6 +18,8 @@ namespace SupanthaPaul
 
 		private void FixedUpdate()
 		{
+			if (target == null) return;
+
 			Vector3 desiredPosition = target.localPosition + offset;
 			var localPosition = transform.localPosition;
 			Vector3 smoothedPosition = Vector3.Lerp(localPosition, desiredPosition, smoothSpeed);

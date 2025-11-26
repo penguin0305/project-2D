@@ -8,6 +8,8 @@ namespace SupanthaPaul
 		static readonly string HorizontalInput = "Horizontal";
 		static readonly string JumpInput = "Jump";
 		static readonly string DashInput = "Dash";
+		static readonly string PauseInput = "Pause";
+		static readonly string UsedInput = "Used";
 
 		public static float HorizontalRaw()
 		{
@@ -24,5 +26,14 @@ namespace SupanthaPaul
 			return Input.GetButtonDown(DashInput);
 		}
 
+		public static bool Pause()
+		{
+			return Input.GetButtonDown(PauseInput);
+		}
+
+		public static bool Used()
+		{
+			return Input.GetButtonDown(UsedInput);
+		}
 	}
 }
