@@ -1,9 +1,16 @@
 fileFormatVersion: 2
-guid: ab4f1438f6efe134e865e4732d71e4be
+guid: d6a44808c6f4f4c4d90f7afc3685d599
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273964
+  packageName: 2D Platformer Tilesets Bundle 16x16 Pixelart
+  packageVersion: 1.2.0
+  assetPath: Assets/ElvGames/Platformer Series/Enemies/Enemy 001/Enemy_001_Walk.png
+  uploadId: 744028
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +27,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,8 +71,10 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -74,9 +84,10 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -86,9 +97,10 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -98,9 +110,10 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -110,13 +123,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy_001_Idle_0
+      name: Enemy_001_Walk_strip6_0
       rect:
         serializedVersion: 2
         x: 0
@@ -126,18 +140,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b9c6e5fdf3fd69341afe5043281ba6b1
-      internalID: 842393935
+      spriteID: 6007fc5bcda6cf1498115e470a9b26a9
+      internalID: -952602201
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_001_Idle_1
+      name: Enemy_001_Walk_strip6_1
       rect:
         serializedVersion: 2
         x: 32
@@ -147,18 +162,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b6478bc1da233f4d8a0d66f95fb55e1
-      internalID: 1967979724
+      spriteID: 513fbab82db84894ca20a8f3394b0463
+      internalID: 1174095324
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_001_Idle_2
+      name: Enemy_001_Walk_strip6_2
       rect:
         serializedVersion: 2
         x: 64
@@ -168,18 +184,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f812053a91ef9ba46aacafb73496e6ed
-      internalID: -679933337
+      spriteID: 26ce3aa0fa416e94497e877fb953a6fb
+      internalID: -1889344102
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_001_Idle_3
+      name: Enemy_001_Walk_strip6_3
       rect:
         serializedVersion: 2
         x: 96
@@ -189,18 +206,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2fe4a9c7c835db4193d605df0a9823e
-      internalID: 1973543123
+      spriteID: 2db2ba62a6047da4ebb4c6642ff5a5a3
+      internalID: 4279956
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_001_Idle_4
+      name: Enemy_001_Walk_strip6_4
       rect:
         serializedVersion: 2
         x: 128
@@ -210,18 +228,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a4b13a7c59b78fc49aab29d5b520d47b
-      internalID: -1724034559
+      spriteID: 7ff5cabbf2c91fb43abc0f5c21255fac
+      internalID: -1380567911
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_001_Idle_5
+      name: Enemy_001_Walk_strip6_5
       rect:
         serializedVersion: 2
         x: 160
@@ -231,17 +250,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13794af6d71a1c14f8a376ed56afef64
-      internalID: -1400775642
+      spriteID: 2d3b382c6779cc948a62f31f9dc82f0f
+      internalID: 738323053
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
@@ -251,23 +272,17 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
-      Enemy_001_Idle_0: 842393935
-      Enemy_001_Idle_1: 1967979724
-      Enemy_001_Idle_4: -1724034559
-      Enemy_001_Idle_3: 1973543123
-      Enemy_001_Idle_2: -679933337
-      Enemy_001_Idle_5: -1400775642
-  spritePackingTag: 
+      Enemy_001_Walk_strip6_0: -952602201
+      Enemy_001_Walk_strip6_1: 1174095324
+      Enemy_001_Walk_strip6_2: -1889344102
+      Enemy_001_Walk_strip6_3: 4279956
+      Enemy_001_Walk_strip6_4: -1380567911
+      Enemy_001_Walk_strip6_5: 738323053
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 273964
-  packageName: 2D Platformer Tilesets Bundle 16x16 Pixelart
-  packageVersion: 1.2.0
-  assetPath: Assets/ElvGames/Platformer Series/Enemies/Enemy 001/Enemy_001_Idle.png
-  uploadId: 744028
