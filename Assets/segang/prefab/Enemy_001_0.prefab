@@ -156,9 +156,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f0154895b3efe46987262911b3bf51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eCombat: {fileID: 0}
   moveSpeed: 2
   detectRange: 5
   maxHealth: 100
+  currentHealth: 0
+  player: {fileID: 601420976079308504, guid: 5d5b863d209410741b16c62ef4e8b47e, type: 3}
 --- !u!114 &6361873796544171945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +178,7 @@ MonoBehaviour:
   checkDuration: 1.2
   jumpForce: 5
   jumpCooldown: 5
+  player: {fileID: 601420976079308504, guid: 5d5b863d209410741b16c62ef4e8b47e, type: 3}
   timer: 0
 --- !u!114 &8207744660711528234
 MonoBehaviour:
@@ -189,7 +193,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropItems:
-  - itemPrefab: {fileID: 0}
+  - itemPrefab: {fileID: 8089094859355405138, guid: cd47321b7b03ed945ad5b7919d553343, type: 3}
+    weight: 100
+  - itemPrefab: {fileID: 4205575513936358651, guid: 4c77f775fc016334bb70928c1edaa038, type: 3}
     weight: 100
   minDropCount: 1
   maxDropCount: 1
@@ -242,6 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b93d6cacd20a994597694560bed879a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eController: {fileID: 0}
 --- !u!70 &7245771162977349122
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

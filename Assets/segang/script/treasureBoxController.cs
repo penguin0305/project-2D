@@ -3,11 +3,11 @@ using UnityEngine;
 public class treasureBoxController : MonoBehaviour
 {
     private bool isOpened = false;
-    private GameObject player;
+    public GameObject player;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        
     }
 
     // Update is called once per frame

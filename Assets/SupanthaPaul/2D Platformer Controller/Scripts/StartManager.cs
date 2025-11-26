@@ -13,6 +13,6 @@ public class StartMenuController : MonoBehaviour
         }
 
 
-        SceneManager.LoadScene("Main1115");
+        SceneManager.LoadScene("tScene");
     }
 }

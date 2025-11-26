@@ -79,8 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
-    type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.6132076, g: 0.3316407, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -150,8 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropItems:
-  - itemPrefab: {fileID: 8089094859355405138, guid: cd47321b7b03ed945ad5b7919d553343,
-      type: 3}
+  - itemPrefab: {fileID: 8089094859355405138, guid: cd47321b7b03ed945ad5b7919d553343, type: 3}
     weight: 100
   minDropCount: 3
   maxDropCount: 3
@@ -167,3 +165,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fba9077ce32b654fab87ed14035ceeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 3058659472406823714, guid: 5d5b863d209410741b16c62ef4e8b47e, type: 3}

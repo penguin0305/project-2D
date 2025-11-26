@@ -18,15 +18,15 @@ public class enemyController : MonoBehaviour
 
     [Header("상태")]
     public int currentHealth;//현재체력
-    private Transform player;
-    public SpriteRenderer spriteRenderer;
+    public Transform player;
+    private SpriteRenderer spriteRenderer;
     private bool isDead = false;//처리 판정용 변수
     private bool isChasing = false;//->현재 추적 기능은 안넣음
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentHealth = maxHealth;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+       
         spriteRenderer = GetComponent<SpriteRenderer>();
         dropper = GetComponent<itemDropController>();
         animator = GetComponent<Animator>();

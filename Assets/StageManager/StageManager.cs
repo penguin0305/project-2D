@@ -18,8 +18,8 @@ public class StageManager : MonoBehaviour
     public MapLoader mapLoader;
 
     //이벤트 발행
-    public event System.Action<bool> OnStageFail;
-    public event System.Action<bool> OnStageClear;
+    public event System.Action OnStageFail; // StageManager가 OnStageFail이라는 이벤트를 발행
+    public event System.Action<List<ItemData>> OnStageClear;
     public event System.Action OnStageEscape;
     public event System.Action<int> OnAddScore;
 
@@ -46,8 +46,10 @@ public class StageManager : MonoBehaviour
         enemy.OnDeath += ClearAssurance;
         enemy.OnDeath += StageClear;
         */
-       
     }
+
+    
+
     
 
     void Start()
@@ -85,10 +87,10 @@ public class StageManager : MonoBehaviour
     //함수 이름: GameOver
     //기능: 스테이지 실패를 알리는 함수
     //파라미터: X
-    //반환값: X ( 이벤트를 구독하는 스크립트에게 bool IsClear ( 일반적으로 false ) 전달 )
+    //반환값: X 
     public void GameOver()
     {
-        OnStageFail?.Invoke(IsClear);
+        OnStageFail?.Invoke();
         Debug.Log("Game Over");
         tmpinventory.Clear();
     }
@@ -96,12 +98,11 @@ public class StageManager : MonoBehaviour
     //함수 이름: StageClear
     //기능: 스테이지 클리어를 알리는 함수
     //파라미터: X
-    //반환값: X ( 이벤트를 구독하는 스크립트에게 bool IsClear ( 일반적으로 true ) 전달 )
+    //반환값: X ( 이벤트를 구독하는 스크립트에게 tmpinventory 전달  )
     public void StageClear(bool boss)
     {
-        if (CheckTrigger && boss) OnStageClear?.Invoke(IsClear);
+        if (CheckTrigger && boss) OnStageClear?.Invoke(tmpinventory);
         Debug.Log("Stage Clear");
-        /* 게임 매니저의 글로벌 인벤토리에 추가 */
     }
 
     //함수 이름: StageEscape

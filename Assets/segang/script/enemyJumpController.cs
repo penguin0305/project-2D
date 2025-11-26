@@ -8,7 +8,7 @@ public class enemyJumpController : MonoBehaviour
     public float jumpCooldown = 5f;     // 점프 쿨타임
 
     private Rigidbody2D rb;
-    private Transform player;
+    public Transform player;
     private float lastXPos;//전 프레임의 x좌표
     public float timer = 0f;//x축 이동을 감지하는 타이머
     private float cooldownTimer = 0f;//점프 쿹타임 타이머
@@ -18,7 +18,7 @@ public class enemyJumpController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         lastXPos = transform.position.x;
 
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        
 
     }
 
