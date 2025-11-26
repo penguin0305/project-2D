@@ -16,9 +16,9 @@ public class MeleeHitbox : MonoBehaviour
 		
 		if (collision.CompareTag("Enemy"))
 		{
-			var dummy = collision.GetComponent<EnemyHitDummy>();
+			var dummy = collision.GetComponent<enemyCombat>();
 			if (dummy)
-				dummy.OnHit();
+				dummy.OnHit(5);
 		}
 	}
 }

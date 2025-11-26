@@ -13,6 +13,7 @@ public class PlayerInputHandler : MonoBehaviour
 		movement = GetComponent<PlayerMovement>();
 		combat = GetComponent<PlayerCombat>();
 		interaction = GetComponentInChildren<PlayerInteraction>();
+			
 	} 
 
 	public void OnMove(InputAction.CallbackContext context)
@@ -62,4 +63,5 @@ public class PlayerInputHandler : MonoBehaviour
 		if (context.performed)
 			Debug.Log("Use Item 2: performed");
 	}
+	
 }

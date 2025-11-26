@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class enemyController : MonoBehaviour
 {
+    public enemyCombat eCombat;
     private itemDropController dropper;
     Animator animator;
     private float timer = 0f;
@@ -12,11 +13,11 @@ public class enemyController : MonoBehaviour
     [Header("기본 설정")]
     public float moveSpeed = 2f;         // 이동 속도
     public float detectRange = 5f;       // 플레이어 감지 거리
-    public int maxHealth = 100;          // 최대 체력
+    public int maxHealth = 10;          // 최대 체력
 
 
     [Header("상태")]
-    private int currentHealth;//현재체력
+    public int currentHealth;//현재체력
     private Transform player;
     private SpriteRenderer spriteRenderer;
     private bool isDead = false;//처리 판정용 변수
@@ -39,7 +40,7 @@ public class enemyController : MonoBehaviour
         {
             Debug.Log("추적시작");//작동확인용 로그
         }
-        if (Input.GetKeyDown("k"))//->k누르면 즉시 처치됨 확인용 코드
+        if (currentHealth <= 0)//->k누르면 즉시 처치됨 확인용 코드
         {
             die();
         }
@@ -91,7 +92,6 @@ public class enemyController : MonoBehaviour
     }//현재 추적기능 없음
     private void die()
     {
-        isDead = true;
         Debug.Log($"{gameObject.name} 사망");
         dropper.DropItems();//아이템 드랍 함수 인스펙터창에서 프리팹과 드랍가중치 설정가능
         Destroy(gameObject, 0.1f);

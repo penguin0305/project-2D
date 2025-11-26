@@ -1,5 +1,4 @@
 {
-    "version": 1,
     "name": "InputSystem-Actions",
     "maps": [
         {
@@ -141,6 +140,17 @@
                     "name": "",
                     "id": "0b726152-7131-45eb-8e32-6995f9a1d64f",
                     "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad3c85d6-64b1-43d0-8e38-28a62fb28041",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

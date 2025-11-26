@@ -13,7 +13,7 @@ public class StageManager : MonoBehaviour
 
     //스크립트 참조
     [Header("References")]
-    public PlayerInputHandler player;
+    public PlayerStats player;
     //public Enemy enemy;
     public MapLoader mapLoader;
 
@@ -33,18 +33,22 @@ public class StageManager : MonoBehaviour
     // 아이템을 보관하는 임시 인벤토리 생성
     private List<ItemData> tmpinventory = new List<ItemData>(); // 멀티플레이의 경우 딕셔너리 사용 <PID, List<ItemData>>
 
-    /* 합칠 때 주석 해제
+ 
     private void OnEnable()
     {
         // 다른 스크립트의 이벤트 구독
+        
         player.OnDeath += GameOver;
+        /*
         player.OnEscape += StageEscape;
         player.OnGetItem += GetItem;
         enemy.OnDeath += CalcPoint;
         enemy.OnDeath += ClearAssurance;
         enemy.OnDeath += StageClear;
+        */
+       
     }
-    */
+    
 
     void Start()
     {

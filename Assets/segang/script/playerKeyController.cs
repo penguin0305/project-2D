@@ -17,6 +17,7 @@ public class playerKeyController : MonoBehaviour
     public void getKey()
     {
         ownedKey++;//먹으면 소유한 키 1개 추가
+        Debug.Log("getKey");
     }
     public void removeKey()
     {

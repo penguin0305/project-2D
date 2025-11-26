@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public event System.Action OnDeath;
+
     [SerializeField] private int maxHP = 5;
     private int currentHP;
 
@@ -19,10 +21,14 @@ public class PlayerStats : MonoBehaviour
         {
             Die();
         }
+
     }
+
+
 
     private void Die()
     {
         Debug.Log("Player Died");
+        OnDeath?.Invoke();
     }
 }
