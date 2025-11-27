@@ -10,7 +10,7 @@ public class MapLoader : MonoBehaviour
 {
     // 맵 프리셋에 대한 딕셔너리<난이도, 프리셋>
     private Dictionary<string, List<GameObject>> mapPool = new Dictionary<string, List<GameObject>>();
-    private string key = "beginning"; // 맵 프리셋의 난이도를 결정하기 위한 키
+    private string key; // 맵 프리셋의 난이도를 결정하기 위한 키
     private Queue<GameObject> usedMap = new Queue<GameObject>(); // 맵 생성을 관리하기 위한 큐
 
     /* 데모버전 사용 X
@@ -27,16 +27,10 @@ public class MapLoader : MonoBehaviour
     public List<GameObject> SecondHPreset;
     public List<GameObject> EndingPreset;
 
-    //씬에서 동작할 플레이어 프리팹 지정
-    [Header("Player")]
-    public GameObject playerPrefab;
-    public Vector3 playerSpawn = new Vector3(0f, 0f, 0f);
-    //public CinemachineVirtualCamera vcam; // Cinemachine 문제 고쳐지면 주석 해제
-
     //맵 생성 위치 결정을 위한 맵의 크기와 다음 맵 생성 위치변수. Y축만 고려. X축 필요 시 추가(예정없음)
     private float mapHeight = 16f; //실제 맵 크기에 따라 조정 필요. 1칸 = 1f
     private float nextMapY = 0f; // 다음에 불러올 맵의 위치변수
-    private float Threshold = 16.5f; // 맵 생성 타이밍 감지를 위한 임계값 설정
+    private float Threshold = 14f; // 맵 생성 타이밍 감지를 위한 임계값 설정
     private int mapCount = 0; // 만들어진 맵의 수. 난이도 조절에 사용
     private int stageDepth = 5;
 
@@ -46,6 +40,7 @@ public class MapLoader : MonoBehaviour
 
     void Start()
     {
+        key = "beginning";
         mapCount += 1; // 난이도 설정을 위한 맵 카운트 증가
         /* 시작 맵을 씬에 올려두지 않는 경우
         //시작 맵 불러오기
@@ -120,6 +115,7 @@ public class MapLoader : MonoBehaviour
     {
         if (mapCount < stageDepth)
         {
+            key = "beginning";
             mapPool[key] = BeginningPreset; // 초반부는 BeginningPreset에서 맵 선택
         }
         /*
@@ -156,15 +152,12 @@ public class MapLoader : MonoBehaviour
             int mapIndex = Random.Range(0, mapPool[key].Count);
             GameObject SelectedMap = mapPool[key][mapIndex];
 
-            /* 결정한 맵이 사용된 맵인지 확인. 프리셋이 충분히 만들어지면 주석해제
+            
             foreach (GameObject used in usedMap)
             {
                 if (SelectedMap == used)
-                {
                     isUsed = true;
-                    break;
-                }
-            }*/
+            }
 
             //사용된 맵이 아니라면 usedMap에 넣고 리턴
             if(!isUsed)
@@ -172,6 +165,8 @@ public class MapLoader : MonoBehaviour
                 usedMap.Enqueue(SelectedMap);
                 return SelectedMap;
             }
+
+            isUsed = false;
         }
     }
 
@@ -186,9 +181,14 @@ public class MapLoader : MonoBehaviour
         GameObject selectedMap = GetMap(); // 불러올 맵을 선택
         Vector3 spawnLoc = new Vector3(0, nextMapY, 0); // 선택한 맵을 로드할 위치 설정
         Instantiate(selectedMap, spawnLoc, Quaternion.identity); // 다음 맵을 로드
+        Debug.Log("nextMap Loaded");
 
         // 마지막 스테이지가 아니라면 다음 스폰 위치를 재설정
-        if (key != "ending") nextMapY -= mapHeight;
+        if (key != "ending")
+        {
+            nextMapY -= mapHeight;
+            Debug.Log("nextMapY: " + nextMapY);
+        }
         else nextMapY = nextMapY - 20251118 * mapHeight;
     }
 
@@ -202,7 +202,7 @@ public class MapLoader : MonoBehaviour
             return;
         }
         //플레이어가 맵의 특정 깊이에 도달하면 다음 맵을 불러옴
-        while (PlayerTransform.position.y <= nextMapY + Threshold)
+        while (PlayerTransform.position.y < nextMapY + Threshold)
         {
             SpawnMapPool();
             Debug.Log("nextMap Loaded");

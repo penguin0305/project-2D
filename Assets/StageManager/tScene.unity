@@ -3012,8 +3012,6 @@ MonoBehaviour:
   SecondHPreset: []
   EndingPreset:
   - {fileID: 3704935901341027245, guid: cf9bef8094e35bb43bd6f70c67a0ff64, type: 3}
-  playerPrefab: {fileID: 3058659472406823714, guid: 5d5b863d209410741b16c62ef4e8b47e, type: 3}
-  playerSpawn: {x: 0, y: 0, z: 0}
   PlayerTransform: {fileID: 601420976079308504, guid: 5d5b863d209410741b16c62ef4e8b47e, type: 3}
 --- !u!1001 &1687711651
 PrefabInstance:

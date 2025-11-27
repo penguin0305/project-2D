@@ -5,6 +5,7 @@ using SupanthaPaul;
 public class SceneSetup : MonoBehaviour
 {
     public Transform spawnPoint;
+    private MapLoader mloader;
 
     void Start()
     {
@@ -13,6 +14,7 @@ public class SceneSetup : MonoBehaviour
 
             GameObject playerInstance = Instantiate(GameSceneManager.Instance.playerPrefab, spawnPoint.position, Quaternion.identity);
 
+            mloader = FindAnyObjectByType<MapLoader>();
 
             CameraFollow camScript = FindObjectOfType<CameraFollow>();
 
@@ -20,6 +22,10 @@ public class SceneSetup : MonoBehaviour
             {
                 camScript.target = playerInstance.transform;
             }
+
+            // 251127 MapLoader가 플레이어 위치를 받을 수 있게 추가 - 원영
+            if (mloader != null)
+                mloader.PlayerTransform = playerInstance.transform;
         }
         else
         {
