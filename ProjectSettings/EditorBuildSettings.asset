@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/StageManager/tScene.unity
     guid: e108428d8a2c95a4e86b9dbbd5e3679e
   - enabled: 1
-    path: Assets/Young/End1115.unity
+    path: Assets/Young/EndScene.unity
     guid: 5932d0b8e6e742f46ad21aa13fef172d
   - enabled: 1
     path: Assets/Young/Main1115.unity

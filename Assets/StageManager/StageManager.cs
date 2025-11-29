@@ -33,8 +33,9 @@ public class StageManager : MonoBehaviour
  
     private void OnEnable()
     {
-        /* 다른 스크립트의 이벤트 구독
+
         player.OnDeath += StageEnd;
+        /* 다른 스크립트의 이벤트 구독
         enemy.OnDeath += CalcPoint;
         Object.OnGetItem += GetItem;
         */
@@ -62,7 +63,7 @@ public class StageManager : MonoBehaviour
     //기능: 스테이지 종료를 알리는 함수
     //파라미터: bool IsClear -> IsClear == true이면 클리어
     //반환값: X
-    public void StageEnd(bool IsClear)
+    public void StageEnd()
     {
         if(IsClear) // 클리어 조건을 만족했으면,
         {
@@ -113,7 +114,7 @@ public class StageManager : MonoBehaviour
         if (item.id == "clear") // 클리어 처리 테스트용
         {
             IsClear = true;
-            StageEnd(IsClear);
+            StageEnd();
         }
 
     }
