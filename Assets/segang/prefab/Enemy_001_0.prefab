@@ -33,7 +33,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695339025985165424}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.48, y: 1.09, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   eCombat: {fileID: 0}
   moveSpeed: 2
   detectRange: 5
-  maxHealth: 100
+  maxHealth: 10
   currentHealth: 0
   player: {fileID: 601420976079308504, guid: 5d5b863d209410741b16c62ef4e8b47e, type: 3}
 --- !u!114 &6361873796544171945
@@ -193,9 +193,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropItems:
-  - itemPrefab: {fileID: 8089094859355405138, guid: cd47321b7b03ed945ad5b7919d553343, type: 3}
+  - itemPrefab: {fileID: 8089094859355405138, guid: cd47321b7b03ed945ad5b7919d553343,
+      type: 3}
     weight: 100
-  - itemPrefab: {fileID: 4205575513936358651, guid: 4c77f775fc016334bb70928c1edaa038, type: 3}
+  - itemPrefab: {fileID: 4205575513936358651, guid: 4c77f775fc016334bb70928c1edaa038,
+      type: 3}
     weight: 100
   minDropCount: 1
   maxDropCount: 1
