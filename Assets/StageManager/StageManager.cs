@@ -77,6 +77,7 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    /*
     //함수 이름: StageEscape
     //기능: 게임이 중간에 중단되었음을 알리는 함수
     //파라미터: bool trigger -> player로부터 '정당한 방식'임을 true로 받거나 그렇지 않으면 false
@@ -86,8 +87,9 @@ public class StageManager : MonoBehaviour
         OnStageEscape?.Invoke();
         Debug.Log("Stage Escape");
         if(!trigger) tmpinventory.Clear();
-        /* else 게임매니저의 글로벌 인벤토리에 추가 */
+        
     }
+    */
 
 
     //함수 이름: GetItem
