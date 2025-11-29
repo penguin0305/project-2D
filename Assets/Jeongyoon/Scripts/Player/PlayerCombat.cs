@@ -11,10 +11,12 @@ public class PlayerCombat : MonoBehaviour
 	private Vector2 meleeColliderBaseOffset;
 
 	private PlayerAnimator animator;
+	private PlayerAudio audio;
 
 	private void Awake()
 	{
 		animator = GetComponent<PlayerAnimator>();
+		audio = GetComponent<PlayerAudio>();
 		meleeColliderBaseOffset = meleeCollider.offset;
 	}
 
@@ -47,6 +49,7 @@ public class PlayerCombat : MonoBehaviour
 
 		lastMeleeAttackTime = Time.time;
 		animator.DoMeleeAttack();
+		audio.PlayMelee();
 		StartCoroutine(MeleeAttack());
 	}
 
