@@ -14,6 +14,10 @@ public class enemyCombat : MonoBehaviour
     public void OnHit(int damage)
     {
         eController.currentHealth -= damage;
+        if(eController.currentHealth<=0)
+        {
+            eController.die();
+        }
         Debug.Log("TakeDamage");
     }
 

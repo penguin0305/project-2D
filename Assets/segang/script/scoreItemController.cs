@@ -3,6 +3,7 @@ using UnityEngine;
 public class scoreItemController : MonoBehaviour
 {
     public int itemScore;
+    public itemData itemdata;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

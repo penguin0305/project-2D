@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private float groundCheckRadius = 0.2f;
 	[SerializeField] private LayerMask groundLayer;
 	public bool isGrounded;
+	private bool wasGrounded;
 
 	[Header("Dash")]
 	[SerializeField] private float dashSpeedMultiplier = 1.5f;
@@ -26,13 +27,21 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] private float climbSpeed = 4f;
 	private bool isOnLadderZone = false;
 	private bool isClimbing = false;
-
 	private float originalGravity;
 
+	[Header("Footstep")]
+	[SerializeField] private float walkStepInterval = 0.4f;
+	[SerializeField] private float dashStepInterval = 0.2f;
+	[SerializeField] private float minMoveSpeedForStep = 0.1f;
+	private  float stepTimer;
+
 	private Rigidbody2D rb;
+	private PlayerAudio audio;
+
 	private void Awake()
 	{
 		rb = GetComponent<Rigidbody2D>();
+		audio = GetComponent<PlayerAudio>();
 		originalGravity = rb.gravityScale;
 	}
 
@@ -45,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
 	private void Update()
 	{
 		CheckGround();
+		HandleFootstep();
 
 		if (jumpRequested)
 		{
@@ -65,10 +75,14 @@ public class PlayerMovement : MonoBehaviour
 
 	private void CheckGround()
 	{
+		wasGrounded = isGrounded;
 		isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-		if (isGrounded)
+		if (!wasGrounded && isGrounded)
+		{
+			// audio.PlayLand();
 			currentJumpCount = 0;
+		}
 	}
 
 	public void RequestMove(Vector2 input)
@@ -110,6 +124,7 @@ public class PlayerMovement : MonoBehaviour
 		if (isGrounded || currentJumpCount < maxJumpCount)
 		{
 			rb.linearVelocityY = jumpForce;
+			audio.PlayJump();
 			currentJumpCount++;
 		}
 	}
@@ -147,5 +162,25 @@ public class PlayerMovement : MonoBehaviour
 	{
 		isClimbing = false;
 		rb.gravityScale = originalGravity;
+	}
+
+	private void HandleFootstep()
+	{
+		float currentInterval;
+
+		if (!isGrounded || Mathf.Abs(rb.linearVelocityX) < minMoveSpeedForStep)
+		{
+			stepTimer = 0f;
+			return;
+		}
+
+		stepTimer += Time.deltaTime;
+		currentInterval = isDashing ? dashStepInterval : walkStepInterval;
+
+		if (stepTimer >= currentInterval)
+		{
+			audio.PlayFootstep();
+			stepTimer = 0f;
+		}
 	}
 }
