@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class treasureBoxController : MonoBehaviour
+public class treasureBoxController : MonoBehaviour, IInteractable
 {
     private bool isOpened = false;
     public GameObject player;
@@ -15,7 +15,7 @@ public class treasureBoxController : MonoBehaviour
     {
         
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    /*private void OnTriggerStay2D(Collider2D collision)
     {
         if (isOpened) return;
 
@@ -25,7 +25,7 @@ public class treasureBoxController : MonoBehaviour
             player.GetComponent<playerKeyController>().removeKey();
             OpenChest();
         }
-    }
+    }*/
 
     void OpenChest()
     {
@@ -34,5 +34,10 @@ public class treasureBoxController : MonoBehaviour
         GetComponent<itemDropController>().DropItems();
         Destroy(this.gameObject);
         // 열리는 애니메이션, 스프라이트 변경, 아이템 드롭 등 추가 가능
+    }
+    public void Interact(PlayerInteraction player)
+    {
+        Debug.Log("ddd");
+        OpenChest();
     }
 }

@@ -19,7 +19,6 @@ public class keyController : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            player.GetComponent<playerKeyController>().getKey();
             Destroy(gameObject);
         }
     }

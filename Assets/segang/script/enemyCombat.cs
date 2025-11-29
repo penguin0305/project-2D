@@ -8,12 +8,16 @@ public class enemyCombat : MonoBehaviour
     {
         PlayerStats ps = collision.GetComponent<PlayerStats>();
         if (ps != null)
-            ps.TakeDamage(0);
+            ps.TakeDamage(3);
     }
 
     public void OnHit(int damage)
     {
         eController.currentHealth -= damage;
+        if(eController.currentHealth<=0)
+        {
+            eController.die();
+        }
         Debug.Log("TakeDamage");
     }
 

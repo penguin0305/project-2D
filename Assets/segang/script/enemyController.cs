@@ -35,15 +35,22 @@ public class enemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        patrol();
         if (Input.GetKeyDown("v"))//추격시작 테스트용 v키를 누르면 추적 시작->현재 추적 기능 없음
         {
             Debug.Log("추적시작");//작동확인용 로그
         }
-        if (currentHealth <= 0)//->k누르면 즉시 처치됨 확인용 코드
+        if (Input.GetKeyDown("k"))
         {
             die();
         }
+    }
+    private void FixedUpdate()
+    {
+        patrol();
+        /*if (currentHealth <= 0)
+        {
+            die();
+        }*/
     }
     private void patrol()
     {
@@ -90,7 +97,7 @@ public class enemyController : MonoBehaviour
         if (direction.x != 0)
             spriteRenderer.flipX = direction.x < 0;
     }//현재 추적기능 없음
-    private void die()
+    public void die()
     {
         Debug.Log($"{gameObject.name} 사망");
         dropper.DropItems();//아이템 드랍 함수 인스펙터창에서 프리팹과 드랍가중치 설정가능

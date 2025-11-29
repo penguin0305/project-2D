@@ -16,9 +16,9 @@ public class PlayerInteraction : MonoBehaviour
     {
         IInteractable interactable = other.GetComponent<IInteractable>();
         if (interactable != null)
-		{
-			currentTarget = interactable;
-		}
+        {
+            currentTarget = interactable;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -31,15 +31,16 @@ public class PlayerInteraction : MonoBehaviour
     }
 
     public void TryInteract()
-	{
-		if (currentTarget != null)
-		{
-			currentTarget.Interact(this);
-		}
-	}
+    {
+        if (currentTarget != null)
+        {
+            currentTarget.Interact(this);
+        }
+    }
 
     public bool HasTarget()
-	{
-		return currentTarget != null;
-	}
+    {
+        return currentTarget != null;
+    }
 }
+    
