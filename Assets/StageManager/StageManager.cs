@@ -5,7 +5,6 @@ using JetBrains.Annotations;
 using UnityEngine.Rendering.Universal;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEditor.Build.Content;
-//using Cinemachine;
 
 
 public class StageManager : MonoBehaviour
@@ -27,49 +26,24 @@ public class StageManager : MonoBehaviour
     bool IsClear = false;
     bool CheckTrigger = false;
     int StageScore = 0;
-    float SpawnBudget;
     //추가//
 
-    // 아이템을 보관하는 임시 인벤토리 생성
+    // 아이템을 보관하는 임시 인벤토리 생성   ItemData 클래스 만들어지면 그거에 맞게 수정 
     private List<ItemData> tmpinventory = new List<ItemData>(); // 멀티플레이의 경우 딕셔너리 사용 <PID, List<ItemData>>
-
  
     private void OnEnable()
     {
-        // 다른 스크립트의 이벤트 구독
-        
-        player.OnDeath += GameOver;
-        /*
-        player.OnEscape += StageEscape;
-        player.OnGetItem += GetItem;
+        /* 다른 스크립트의 이벤트 구독
+        player.OnDeath += StageEnd;
         enemy.OnDeath += CalcPoint;
-        enemy.OnDeath += ClearAssurance;
-        enemy.OnDeath += StageClear;
+        Object.OnGetItem += GetItem;
         */
     }
-
-    
-
-    
 
     void Start()
     {
         IsClear = false; CheckTrigger = false;
     }
-
-    //함수 이름: ClearAssurance
-    //기능: 클리어 조건을 전부 충족시키는 함수
-    //파라미터: X
-    //반환값: X
-    public void ClearAssurance(bool boss)
-    {
-        if (boss)
-        {
-            IsClear = true; CheckTrigger = true;
-        }
-        Debug.Log("Meet Clear Condition");
-    }
-
 
     /* 이 이하는 이벤트 체이닝으로, 나중에 합칠 때 인자, 기능 수정 필요 */
 
@@ -84,25 +58,23 @@ public class StageManager : MonoBehaviour
     }
    
 
-    //함수 이름: GameOver
-    //기능: 스테이지 실패를 알리는 함수
-    //파라미터: X
-    //반환값: X 
-    public void GameOver()
+    //함수 이름: StageEnd
+    //기능: 스테이지 종료를 알리는 함수
+    //파라미터: bool IsClear -> IsClear == true이면 클리어
+    //반환값: X
+    public void StageEnd(bool IsClear)
     {
-        OnStageFail?.Invoke();
-        Debug.Log("Game Over");
-        tmpinventory.Clear();
-    }
-
-    //함수 이름: StageClear
-    //기능: 스테이지 클리어를 알리는 함수
-    //파라미터: X
-    //반환값: X ( 이벤트를 구독하는 스크립트에게 tmpinventory 전달  )
-    public void StageClear(bool boss)
-    {
-        if (CheckTrigger && boss) OnStageClear?.Invoke(tmpinventory);
-        Debug.Log("Stage Clear");
+        if(IsClear) // 클리어 조건을 만족했으면,
+        {
+            OnStageClear?.Invoke(tmpinventory); // 이벤트를 구독중인 스크립트에 tmpinventory를 인자로 전달
+            Debug.Log("Stage Clear");
+        }
+        else
+        {
+            OnStageFail?.Invoke();
+            Debug.Log("Game Over");
+            tmpinventory.Clear(); // tmpinventory 초기화
+        }
     }
 
     //함수 이름: StageEscape
@@ -124,27 +96,27 @@ public class StageManager : MonoBehaviour
     //반환값: X
     public void GetItem(ItemData item)
     {
-        if (item.id != "clear") tmpinventory.Add(item); // 멀티플레이 구현 시 동기화 처리해야
+        ItemData Existing = tmpinventory.Find(x => x.id == item.id);
+        if (Existing != null) {
+            Existing.quantity += item.quantity;
+        }
+        else if (item.id != "clear") 
+            tmpinventory.Add(item);
+
         Debug.Log(item.id + " 획득");
 
-        if (item.id == "tmp") CheckTrigger = true; // id는 임시. 특정 지역을 지나기 위한 트리거 체크(필요 시)
-        if (item.id == "clear") // 클리어 처리 테스트용. "clear" id를 가진 아이템 필요
+        if (item.id == "tmp")
+            CheckTrigger = true; // 상호작용을 위한 트리거 체크
+
+        if (item.id == "clear") // 클리어 처리 테스트용
         {
-            ClearAssurance(true);
-            StageClear(true);
+            IsClear = true;
+            StageEnd(IsClear);
         }
 
     }
 
     /*   이벤트 체이닝 끝    */
-
-
-    // 깊이에 따른 난이도 조절
-    public void ModifyDifficulty()
-    {
-        // enemy spawncost에 가중치를 부여
-    }
-
 
     void Update()
     {
@@ -160,13 +132,10 @@ public class StageManager : MonoBehaviour
     /* 합칠 때 주석 해제
     private void OnDisable()
     {
-        // 이벤트 구독 해제.
-        player.OnDeath -= GameOver;
-        player.OnEscape -= StageEscape;
-        player.OnGetItem -= GetItem;
+        // 이벤트 구독 해제
+        player.OnDeath -= StageEnd;
         enemy.OnDeath -= CalcPoint;
-        enemy.OnDeath -= ClearAssurance;
-        enemy.OnDeath -= StageClear;
+        Object.OnGetItem -= GetItem;
     }
     */
 }

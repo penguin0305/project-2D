@@ -34,8 +34,8 @@ public class MapLoader : MonoBehaviour
     private int mapCount = 0; // 만들어진 맵의 수. 난이도 조절에 사용
     private int stageDepth = 5;
 
-    //플레이어의 위치 추적을 위한 플레이어 지정
-    [Header("Player Transform")]
+    //플레이어의 위치를 받아오기 위한 변수
+    [Header("지정 X 비워두기")]
     public Transform PlayerTransform;
 
     void Start()
@@ -206,6 +206,7 @@ public class MapLoader : MonoBehaviour
         {
             SpawnMapPool();
             Debug.Log("nextMap Loaded");
+            Debug.Log("mapCount: " + mapCount);
         }
     }
 }
