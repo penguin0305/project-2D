@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
 	[Header("Move")]
 	[SerializeField] private float moveSpeed = 5f;
 	public Vector2 moveInput;
+	private float disableMoveTimer;
 
 	[Header("Jump")]
 	[SerializeField] private float jumpForce = 12f;
@@ -58,22 +59,26 @@ public class PlayerMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		if (disableMoveTimer > 0f)
+			disableMoveTimer -= Time.fixedDeltaTime;
+
 		if (isClimbing)
 		{
 			MoveVertical();
 			return;
 		}
-		MoveHorizontal();
+		if (disableMoveTimer <= 0f)
+			MoveHorizontal();
 
-        CheckGround();
-        HandleFootstep();
+		CheckGround();
+		HandleFootstep();
 
-        if (jumpRequested)
-        {
-            Jump();
-            jumpRequested = false;
-        }
-    }
+		if (jumpRequested)
+		{
+			Jump();
+			jumpRequested = false;
+		}
+	}
 
 	private void CheckGround()
 	{
@@ -184,5 +189,10 @@ public class PlayerMovement : MonoBehaviour
 			audio.PlayFootstep();
 			stepTimer = 0f;
 		}
+	}
+
+	public void DisableMovement(float seconds)
+	{
+		disableMoveTimer = Mathf.Max(disableMoveTimer, seconds);
 	}
 }

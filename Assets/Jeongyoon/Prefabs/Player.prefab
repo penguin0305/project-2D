@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 4911162895550230951}
   - component: {fileID: 7287194845672243491}
   - component: {fileID: 4650678099619594889}
+  - component: {fileID: 9029324425275375742}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -434,6 +435,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 20ba22de-2454-4295-a2ea-a46078aee57b
     m_ActionName: 'Player/Used[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 760b9bb8-8123-4212-badc-0ac5becfc834
+    m_ActionName: 'Player/Skill[/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -723,6 +728,22 @@ MonoBehaviour:
   cooldown: 5
   placePoint: {fileID: 6814716264862625832}
   yOffset: 0.1
+--- !u!114 &9029324425275375742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3058659472406823714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3aa3cbc060f4574bbf321bd5dc3f22e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkDuration: 0.2
+  blinkInterval: 0.05
+  knockbackX: 4
+  knockbackY: 2
 --- !u!1 &6612652690774076235
 GameObject:
   m_ObjectHideFlags: 0
