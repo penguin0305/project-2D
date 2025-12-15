@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,5 +15,16 @@ public class StartMenuController : MonoBehaviour
 
 
         SceneManager.LoadScene("tScene");
+    }
+
+    public void OnQuitButtonClicked()
+    {
+        Debug.Log("Game End");
+
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
     }
 }

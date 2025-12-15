@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
-
+using TMPro;
 public class EndingDirector : MonoBehaviour
 {
     [Header("Positions")]

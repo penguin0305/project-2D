@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 1298686109826051431}
   - component: {fileID: 4911162895550230951}
   - component: {fileID: 7287194845672243491}
+  - component: {fileID: 6699351202766129023}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -693,6 +694,19 @@ MonoBehaviour:
   meleeClip: {fileID: 8300000, guid: 3427d06a58d7f6849b82d45d9214dff6, type: 3}
   footstepClip: {fileID: 8300000, guid: 4d04e47379791e245a26ffb0526af8cc, type: 3}
   landCooldown: 0.1
+--- !u!114 &6699351202766129023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3058659472406823714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74166120f6d161b448ce04e363f78781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSkillCount: 5
 --- !u!1 &6612652690774076235
 GameObject:
   m_ObjectHideFlags: 0
