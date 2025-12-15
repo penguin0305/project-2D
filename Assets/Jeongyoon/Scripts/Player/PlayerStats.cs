@@ -9,6 +9,13 @@ public class PlayerStats : MonoBehaviour
 
     private int currentHP;
 
+    private PlayerHitFeedback hitFeedback;
+
+    private void Awake()
+    {
+        hitFeedback = GetComponent<PlayerHitFeedback>();
+    }
+
     private void Start()
     {
         currentHP = maxHP;
@@ -20,6 +27,8 @@ public class PlayerStats : MonoBehaviour
         currentHP -= damage;
         OnCheckHP.Invoke(currentHP);
         Debug.Log($"Player Hit! HP: {currentHP}");
+
+        hitFeedback.PlayHitFeedback();
 
         if (currentHP <= 0)
         {
