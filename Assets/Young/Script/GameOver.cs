@@ -21,7 +21,7 @@ public class GameOverManager : MonoBehaviour
             gameOverUI.SetActive(false);
         }
 
-        playerStats = FindObjectOfType<PlayerStats>();
+        playerStats = FindAnyObjectByType<PlayerStats>();
 
         if (playerStats != null)
         {

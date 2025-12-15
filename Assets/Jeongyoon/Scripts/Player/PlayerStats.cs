@@ -12,13 +12,13 @@ public class PlayerStats : MonoBehaviour
     private void Start()
     {
         currentHP = maxHP;
-        OnCheckHP.Invoke(currentHP);
+        OnCheckHP?.Invoke(currentHP);
     }
 
     public void TakeDamage(int damage)
     {
         currentHP -= damage;
-        OnCheckHP.Invoke(currentHP);
+        OnCheckHP?.Invoke(currentHP);
         Debug.Log($"Player Hit! HP: {currentHP}");
 
         if (currentHP <= 0)

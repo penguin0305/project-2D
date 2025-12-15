@@ -14,7 +14,6 @@ public class StageManager : MonoBehaviour
     [Header("References")]
     public PlayerStats player;
     public MapLoader mapLoader;
-    [SerializeField] private EndPortal endPortal;
 
     //이벤트 발행
     public event System.Action OnStageFail;
@@ -74,7 +73,6 @@ public class StageManager : MonoBehaviour
         {
             Debug.Log("Stage Clear");
             OnStageClear?.Invoke(tmpinventory); // 이벤트를 구독중인 스크립트에 tmpinventory를 인자로 전달
-            endPortal.ActivatePortal();
         }
         else
         {
