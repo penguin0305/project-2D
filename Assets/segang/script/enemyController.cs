@@ -4,8 +4,8 @@ using UnityEngine;
 public class enemyController : MonoBehaviour
 {
     public enemyCombat eCombat;
-    private itemDropController dropper;
-    Animator animator;
+    public itemDropController dropper;
+    protected Animator animator;
     private float timer = 0f;
     private float walkTime = 2f;       // 걷는 시간
     private float idleTime = 0.5f;     //x축 이동 바꾸기전 가만히 있는 시간
@@ -24,13 +24,21 @@ public class enemyController : MonoBehaviour
     private bool isDead = false;//처리 판정용 변수
     private bool isChasing = false;//->현재 추적 기능은 안넣음
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
         currentHealth = maxHealth;
-       
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         dropper = GetComponent<itemDropController>();
         animator = GetComponent<Animator>();
+    }
+    void Start()
+    {
+       /* currentHealth = maxHealth;
+       
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        dropper = GetComponent<itemDropController>();
+        animator = GetComponent<Animator>();*/
     }
 
     // Update is called once per frame
@@ -98,7 +106,7 @@ public class enemyController : MonoBehaviour
         if (direction.x != 0)
             spriteRenderer.flipX = direction.x < 0;
     }//현재 추적기능 없음
-    public void die()
+    public virtual void die()
     {
         PortalController controller = FindObjectOfType<PortalController>();
         controller.CheckCondition(this.gameObject);

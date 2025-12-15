@@ -3,12 +3,15 @@ using UnityEngine;
 public class enemyCombat : MonoBehaviour
 {
     public enemyController eController;
+    [Header("피격데미지 설정")]
+    public int monserAttackPower = 0;//피격데미지
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerStats ps = collision.GetComponent<PlayerStats>();
         if (ps != null)
-            ps.TakeDamage(3);
+
+            ps.TakeDamage(monserAttackPower);//인스펙터 창에서 몬스터 공격력 설정
     }
 
     public void OnHit(int damage)

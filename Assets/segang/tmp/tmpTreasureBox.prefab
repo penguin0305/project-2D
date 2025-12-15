@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3486485418666398447}
   - component: {fileID: 3092020547589597696}
   - component: {fileID: 7703615459686743337}
+  - component: {fileID: 4728415689671030742}
+  - component: {fileID: 553313307720410630}
   m_Layer: 0
   m_Name: tmpTreasureBox
   m_TagString: TreasureBox
@@ -27,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6723087042024490159}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.71, y: -0.49, z: 0}
+  m_LocalPosition: {x: 1.71, y: 2.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 9
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
   m_Color: {r: 0.6132076, g: 0.3316407, b: 0, a: 1}
@@ -135,3 +137,31 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4728415689671030742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6723087042024490159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fba9077ce32b654fab87ed14035ceeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 3058659472406823714, guid: 5d5b863d209410741b16c62ef4e8b47e, type: 3}
+--- !u!114 &553313307720410630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6723087042024490159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a593eeb826d764aa5ee545972bf0c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropItems: []
+  minDropCount: 1
+  maxDropCount: 3

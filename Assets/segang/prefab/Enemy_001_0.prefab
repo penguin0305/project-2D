@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eCombat: {fileID: 0}
+  dropper: {fileID: 0}
   moveSpeed: 2
   detectRange: 5
   maxHealth: 10
@@ -251,6 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eController: {fileID: 0}
+  monserAttackPower: 0
 --- !u!70 &7245771162977349122
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -286,5 +288,5 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -0.5}
-  m_Size: {x: 0.1, y: 0.1}
+  m_Size: {x: 0.01, y: 0.01}
   m_Direction: 0

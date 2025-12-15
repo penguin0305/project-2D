@@ -39,8 +39,9 @@ public class PlayerInteraction : MonoBehaviour
     }
 
     public bool HasTarget()
-    {
-        return currentTarget != null;
-    }
+
+	{
+		return currentTarget != null;
+	}
 }
     
