@@ -14,10 +14,9 @@ public class StageManager : MonoBehaviour
     [Header("References")]
     public PlayerStats player;
     public MapLoader mapLoader;
-    public Boss boss;
 
     //이벤트 발행
-    public event System.Action OnStageFail; // StageManager가 OnStageFail이라는 이벤트를 발행
+    public event System.Action OnStageFail;
     public event System.Action<List<itemData>> OnStageClear;
     public event System.Action OnStageEscape;
     public event System.Action<int> OnAddScore;
@@ -35,8 +34,6 @@ public class StageManager : MonoBehaviour
     {
         
         player.OnDeath += StageEnd;
-        boss.OnBossDie += ClearAssurance;
-        boss.OnBossDie += StageEnd;
         /*
         enemy.OnDeath += CalcPoint;
         Object.OnGetItem += GetItem;
@@ -48,7 +45,6 @@ public class StageManager : MonoBehaviour
         IsClear = false; CheckTrigger = false;
     }
 
-    /* 이 이하는 이벤트 체이닝으로, 나중에 합칠 때 인자, 기능 수정 필요 */
 
     //함수 이름: CalcPoint
     //기능: 적을 처치했을 때 점수와 획득골드를 받아와서 처리하는 함수
@@ -62,7 +58,9 @@ public class StageManager : MonoBehaviour
    
     public void ClearAssurance()
     {
+        Debug.Log("CA");
         IsClear = true;
+        StageEnd();
     }
 
     //함수 이름: StageEnd
@@ -73,8 +71,8 @@ public class StageManager : MonoBehaviour
     {
         if(IsClear) // 클리어 조건을 만족했으면,
         {
-            OnStageClear?.Invoke(tmpinventory); // 이벤트를 구독중인 스크립트에 tmpinventory를 인자로 전달
             Debug.Log("Stage Clear");
+            OnStageClear?.Invoke(tmpinventory); // 이벤트를 구독중인 스크립트에 tmpinventory를 인자로 전달
         }
         else
         {
@@ -143,8 +141,6 @@ public class StageManager : MonoBehaviour
     {
         // 이벤트 구독 해제
         player.OnDeath -= StageEnd;
-        boss.OnBossDie -= ClearAssurance;
-        boss.OnBossDie -= StageEnd;
         //enemy.OnDeath -= CalcPoint;
         //Object.OnGetItem -= GetItem;
     }
