@@ -60,6 +60,6 @@ public class EndingDirector : MonoBehaviour
     public void GoToStartScene()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene("Start1115");
     }
 }
