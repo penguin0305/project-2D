@@ -7,15 +7,15 @@ public class PlayerInputHandler : MonoBehaviour
 	private PlayerMovement movement;
 	private PlayerCombat combat;
 	private PlayerInteraction interaction;
-	private PlayerSkill Skill;
+	private PlayerBombPlacer bombplacer;
+
 	private void Awake()
 	{
 		movement = GetComponent<PlayerMovement>();
 		combat = GetComponent<PlayerCombat>();
 		interaction = GetComponentInChildren<PlayerInteraction>();
-		Skill = GetComponent<PlayerSkill>();
-
-	}
+		bombplacer = GetComponent<PlayerBombPlacer>();
+	} 
 
 	public void OnMove(InputAction.CallbackContext context)
 	{
@@ -56,7 +56,7 @@ public class PlayerInputHandler : MonoBehaviour
 	public void OnUseItem1(InputAction.CallbackContext context)
 	{
 		if (context.performed)
-			Debug.Log("Use Item 1: performed");
+			bombplacer.TryPlaceBomb();
 	}
 
 	public void OnUseItem2(InputAction.CallbackContext context)
@@ -64,13 +64,5 @@ public class PlayerInputHandler : MonoBehaviour
 		if (context.performed)
 			Debug.Log("Use Item 2: performed");
 	}
-
-	public void OnSkill(InputAction.CallbackContext context)
-	{
-		if (context.performed)
-		{
-			Skill.UseSkill();
-            Debug.Log("Skill: performed");
-        }
-	}
+	
 }

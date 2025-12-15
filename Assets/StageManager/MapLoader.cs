@@ -115,7 +115,6 @@ public class MapLoader : MonoBehaviour
     {
         if (mapCount < stageDepth)
         {
-            key = "beginning";
             mapPool[key] = BeginningPreset; // 초반부는 BeginningPreset에서 맵 선택
         }
         /*

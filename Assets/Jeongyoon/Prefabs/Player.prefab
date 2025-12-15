@@ -123,7 +123,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827376594704529767}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &3497771920565139670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 1298686109826051431}
   - component: {fileID: 4911162895550230951}
   - component: {fileID: 7287194845672243491}
-  - component: {fileID: 6699351202766129023}
+  - component: {fileID: 4650678099619594889}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -407,7 +407,19 @@ MonoBehaviour:
     m_ActionId: 97d727e1-b5a1-4299-8f85-d7378f52401f
     m_ActionName: 'Player/Interact[/Keyboard/f]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1272831585399129031}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnUseItem1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ef020ab5-7e42-49e1-9090-3c5600727496
     m_ActionName: 'Player/Use Item 1[/Keyboard/q]'
   - m_PersistentCalls:
@@ -694,7 +706,7 @@ MonoBehaviour:
   meleeClip: {fileID: 8300000, guid: 3427d06a58d7f6849b82d45d9214dff6, type: 3}
   footstepClip: {fileID: 8300000, guid: 4d04e47379791e245a26ffb0526af8cc, type: 3}
   landCooldown: 0.1
---- !u!114 &6699351202766129023
+--- !u!114 &4650678099619594889
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -703,10 +715,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3058659472406823714}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74166120f6d161b448ce04e363f78781, type: 3}
+  m_Script: {fileID: 11500000, guid: 77292df33669e8c43bb8af99773b8b19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSkillCount: 5
+  bombPrefab: {fileID: 6032298234684592734, guid: 54854ad71642b21438eb90e5e3ff6feb,
+    type: 3}
+  cooldown: 5
+  placePoint: {fileID: 6814716264862625832}
+  yOffset: 0.1
 --- !u!1 &6612652690774076235
 GameObject:
   m_ObjectHideFlags: 0

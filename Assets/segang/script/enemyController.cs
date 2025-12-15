@@ -4,8 +4,13 @@ using UnityEngine;
 public class enemyController : MonoBehaviour
 {
     public enemyCombat eCombat;
-    public itemDropController dropper;
-    protected Animator animator;
+
+   /* public itemDropController dropper;
+    protected Animator animator;*/
+
+    internal itemDropController dropper;
+    Animator animator;
+
     private float timer = 0f;
     private float walkTime = 2f;       // 걷는 시간
     private float idleTime = 0.5f;     //x축 이동 바꾸기전 가만히 있는 시간
@@ -14,7 +19,7 @@ public class enemyController : MonoBehaviour
     [Header("기본 설정")]
     public float moveSpeed = 2f;         // 이동 속도
     public float detectRange = 5f;       // 플레이어 감지 거리
-    public int maxHealth = 10;          // 최대 체력
+    public int maxHealth = 10;          // 최대 체d력
 
 
     [Header("상태")]
@@ -48,18 +53,14 @@ public class enemyController : MonoBehaviour
         {
             Debug.Log("추적시작");//작동확인용 로그
         }
-        if (Input.GetKeyDown("k"))
-        {
-            die();
-        }
     }
     private void FixedUpdate()
     {
         patrol();
-        /*if (currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             die();
-        }*/
+        }
     }
     private void patrol()
     {

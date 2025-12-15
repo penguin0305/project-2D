@@ -53,14 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Update()
 	{
-		CheckGround();
-		HandleFootstep();
-
-		if (jumpRequested)
-		{
-			Jump();
-			jumpRequested = false;
-		}
+		
 	}
 
 	private void FixedUpdate()
@@ -71,7 +64,16 @@ public class PlayerMovement : MonoBehaviour
 			return;
 		}
 		MoveHorizontal();
-	}
+
+        CheckGround();
+        HandleFootstep();
+
+        if (jumpRequested)
+        {
+            Jump();
+            jumpRequested = false;
+        }
+    }
 
 	private void CheckGround()
 	{
