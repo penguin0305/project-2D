@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 public class enemyController : MonoBehaviour
 {
     public enemyCombat eCombat;
@@ -95,8 +96,10 @@ public class enemyController : MonoBehaviour
     }//현재 추적기능 없음
     public virtual void die()
     {
-        Debug.Log($"{gameObject.name} 사망");
+        PortalController controller = FindObjectOfType<PortalController>();
+        controller.CheckCondition(this.gameObject);
         dropper.DropItems();//아이템 드랍 함수 인스펙터창에서 프리팹과 드랍가중치 설정가능
         Destroy(gameObject, 0.1f);
+        Debug.Log($"{gameObject.name} 사망");
     }
 }
