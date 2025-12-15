@@ -36,6 +36,7 @@ public class itemData : ScriptableObject
         {
             return mItemQuantity;
         }
+        set {;}
     }
     [Header("사용(상호작용)이 가능한 아이템인가?")]
     [SerializeField] private bool mIsInteractivity;

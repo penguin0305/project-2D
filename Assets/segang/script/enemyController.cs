@@ -3,7 +3,7 @@ using UnityEngine;
 public class enemyController : MonoBehaviour
 {
     public enemyCombat eCombat;
-    private itemDropController dropper;
+    internal itemDropController dropper;
     Animator animator;
     private float timer = 0f;
     private float walkTime = 2f;       // 걷는 시간
@@ -13,7 +13,7 @@ public class enemyController : MonoBehaviour
     [Header("기본 설정")]
     public float moveSpeed = 2f;         // 이동 속도
     public float detectRange = 5f;       // 플레이어 감지 거리
-    public int maxHealth = 10;          // 최대 체력
+    public int maxHealth = 10;          // 최대 체d력
 
 
     [Header("상태")]
@@ -39,18 +39,14 @@ public class enemyController : MonoBehaviour
         {
             Debug.Log("추적시작");//작동확인용 로그
         }
-        if (Input.GetKeyDown("k"))
-        {
-            die();
-        }
     }
     private void FixedUpdate()
     {
         patrol();
-        /*if (currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             die();
-        }*/
+        }
     }
     private void patrol()
     {
@@ -97,7 +93,7 @@ public class enemyController : MonoBehaviour
         if (direction.x != 0)
             spriteRenderer.flipX = direction.x < 0;
     }//현재 추적기능 없음
-    public void die()
+    public virtual void die()
     {
         Debug.Log($"{gameObject.name} 사망");
         dropper.DropItems();//아이템 드랍 함수 인스펙터창에서 프리팹과 드랍가중치 설정가능

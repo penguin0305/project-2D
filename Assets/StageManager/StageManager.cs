@@ -13,12 +13,12 @@ public class StageManager : MonoBehaviour
     //스크립트 참조
     [Header("References")]
     public PlayerStats player;
-    //public Enemy enemy;
     public MapLoader mapLoader;
+    public Boss boss;
 
     //이벤트 발행
     public event System.Action OnStageFail; // StageManager가 OnStageFail이라는 이벤트를 발행
-    public event System.Action<List<ItemData>> OnStageClear;
+    public event System.Action<List<itemData>> OnStageClear;
     public event System.Action OnStageEscape;
     public event System.Action<int> OnAddScore;
 
@@ -29,12 +29,14 @@ public class StageManager : MonoBehaviour
     //추가//
 
     // 아이템을 보관하는 임시 인벤토리 생성   ItemData 클래스 만들어지면 그거에 맞게 수정 
-    private List<ItemData> tmpinventory = new List<ItemData>(); // 멀티플레이의 경우 딕셔너리 사용 <PID, List<ItemData>>
+    private List<itemData> tmpinventory = new List<itemData>(); // 멀티플레이의 경우 딕셔너리 사용 <PID, List<ItemData>>
  
     private void OnEnable()
     {
         
         player.OnDeath += StageEnd;
+        boss.OnBossDie += ClearAssurance;
+        boss.OnBossDie += StageEnd;
         /*
         enemy.OnDeath += CalcPoint;
         Object.OnGetItem += GetItem;
@@ -58,6 +60,10 @@ public class StageManager : MonoBehaviour
         OnAddScore?.Invoke(StageScore);
     }
    
+    public void ClearAssurance()
+    {
+        IsClear = true;
+    }
 
     //함수 이름: StageEnd
     //기능: 스테이지 종료를 알리는 함수
@@ -97,26 +103,26 @@ public class StageManager : MonoBehaviour
     //기능: 획득한 아이템을 임시 인벤토리에 추가
     //파라미터: ItemData item -> 인벤토리에 추가할 아이템
     //반환값: X
-    public void GetItem(ItemData item)
+    public void GetItem(itemData item)
     {
-        ItemData Existing = tmpinventory.Find(x => x.id == item.id);
+        itemData Existing = tmpinventory.Find(x => x.itemID == item.itemID);
         if (Existing != null) {
-            Existing.quantity += item.quantity;
+            Existing.itemQuantity += item.itemQuantity;
         }
-        else if (item.id != "clear") 
+        else if (item.itemID != 1234) 
             tmpinventory.Add(item);
 
-        Debug.Log(item.id + " 획득");
+        Debug.Log(item.itemID + " 획득");
 
-        if (item.id == "tmp")
+        if (item.itemID == 1234)
             CheckTrigger = true; // 상호작용을 위한 트리거 체크
-
-        if (item.id == "clear") // 클리어 처리 테스트용
+        /*
+        if (item.itemID == 12345) // 클리어 처리 테스트용
         {
             IsClear = true;
             StageEnd();
         }
-
+        */
     }
 
     /*   이벤트 체이닝 끝    */
@@ -132,13 +138,15 @@ public class StageManager : MonoBehaviour
          */
     }
 
-    /* 합칠 때 주석 해제
+ 
     private void OnDisable()
     {
         // 이벤트 구독 해제
         player.OnDeath -= StageEnd;
-        enemy.OnDeath -= CalcPoint;
-        Object.OnGetItem -= GetItem;
+        boss.OnBossDie -= ClearAssurance;
+        boss.OnBossDie -= StageEnd;
+        //enemy.OnDeath -= CalcPoint;
+        //Object.OnGetItem -= GetItem;
     }
-    */
+    
 }
