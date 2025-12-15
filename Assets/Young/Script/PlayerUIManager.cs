@@ -4,18 +4,18 @@ using TMPro; // TextMeshPro ÇÊ¼ö
 public class PlayerUI : MonoBehaviour
 {
     public TextMeshProUGUI HP;
-    public TextMeshProUGUI skillText;
+    //public TextMeshProUGUI skillText;
 
     private PlayerStats playerStats;
-    private PlayerSkill playerSkill;
+    //private PlayerSkill playerSkill;
 
     void Start()
     {
         playerStats = FindObjectOfType<PlayerStats>();
-        playerSkill = FindObjectOfType<PlayerSkill>();
+        //playerSkill = FindObjectOfType<PlayerSkill>();
 
         playerStats.OnCheckHP += UpdateHP;
-        playerSkill.OnCheckSkillCount += UpdateSkillUI;
+        //playerSkill.OnCheckSkillCount += UpdateSkillUI;
     }
     void UpdateHP(int currentHp)
     {
@@ -25,7 +25,7 @@ public class PlayerUI : MonoBehaviour
     void UpdateSkillUI(int currentSkill)
     {
 
-            skillText.text = $"{currentSkill}";
+            //skillText.text = $"{currentSkill}";
     }
 
     void OnDestroy()
@@ -34,9 +34,11 @@ public class PlayerUI : MonoBehaviour
         {
             playerStats.OnCheckHP -= UpdateHP;
         }
+        /*
         if (playerSkill != null)
         {
             playerSkill.OnCheckSkillCount -= UpdateSkillUI;
         }
+        */
     }
 }
