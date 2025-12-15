@@ -292,6 +292,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3801580115742121102, guid: 6a99e8c00035a524a9bace559005aeb5,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4011984356443864690, guid: 6a99e8c00035a524a9bace559005aeb5,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -547,6 +552,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3092020547589597696, guid: 9816a595529611543948c7786726ee70,
         type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3092020547589597696, guid: 9816a595529611543948c7786726ee70,
+        type: 3}
       propertyPath: m_Color.b
       value: 0.96153855
       objectReference: {fileID: 0}
@@ -618,7 +628,7 @@ PrefabInstance:
     - target: {fileID: 6723087042024490159, guid: 9816a595529611543948c7786726ee70,
         type: 3}
       propertyPath: m_Name
-      value: tmpTreasureBox (1)
+      value: EndPortal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -647,6 +657,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2dc66fced4f5a4097d2ce063b76998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnPortal: {fileID: -989737037, guid: dfb160ddc5596284f90ba86a88c8316c, type: 3}
+  OffPortal: {fileID: -1231127125, guid: dfb160ddc5596284f90ba86a88c8316c, type: 3}
   EndingSceneName: EndScene
 --- !u!224 &701648180 stripped
 RectTransform:
@@ -8433,7 +8445,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 5137956125067841813, guid: 5d5b863d209410741b16c62ef4e8b47e, type: 3}
   mapLoader: {fileID: 1571835291}
-  boss: {fileID: 7545184325961197316, guid: 63532c7958b8a574888fec1ca4c3501c, type: 3}
 --- !u!1 &1571835289
 GameObject:
   m_ObjectHideFlags: 0
