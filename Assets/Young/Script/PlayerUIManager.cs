@@ -11,7 +11,7 @@ public class PlayerUI : MonoBehaviour
 
     void Start()
     {
-        playerStats = FindObjectOfType<PlayerStats>();
+        playerStats = FindAnyObjectByType<PlayerStats>();
         //playerSkill = FindObjectOfType<PlayerSkill>();
 
         playerStats.OnCheckHP += UpdateHP;

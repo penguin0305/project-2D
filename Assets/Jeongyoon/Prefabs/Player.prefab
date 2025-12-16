@@ -75,7 +75,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -191,6 +191,8 @@ GameObject:
   - component: {fileID: 4911162895550230951}
   - component: {fileID: 7287194845672243491}
   - component: {fileID: 4650678099619594889}
+  - component: {fileID: 9029324425275375742}
+  - component: {fileID: 4390259166546566844}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -298,7 +300,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &8119154543770814928
 MonoBehaviour:
@@ -434,6 +436,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 20ba22de-2454-4295-a2ea-a46078aee57b
     m_ActionName: 'Player/Used[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 760b9bb8-8123-4212-badc-0ac5becfc834
+    m_ActionName: 'Player/Skill[/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -723,6 +729,30 @@ MonoBehaviour:
   cooldown: 5
   placePoint: {fileID: 6814716264862625832}
   yOffset: 0.1
+--- !u!114 &9029324425275375742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3058659472406823714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3aa3cbc060f4574bbf321bd5dc3f22e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkDuration: 0.2
+  blinkInterval: 0.05
+  knockbackX: 4
+  knockbackY: 2
+--- !u!81 &4390259166546566844
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3058659472406823714}
+  m_Enabled: 1
 --- !u!1 &6612652690774076235
 GameObject:
   m_ObjectHideFlags: 0

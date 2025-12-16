@@ -44,7 +44,7 @@ public class itemDropController : MonoBehaviour
                 // 약간의 랜덤 오프셋을 줘서 겹치지 않게 함
                 Vector3 offset = new Vector3(
                     Random.Range(-0.5f, 0.5f),
-                    Random.Range(0.0f, 0.8f),
+                    Random.Range(0.3f, 0.4f),
                     0
                 );
 

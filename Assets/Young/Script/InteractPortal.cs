@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +9,7 @@ public class EndPortal : MonoBehaviour, IInteractable
     [SerializeField] public Sprite OnPortal;
     [SerializeField] public Sprite OffPortal;
     [SerializeField] public string EndingSceneName = "EndScene";
+    private StageManager stageManager;
 
     private SpriteRenderer spriteRenderer;
     private bool isActivated;
@@ -14,6 +17,8 @@ public class EndPortal : MonoBehaviour, IInteractable
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        stageManager = FindAnyObjectByType<StageManager>();
+        stageManager.OnStageClear += ActivatePortal;
     }
 
     private void Start()
@@ -29,13 +34,11 @@ public class EndPortal : MonoBehaviour, IInteractable
 
     }
 
-    public void ActivatePortal()
+    public void ActivatePortal(List<itemData> tmp)
     {
         isActivated = true;
 
         spriteRenderer.sprite = OnPortal;
-
-
     }
     public void Interact(PlayerInteraction player)
     {
@@ -52,6 +55,11 @@ public class EndPortal : MonoBehaviour, IInteractable
     private void ToEnding()
     {
         SceneManager.LoadScene(EndingSceneName);
+    }
+
+    private void OnDisable()
+    {
+        stageManager.OnStageClear -= ActivatePortal;
     }
 }
 
