@@ -18,7 +18,7 @@ public class MeleeHitbox : MonoBehaviour
 		{
 			var dummy = collision.GetComponent<enemyCombat>();
 			if (dummy)
-				dummy.OnHit(5);
+				dummy.OnHit(5, transform);//플레이어 공격과 반대방향으로 넉백
 		}
 	}
 }

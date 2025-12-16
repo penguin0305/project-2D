@@ -57,10 +57,6 @@ public class enemyController : MonoBehaviour
     private void FixedUpdate()
     {
         patrol();
-        if (currentHealth <= 0)
-        {
-            die();
-        }
     }
     private void patrol()
     {
