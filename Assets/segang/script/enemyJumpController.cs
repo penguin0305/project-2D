@@ -6,6 +6,7 @@ public class enemyJumpController : MonoBehaviour
     public float checkDuration = 1.2f;  // x축 이동 없을 때 점프까지 시간
     public float jumpForce = 5f;        // 점프 힘
     public float jumpCooldown = 5f;     // 점프 쿨타임
+    public float maxGravity = 10f;
 
     private Rigidbody2D rb;
     public Transform player;
@@ -70,6 +71,13 @@ public class enemyJumpController : MonoBehaviour
             }
         }*///->오류 때문에 이상하게 작동함 수정 예정
     }
+
+    private void FixedUpdate()
+    {
+        if (rb.linearVelocityY < -maxGravity)
+            rb.linearVelocity = new Vector2(rb.linearVelocityX, -maxGravity);
+    }
+
     void Jump()//점프함수
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
