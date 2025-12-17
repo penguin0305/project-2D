@@ -157,7 +157,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eCombat: {fileID: 0}
-  dropper: {fileID: 0}
   moveSpeed: 2
   detectRange: 5
   maxHealth: 10
@@ -179,6 +178,7 @@ MonoBehaviour:
   checkDuration: 1.2
   jumpForce: 5
   jumpCooldown: 5
+  maxGravity: 10
   player: {fileID: 601420976079308504, guid: 5d5b863d209410741b16c62ef4e8b47e, type: 3}
   timer: 0
 --- !u!114 &8207744660711528234
@@ -236,8 +236,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.25}
-  m_Size: {x: 0.44, y: 0.5}
+  m_Offset: {x: 0, y: -0.26505798}
+  m_Size: {x: 0.48505807, y: 0.53011596}
   m_Direction: 0
 --- !u!114 &171299411899389940
 MonoBehaviour:
@@ -253,6 +253,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eController: {fileID: 0}
   monserAttackPower: 0
+  knockbackForce: 5
+  blinkDuration: 0.2
+  blinkInterval: 0.05
 --- !u!70 &7245771162977349122
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -287,6 +290,6 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.5}
-  m_Size: {x: 0.01, y: 0.01}
+  m_Offset: {x: 0.0028159618, y: -0.38313088}
+  m_Size: {x: 0.17896748, y: 0.3169574}
   m_Direction: 0

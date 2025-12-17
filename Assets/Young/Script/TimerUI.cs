@@ -18,9 +18,10 @@ public class GameTimer : MonoBehaviour
 
     void Update()
     {
-        TimeLapse += Time.deltaTime;
-
-        UpdateTimerUI(TimeLapse);
+        if (HistoryManager.Instance != null)
+        {
+            UpdateTimerUI(HistoryManager.Instance.playTime);
+        }
     }
 
     private void UpdateTimerUI(float Seconds)

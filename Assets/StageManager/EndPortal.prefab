@@ -150,4 +150,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnPortal: {fileID: -989737037, guid: dfb160ddc5596284f90ba86a88c8316c, type: 3}
   OffPortal: {fileID: -1231127125, guid: dfb160ddc5596284f90ba86a88c8316c, type: 3}
-  EndingSceneName: EndScene
+  EndingSceneName: EndScene1217

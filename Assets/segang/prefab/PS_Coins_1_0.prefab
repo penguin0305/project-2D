@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6153180025065392798}
   - component: {fileID: 6698300862992547989}
   - component: {fileID: 4061899210436467919}
-  - component: {fileID: 7712809997887781209}
+  - component: {fileID: 7996963799662764512}
   m_Layer: 0
   m_Name: PS_Coins_1_0
   m_TagString: Item
@@ -153,7 +153,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.010933161, y: -0.010933191}
+  m_Offset: {x: 0.00038027763, y: 0.00603652}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -163,7 +163,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.36587095, y: 0.38044852}
+  m_Size: {x: 0.5299115, y: 0.53883266}
   m_EdgeRadius: 0
 --- !u!95 &6698300862992547989
 Animator:
@@ -201,8 +201,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemScore: 10
   itemdata: {fileID: 11400000, guid: 76c9e9ecd7d2a824fb043dd5124395c4, type: 2}
---- !u!58 &7712809997887781209
-CircleCollider2D:
+--- !u!70 &7996963799662764512
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -235,5 +235,6 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.18}
-  m_Radius: 0.02
+  m_Offset: {x: 0.004242182, y: -0.18525288}
+  m_Size: {x: 0.3466649, y: 0.3466649}
+  m_Direction: 0

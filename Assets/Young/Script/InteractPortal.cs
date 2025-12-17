@@ -8,7 +8,7 @@ public class EndPortal : MonoBehaviour, IInteractable
 {
     [SerializeField] public Sprite OnPortal;
     [SerializeField] public Sprite OffPortal;
-    [SerializeField] public string EndingSceneName = "EndScene";
+    [SerializeField] public string EndingSceneName= "EndScene1217";
     private StageManager stageManager;
 
     private SpriteRenderer spriteRenderer;

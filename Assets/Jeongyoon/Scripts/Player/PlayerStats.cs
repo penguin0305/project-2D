@@ -25,10 +25,13 @@ public class PlayerStats : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHP -= damage;
-        OnCheckHP?.Invoke(currentHP);
+
         Debug.Log($"Player Hit! HP: {currentHP}");
 
         hitFeedback.PlayHitFeedback();
+
+        OnCheckHP?.Invoke(currentHP);
+        HistoryManager.Instance.UpdateHP(currentHP);
 
         if (currentHP <= 0)
         {
