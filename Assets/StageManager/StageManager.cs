@@ -26,7 +26,6 @@ public class StageManager : MonoBehaviour
     bool CheckTrigger = false;
     int StageScore = 0;
     //추가//
-
     // 아이템을 보관하는 임시 인벤토리 생성   ItemData 클래스 만들어지면 그거에 맞게 수정 
     private List<itemData> tmpinventory = new List<itemData>(); // 멀티플레이의 경우 딕셔너리 사용 <PID, List<ItemData>>
  
@@ -126,6 +125,14 @@ public class StageManager : MonoBehaviour
             StageEnd();
         }
         */
+
+        if (item.itemID == 1001)
+        {
+            if (HistoryManager.Instance != null)
+            {
+                HistoryManager.Instance.AddcoinCount();
+            }
+        }
     }
 
     /*   이벤트 체이닝 끝    */

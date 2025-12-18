@@ -20,6 +20,7 @@ public class PlayerStats : MonoBehaviour
     {
         currentHP = maxHP;
         OnCheckHP?.Invoke(currentHP);
+        HistoryManager.Instance.UpdateHP(currentHP);
     }
 
     public void TakeDamage(int damage)

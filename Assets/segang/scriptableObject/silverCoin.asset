@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6feaff97d2cc9b54ca9a83915e03a687, type: 3}
   m_Name: silverCoin
   m_EditorClassIdentifier: 
-  itemID: 10
+  itemID: 1001
   canOverlap: 0
   itemQuantity: 0
   isInteractivity: 0

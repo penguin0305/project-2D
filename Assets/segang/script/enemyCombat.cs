@@ -31,6 +31,7 @@ public class enemyCombat : MonoBehaviour
         
         if(eController.currentHealth<=0)
         {
+            HistoryManager.Instance.AddDefeatCount();
             eController.die();
         }
         if (!isHit)//중복처리 방지

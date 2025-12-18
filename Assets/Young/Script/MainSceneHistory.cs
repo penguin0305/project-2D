@@ -8,8 +8,8 @@ public class HistoryManager : MonoBehaviour
     public float playTime;
     public int DefeatCount;
     public int currentHP;
-    public int coinCount = 1000;
-
+    public int coinCount = 0;
+    public int tempcoinCount = 0;
     public bool isGameActive = true;
 
     private void Awake()
@@ -41,6 +41,12 @@ public class HistoryManager : MonoBehaviour
     public void UpdateHP(int hp)
     {
         currentHP = hp;
+    }
+
+    public void AddcoinCount()
+    {
+        coinCount++;
+        tempcoinCount++;
     }
 
     public void GameClear()

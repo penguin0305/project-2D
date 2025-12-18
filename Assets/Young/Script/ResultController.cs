@@ -21,7 +21,7 @@ public class ResultUIManager : MonoBehaviour
         float time = HistoryManager.Instance.playTime;
         int Defeat = HistoryManager.Instance.DefeatCount;
         int hp = HistoryManager.Instance.currentHP;
-        int coin = 100;
+        int coin = HistoryManager.Instance.coinCount;
         int timeLimit = 300;
 
         int timeScore = Mathf.Max(0, (timeLimit - (int)time) * WeightsTime);
