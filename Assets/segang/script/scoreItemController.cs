@@ -4,11 +4,12 @@ public class scoreItemController : MonoBehaviour
 {
     public int itemScore;
     public itemData data;
-    public StageManager stageManager;
+    GameObject stageManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
-        
+        stageManager = GameObject.FindWithTag("StageManager");
+        data.itemQuantity = 0;
     }
     void Start()
     {
@@ -25,8 +26,8 @@ public class scoreItemController : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            stageManager.GetItem(data);
-            data.itemQuantity++;//>>나중에 데이터를 복사본으로 받아서 따로 관리 필요
+            stageManager.GetComponent<StageManager>().GetItem(data);
+            //data.itemQuantity++;//>>나중에 데이터를 복사본으로 받아서 따로 관리 필요
             //Debug.Log(data.itemQuantity);
             Destroy(gameObject);
         }
