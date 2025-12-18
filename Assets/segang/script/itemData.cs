@@ -11,80 +11,27 @@ public class itemData : ScriptableObject
         quest
     }
     [Header("고유한 아이템의 ID(중복불가)")]
-    [SerializeField] private int mItemID;
-    public int itemID
-    {
-        get
-        {
-            return mItemID;
-        }
-    }
+    [SerializeField] public int itemID;
+   
     [Header("아이템의 중첩이 가능한가?")]
-    [SerializeField] private bool mCanOverlap;
-    public bool canOverlap
-    {
-        get
-        {
-            return mCanOverlap;
-        }
-    }
+    [SerializeField] public bool canOverlap;
+   
     [Header("아이템의 개수")]
-    [SerializeField] private int mItemQuantity;
-    public int itemQuantity
-    {
-        get
-        {
-            return mItemQuantity;
-        }
-        set {;}
-    }
+    [SerializeField] public int itemQuantity;
+ 
     [Header("사용(상호작용)이 가능한 아이템인가?")]
-    [SerializeField] private bool mIsInteractivity;
-    public bool isInteractivity
-    {
-        get
-        {
-            return mIsInteractivity;
-        }
-    }
+    [SerializeField] public bool isInteractivity;
 
     [Header("아이템을 사용하면 사라지는가?")]
-    [SerializeField] private bool mIsConsumable;
-    public bool isConsumable
-    {
-        get
-        {
-            return mIsConsumable;
-        }
-    }
+    [SerializeField] public bool isConsumable;
 
     [Header("아이템을 사용시 쿨타임")]
-    [SerializeField] private float mItemCooltime = -1;
-    public float cooltime
-    {
-        get
-        {
-            return mItemCooltime;
-        }
-    }
+    [SerializeField] public float itemCooltime = -1;
 
     [Header("아이템의 타입")]
-    [SerializeField] private itemType mItemType;
-    public itemType Type
-    {
-        get
-        {
-            return mItemType;
-        }
-    }
+    [SerializeField] public itemType mItemType;
 
     [Header("인벤토리에서 보여질 아이템의 이미지")]
-    [SerializeField] private Sprite mItemImage;
-    public Sprite Image
-    {
-        get
-        {
-            return mItemImage;
-        }
-    }
+    [SerializeField] public Sprite mItemImage;
+
 }

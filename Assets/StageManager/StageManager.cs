@@ -111,7 +111,7 @@ public class StageManager : MonoBehaviour
             tmpinventory.Add(item);
 
         Debug.Log(item.itemID + " 획득");
-
+        Debug.Log(item.itemQuantity + "개");
         if (item.itemID == 1234)
             CheckTrigger = true; // 상호작용을 위한 트리거 체크
         /*

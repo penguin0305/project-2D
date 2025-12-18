@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6feaff97d2cc9b54ca9a83915e03a687, type: 3}
   m_Name: silverCoin
   m_EditorClassIdentifier: 
-  mItemID: 0
-  mCanOverlap: 0
-  mItemQuantity: 0
-  mIsInteractivity: 0
-  mIsConsumable: 0
-  mItemCooltime: -1
+  itemID: 10
+  canOverlap: 0
+  itemQuantity: 0
+  isInteractivity: 0
+  isConsumable: 0
+  itemCooltime: -1
   mItemType: 1
   mItemImage: {fileID: 0}

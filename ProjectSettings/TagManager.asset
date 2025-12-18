@@ -9,6 +9,7 @@ TagManager:
   - Trap
   - Item
   - TreasureBox
+  - StageManager
   layers:
   - Default
   - TransparentFX
