@@ -104,11 +104,16 @@ public class StageManager : MonoBehaviour
     public void GetItem(itemData item)
     {
         itemData Existing = tmpinventory.Find(x => x.itemID == item.itemID);
-        if (Existing != null) {
-            Existing.itemQuantity += item.itemQuantity;
+        if (Existing != null)
+        {
+            //Existing.itemQuantity += item.itemQuantity;
+            Existing.itemQuantity++;
         }
-        else if (item.itemID != 1234) 
+        else if (item.itemID != 1234)
+        {
             tmpinventory.Add(item);
+            item.itemQuantity = 1;//새로운 아이템이 리스트에 추가됐을 때 개수 1로 만듦(세강)
+        }
 
         Debug.Log(item.itemID + " 획득");
         Debug.Log(item.itemQuantity + "개");
