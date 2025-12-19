@@ -2,9 +2,12 @@ using UnityEngine;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using JetBrains.Annotations;
+#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine.Rendering.Universal;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEditor.Build.Content;
+#endif
 
 public class MapLoader : MonoBehaviour
 {

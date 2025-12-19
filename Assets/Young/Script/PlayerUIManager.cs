@@ -1,6 +1,6 @@
 using UnityEngine;
-using TMPro; // TextMeshPro 필수
-
+using TMPro;
+using System.Collections;
 public class PlayerUI : MonoBehaviour
 {
     public TextMeshProUGUI HP;
@@ -9,13 +9,22 @@ public class PlayerUI : MonoBehaviour
     private PlayerStats playerStats;
     //private PlayerSkill playerSkill;
 
-    void Start()
+    IEnumerator Start()
     {
-        playerStats = FindAnyObjectByType<PlayerStats>();
-        //playerSkill = FindObjectOfType<PlayerSkill>();
+        // playerStats를 찾을 때까지 무한 대기 (0.1초 간격)
+        while (playerStats == null)
+        {
+            playerStats = FindAnyObjectByType<PlayerStats>();
+            //playerSkill = FindObjectOfType<PlayerSkill>();
+            if (playerStats == null)
+            {
+                yield return null;
+            }
+        }
 
         playerStats.OnCheckHP += UpdateHP;
         //playerSkill.OnCheckSkillCount += UpdateSkillUI;
+        UpdateHP(playerStats.CurrentHP);
     }
     void UpdateHP(int currentHp)
     {

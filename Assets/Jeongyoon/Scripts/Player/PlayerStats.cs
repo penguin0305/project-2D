@@ -5,9 +5,10 @@ public class PlayerStats : MonoBehaviour
     public event System.Action OnDeath;
     public event System.Action<int> OnCheckHP;
 
-    [SerializeField] private int maxHP = 5;
+    [SerializeField] private int maxHP = 20;
 
     private int currentHP;
+    public int CurrentHP => currentHP;
 
     private PlayerHitFeedback hitFeedback;
 

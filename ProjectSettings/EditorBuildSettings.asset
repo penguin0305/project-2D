@@ -23,12 +23,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/StageManager/EndScene1217.unity
     guid: 5932d0b8e6e742f46ad21aa13fef172d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Young/Main1115.unity
     guid: 132dc37d69d2ee44d875f70a6440b245
   - enabled: 1
     path: Assets/StageManager/tScene.unity
     guid: 6fc4582d6cf6ad54d93617605157a58f
+  - enabled: 0
+    path: Assets/Young/EndScene.unity
+    guid: 74868bec00f09794fb6c7f95cee05063
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a17b85cbc1fbca74dbb38fceb2cb7409,
       type: 2}

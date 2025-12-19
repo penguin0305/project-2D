@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEditor;
 using SupanthaPaul;
+using UnityEngine.SceneManagement;
 public class PauseMenuManager : MonoBehaviour
 {
     public GameObject pauseMenuUI;
@@ -53,5 +55,16 @@ public class PauseMenuManager : MonoBehaviour
         isPaused = true;
         BGM.Pause();
         Debug.Log("게임 일시 정지");
+    }
+
+    public void OnQuitButtonClicked()
+    {
+        Debug.Log("Game End");
+
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
     }
 }
