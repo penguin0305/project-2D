@@ -34,12 +34,12 @@ public class ResultUIManager : MonoBehaviour
 
         int minutes = (int)time / 60;
         int seconds = (int)time % 60;
-        timeText.text = $"Time: {minutes}:{seconds}";
+        timeText.text = $"{minutes}:{seconds}";
 
-        DefeatText.text = $"Defeat: {Defeat}";
-        hpText.text = $"HP: {hp}";
-        coinText.text = $"Coin: {coin}";
+        DefeatText.text = $"{Defeat,6}";
+        hpText.text = $"{hp,6}";
+        coinText.text = $"{coin,6}";
 
-        totalScoreText.text = $"Total Score: {totalScore}";
+        totalScoreText.text = $"{totalScore,6}";
     }
 }
