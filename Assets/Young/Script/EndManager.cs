@@ -30,7 +30,7 @@ public class EndingDirector : MonoBehaviour
             playerInstance = Instantiate(GameSceneManager.Instance.playerPrefab, spawnPoint.position, Quaternion.identity);
         }
 
-        var inputHandler = playerInstance.GetComponent<PlayerInputHandler>();
+        var inputHandler = playerInstance.GetComponent<PlayerInputState>();
         movement = playerInstance.GetComponent<PlayerMovement>();
 
         if (inputHandler != null)
