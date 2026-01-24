@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerDeadState : IPlayerState
+public class PlayerDeadState : PlayerBaseState
 {
     
 }
