@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 1351252347865731431}
   - component: {fileID: 8119154543770814928}
   - component: {fileID: 1272831585399129031}
+  - component: {fileID: 3551494539317404591}
   - component: {fileID: 5974446869628131202}
   - component: {fileID: 6973292453351160238}
   - component: {fileID: 6153650724410632339}
@@ -317,6 +318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 1272831585399129031}
   movement: {fileID: 5974446869628131202}
+  motor: {fileID: 0}
   combat: {fileID: 3215668948851388652}
   interaction: {fileID: 2078799154491413174}
   bombplacer: {fileID: 4650678099619594889}
@@ -475,6 +477,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e477d4bd0488bb746a018540a5391d31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3551494539317404591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3058659472406823714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06e26efc14a4fd44485b2c7e1911ec0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultGravity: 3
+  groundCheck: {fileID: 6814716264862625832}
+  groundCheckRadius: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &5974446869628131202
 MonoBehaviour:
   m_ObjectHideFlags: 0
