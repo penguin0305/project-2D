@@ -57,6 +57,11 @@ public class PlayerGroundState : PlayerBaseState
 	private void Jump(Player player)
 	{
 		player.Motor.SetVelocityY(JumpForce);
+		player.Audio.PlayJump();
+		
+		PlayerAirborneState ariborne = (PlayerAirborneState)player.Airborne;
+		ariborne.SetPreviousJump();
+
 		isJumpLatched = false;
 	}
 

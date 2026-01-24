@@ -183,7 +183,6 @@ GameObject:
   - component: {fileID: 8119154543770814928}
   - component: {fileID: 1272831585399129031}
   - component: {fileID: 3551494539317404591}
-  - component: {fileID: 5974446869628131202}
   - component: {fileID: 6973292453351160238}
   - component: {fileID: 6153650724410632339}
   - component: {fileID: 3215668948851388652}
@@ -316,12 +315,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9dc12cd2a2dc3c4a9e25575d729dfcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: {fileID: 1272831585399129031}
-  movement: {fileID: 5974446869628131202}
-  motor: {fileID: 0}
-  combat: {fileID: 3215668948851388652}
-  interaction: {fileID: 2078799154491413174}
-  bombplacer: {fileID: 4650678099619594889}
 --- !u!114 &8119154543770814928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,33 +488,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
---- !u!114 &5974446869628131202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3058659472406823714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 704ab8e4b8835f14ba4e51ffbe9cb43a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  moveInput: {x: 0, y: 0}
-  jumpForce: 12
-  maxJumpCount: 2
-  groundCheck: {fileID: 6814716264862625832}
-  groundCheckRadius: 0.2
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  isGrounded: 0
-  dashSpeedMultiplier: 1.5
-  climbSpeed: 4
-  walkStepInterval: 0.4
-  dashStepInterval: 0.2
-  minMoveSpeedForStep: 0.1
 --- !u!95 &6973292453351160238
 Animator:
   serializedVersion: 7
@@ -556,7 +522,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 185d906462f7e2447a12e1126109e351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFacingRight: 0
 --- !u!114 &3215668948851388652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,10 +711,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 4911162895550230951}
   jumpClip: {fileID: 8300000, guid: a827f720ef2de5140b369d1b48013fd0, type: 3}
-  landClip: {fileID: 8300000, guid: d40a42fc29d96c44b84f4a6f729347ce, type: 3}
+  landClip: {fileID: 8300000, guid: 917fd752a6e02bc4e876161abf009980, type: 3}
   meleeClip: {fileID: 8300000, guid: 3427d06a58d7f6849b82d45d9214dff6, type: 3}
-  footstepClip: {fileID: 8300000, guid: 4d04e47379791e245a26ffb0526af8cc, type: 3}
-  landCooldown: 0.1
+  footstepClip: {fileID: 8300000, guid: eb8a54a306dba09429c98000db146d4c, type: 3}
 --- !u!114 &4650678099619594889
 MonoBehaviour:
   m_ObjectHideFlags: 0

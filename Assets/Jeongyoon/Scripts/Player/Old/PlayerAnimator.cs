@@ -3,17 +3,17 @@ using UnityEngine;
 public class PlayerAnimator : MonoBehaviour
 {
 	private Animator animator;
-	private PlayerMovement movement;
 	private SpriteRenderer spriteRenderer;
+	private Player player;
 
 	private float moveSpeed;
-	public bool isFacingRight;
+	public bool IsFacingRight { get; private set; } = true;
 
 	private void Awake()
 	{
 		animator = GetComponent<Animator>();
-		movement = GetComponent<PlayerMovement>();
 		spriteRenderer = GetComponent<SpriteRenderer>();
+		player = GetComponent<Player>();
 	}
 
 	private void LateUpdate()
@@ -26,13 +26,13 @@ public class PlayerAnimator : MonoBehaviour
 
 	private void CheckSpeed()
 	{
-		moveSpeed = Mathf.Abs(movement.moveInput.x);
-		animator.SetFloat("Speed", moveSpeed);
+		float moveInputX = Mathf.Abs(player.Input.Move.x);
+                animator.SetFloat("Speed", moveInputX);
 	}
 
 	private void CheckGrounded()
 	{
-		animator.SetBool("IsGrounded", movement.isGrounded);
+		animator.SetBool("IsGrounded", player.Motor.IsGrounded);
 	}
 
 	public void DoMeleeAttack()
@@ -42,15 +42,17 @@ public class PlayerAnimator : MonoBehaviour
 
 	private void UpdateFacing()
 	{
-		if (movement.moveInput.x > 0f)
+		float moveX = player.Input.Move.x;
+
+		if (moveX > 0f)
 		{
 			spriteRenderer.flipX = false;
-			isFacingRight = true;
+			IsFacingRight = true;
 		}
-		else if (movement.moveInput.x < 0f)
+		else if (moveX < 0f)
 		{
 			spriteRenderer.flipX = true;
-			isFacingRight = false;
+			IsFacingRight = false;
 		}
 	}
 }

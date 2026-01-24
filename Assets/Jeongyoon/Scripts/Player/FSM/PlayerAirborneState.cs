@@ -1,12 +1,13 @@
-using System;
 using UnityEngine;
 
 public class PlayerAirborneState : PlayerBaseState
 {
 	private bool isJumpLatched;
+	private int currentJumpCount;
 
 	private const float AirMoveSpeed = 5f;
 	private const float JumpForce = 12f;
+	private const int MaxJumpCount = 2;
 
 	public override void Enter(Player player)
 	{
@@ -28,6 +29,16 @@ public class PlayerAirborneState : PlayerBaseState
 			Jump(player);
 	}
 
+        public override void Exit(Player player)
+	{
+		currentJumpCount = 0;
+	}
+
+	public void SetPreviousJump()
+	{
+		currentJumpCount = 1;
+	}
+
 	private void HandleInput(Player player)
 	{
 		if (player.Input.ConsumeJumpPressed())
@@ -47,16 +58,22 @@ public class PlayerAirborneState : PlayerBaseState
 
 	private void Jump(Player player)
 	{
-		player.Motor.SetVelocityY(JumpForce);
+		if (currentJumpCount < MaxJumpCount)
+		{
+			player.Motor.SetVelocityY(JumpForce);
+			currentJumpCount++;
+			player.Audio.PlayJump();
+
+		}
 		isJumpLatched = false;
 	}
 
 	private void CheckStateTransitions(Player player)
 	{
-		if (!player.Motor.IsGrounded)
+		if (player.Motor.IsGrounded)
 		{
-			player.ChangeState(player.Airborne);
-			return;
+			player.Audio.PlayLand();
+			player.ChangeState(player.Grounded);
 		}
 	}
 }

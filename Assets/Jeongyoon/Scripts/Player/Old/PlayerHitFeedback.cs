@@ -38,7 +38,7 @@ public class PlayerHitFeedback : MonoBehaviour
             return;
 
         movement.DisableMovement(0.12f);
-        float dir = anim.isFacingRight ? -1f : 1f;
+        float dir = anim.IsFacingRight ? -1f : 1f;
         rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
         Vector2 force = new Vector2(dir * knockbackX, knockbackY);
         rb.AddForce(force, ForceMode2D.Impulse);

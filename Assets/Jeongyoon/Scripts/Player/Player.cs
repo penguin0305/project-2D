@@ -96,6 +96,7 @@ private void Reset()
 		if (newState == null || currentState == newState)
 			return;
 
+		Debug.Log($"State Changed: {currentState?.GetType().Name} -> {newState.GetType().Name}");
 		currentState?.Exit(this);
 		currentState = newState;
 		currentState.Enter(this);

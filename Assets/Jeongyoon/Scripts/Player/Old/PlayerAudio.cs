@@ -11,10 +11,6 @@ public class PlayerAudio : MonoBehaviour
 	[SerializeField] private AudioClip meleeClip;
 	[SerializeField] private AudioClip footstepClip;
 
-	[Header("Land Settings")]
-	[SerializeField] private float landCooldown = 0.1f;
-	private float lastLandTime;
-
 	private void PlayOnce(AudioClip clip)
 	{
 		if (clip == null || audioSource == null)
@@ -29,10 +25,6 @@ public class PlayerAudio : MonoBehaviour
 
 	public void PlayLand()
 	{
-		if (Time.time < lastLandTime + landCooldown)
-			return;
-		
-		lastLandTime = Time.time;
 		PlayOnce(landClip);
 	}
 

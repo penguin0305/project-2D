@@ -34,7 +34,7 @@ public class PlayerCombat : MonoBehaviour
 	{
 		Vector2 offset = meleeColliderBaseOffset;
 
-		if (animator.isFacingRight)
+		if (animator.IsFacingRight)
 			offset.x = Mathf.Abs(meleeColliderBaseOffset.x);
 		else
 			offset.x = -Mathf.Abs(meleeColliderBaseOffset.x);
