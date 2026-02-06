@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VContainer;
 
 // IInteractable 인터페이스를 상속받습니다.
 public class EndPortal : MonoBehaviour, IInteractable
@@ -9,7 +10,12 @@ public class EndPortal : MonoBehaviour, IInteractable
     [SerializeField] public Sprite OnPortal;
     [SerializeField] public Sprite OffPortal;
     [SerializeField] public string EndingSceneName= "EndScene1217";
-    private StageManager stageManager;
+    private StageManager _stageManager;
+    [Inject]
+    public void Construct(StageManager stageManager)
+    {
+        _stageManager = stageManager;
+    }
 
     private SpriteRenderer spriteRenderer;
     private bool isActivated;
@@ -17,8 +23,7 @@ public class EndPortal : MonoBehaviour, IInteractable
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        stageManager = FindAnyObjectByType<StageManager>();
-        stageManager.OnStageClear += ActivatePortal;
+        _stageManager.OnStageClear += ActivatePortal;
     }
 
     private void Start()
@@ -59,7 +64,7 @@ public class EndPortal : MonoBehaviour, IInteractable
 
     private void OnDisable()
     {
-        stageManager.OnStageClear -= ActivatePortal;
+        _stageManager.OnStageClear -= ActivatePortal;
     }
 }
 

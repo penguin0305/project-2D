@@ -1,35 +1,34 @@
+using UnityEditor;
 using UnityEngine;
-using SupanthaPaul;
+using VContainer; // DI 프레임워크
+using VContainer.Unity;
 // using SupanthaPaul; // CameraFollow 스크립트가 있는 네임스페이스 (필요시 주석 해제)
 
 public class SceneSetup : MonoBehaviour
 {
+    private GameObject playerInstance;
     public Transform spawnPoint;
-    private MapLoader mloader;
+
+    //플레이어 위치 정보를 VContainer로 관리하도록 수정
+    private PlayerProvider _playerProvider;
+    private IObjectResolver _objectResolver;
+    private GameSceneManager _playerSet;
+    [Inject]
+    public void Construct(PlayerProvider playerProvider, IObjectResolver objectResolver, GameSceneManager playerSet)
+    {
+        _playerProvider = playerProvider;
+        _objectResolver = objectResolver;
+        _playerSet = playerSet;
+    }
+
+    public void SpawnPlayer()
+    {
+        playerInstance = _objectResolver.Instantiate(_playerSet.playerPrefab, spawnPoint.position, Quaternion.identity);
+    }
 
     void Start()
     {
-        if (GameSceneManager.Instance != null && GameSceneManager.Instance.playerPrefab != null)
-        {
-
-            GameObject playerInstance = Instantiate(GameSceneManager.Instance.playerPrefab, spawnPoint.position, Quaternion.identity);
-
-            mloader = FindAnyObjectByType<MapLoader>();
-
-            CameraFollow camScript = FindObjectOfType<CameraFollow>();
-
-            if (camScript != null)
-            {
-                camScript.target = playerInstance.transform;
-            }
-
-            // 251127 MapLoader가 플레이어 위치를 받을 수 있게 추가 - 원영
-            if (mloader != null)
-                mloader.PlayerTransform = playerInstance.transform;
-        }
-        else
-        {
-            Debug.LogError("SceneSetting Error");
-        }
+        SpawnPlayer();
+        _playerProvider.playerTransform = playerInstance.transform;
     }
 }

@@ -1,9 +1,21 @@
 using UnityEngine;
-
+using VContainer;
 public class PlayerStats : MonoBehaviour
 {
     public event System.Action OnDeath;
     public event System.Action<int> OnCheckHP;
+
+    private EquipStats _equipStats;
+    private PlayerData _playerData;
+    [Inject]
+    public void Construct(EquipStats equipData, PlayerData playerData)
+    {
+        _playerData = playerData;
+        _equipStats = equipData;
+
+        ApplyEquipment();
+    }
+    private void ApplyEquipment() { }
 
     [SerializeField] private int maxHP = 20;
 
@@ -21,7 +33,7 @@ public class PlayerStats : MonoBehaviour
     {
         currentHP = maxHP;
         OnCheckHP?.Invoke(currentHP);
-        HistoryManager.Instance.UpdateHP(currentHP);
+        //HistoryManager.Instance.UpdateHP(currentHP);
     }
 
     public void TakeDamage(int damage)

@@ -8,6 +8,7 @@ using UnityEngine.Rendering.Universal;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEditor.Build.Content;
 #endif
+using VContainer;
 
 public class MapLoader : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class MapLoader : MonoBehaviour
     private Dictionary<string, List<GameObject>> mapPool = new Dictionary<string, List<GameObject>>();
     private string key; // 맵 프리셋의 난이도를 결정하기 위한 키
     private Queue<GameObject> usedMap = new Queue<GameObject>(); // 맵 생성을 관리하기 위한 큐
+    private Transform PlayerTransform;
 
     /* 데모버전 사용 X
     [Header("StartingMap")]
@@ -37,9 +39,13 @@ public class MapLoader : MonoBehaviour
     private int mapCount = 0; // 만들어진 맵의 수. 난이도 조절에 사용
     private int stageDepth = 5;
 
-    //플레이어의 위치를 받아오기 위한 변수
-    [Header("지정 X 비워두기")]
-    public Transform PlayerTransform;
+    private PlayerProvider _playerProvider;
+    [Inject]
+    public void Construct(PlayerProvider playerProvider)
+    {
+        _playerProvider = playerProvider;
+        PlayerTransform = _playerProvider.playerTransform;
+    }
 
     void Start()
     {
