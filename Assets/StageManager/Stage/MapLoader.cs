@@ -44,7 +44,7 @@ public class MapLoader : MonoBehaviour
     public void Construct(PlayerProvider playerProvider)
     {
         _playerProvider = playerProvider;
-        PlayerTransform = _playerProvider.playerTransform;
+        //PlayerTransform = _playerProvider.playerTransform;
     }
 
     void Start()
@@ -204,13 +204,13 @@ public class MapLoader : MonoBehaviour
     void Update()
     {
         //플레이어 설정이 안된 경우 리턴
-        if (PlayerTransform == null)
+        if (_playerProvider.playerTransform == null)
         {
             Debug.Log("Player Required");
             return;
         }
         //플레이어가 맵의 특정 깊이에 도달하면 다음 맵을 불러옴
-        while (PlayerTransform.position.y < nextMapY + Threshold)
+        while (_playerProvider.playerTransform.position.y < nextMapY + Threshold)
         {
             SpawnMapPool();
             Debug.Log("nextMap Loaded");

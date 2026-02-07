@@ -9446,6 +9446,7 @@ MonoBehaviour:
   CameraFollow: {fileID: 2115639194}
   StageManager: {fileID: 1545572828}
   SceneSetup: {fileID: 6416686249249318798}
+  MapLoader: {fileID: 1571835291}
 --- !u!4 &1968349102
 Transform:
   m_ObjectHideFlags: 0
