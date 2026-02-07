@@ -70,6 +70,12 @@ public class PlayerAirborneState : PlayerBaseState
 
 	private void CheckStateTransitions(Player player)
 	{
+		if (Mathf.Abs(player.Input.Move.y) > 0.1f && player.OverlapSensor.IsOnLadder)
+		{
+			player.ChangeState(player.Climb);
+			return;
+		}
+
 		if (player.Motor.IsGrounded)
 		{
 			player.Audio.PlayLand();
