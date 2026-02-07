@@ -67,6 +67,12 @@ public class PlayerGroundState : PlayerBaseState
 
 	private void CheckStateTransitions(Player player)
 	{
+		if (player.Input.Move.y > 0.1f && player.OverlapSensor.IsOnLadder)
+		{
+			player.ChangeState(player.Climb);
+			return;
+		}
+		
 		if (!player.Motor.IsGrounded)
 		{
 			player.ChangeState(player.Airborne);

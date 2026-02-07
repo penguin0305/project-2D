@@ -4,8 +4,8 @@ public sealed class Player : MonoBehaviour
 {
 	[Header("Modules")]
 	public PlayerInputState Input { get; private set; }
-	//public PlayerMovement Movement { get; private set; }
 	public PlayerMotor Motor { get; private set; }
+	public PlayerOverlapSensor OverlapSensor { get; private set; }
 	public PlayerCombat Combat { get; private set; }
 	public PlayerInteraction Interaction { get; private set; }
 	public PlayerAudio Audio { get; private set; }
@@ -24,8 +24,8 @@ public sealed class Player : MonoBehaviour
 private void Reset()
 	{
 		Input = GetComponent<PlayerInputState>();
-	//	Movement = GetComponent<PlayerMovement>();
 		Motor = GetComponent<PlayerMotor>();
+		OverlapSensor = GetComponent<PlayerOverlapSensor>();
 		Combat = GetComponent<PlayerCombat>();
 		Interaction = GetComponentInChildren<PlayerInteraction>();
 		Audio = GetComponent<PlayerAudio>();
@@ -36,10 +36,10 @@ private void Reset()
 	{
 		if (!Input)
 			Input = GetComponent<PlayerInputState>();
-	//	if (!Movement)
-	//		Movement = GetComponent<PlayerMovement>();
 		if (!Motor)
 			Motor = GetComponent<PlayerMotor>();
+		if (!OverlapSensor)
+			OverlapSensor = GetComponent<PlayerOverlapSensor>();
 		if (!Combat)
 			Combat = GetComponent<PlayerCombat>();
 		if (!Interaction)
