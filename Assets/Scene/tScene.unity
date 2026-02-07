@@ -9447,6 +9447,7 @@ MonoBehaviour:
   StageManager: {fileID: 1545572828}
   SceneSetup: {fileID: 6416686249249318798}
   MapLoader: {fileID: 1571835291}
+  Boss: {fileID: 7545184325961197316, guid: 63532c7958b8a574888fec1ca4c3501c, type: 3}
 --- !u!4 &1968349102
 Transform:
   m_ObjectHideFlags: 0
