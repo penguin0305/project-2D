@@ -14,7 +14,7 @@ public class StartMenuController : MonoBehaviour
         }
 
 
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("tScene");
     }
 
     public void OnQuitButtonClicked()

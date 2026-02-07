@@ -10,8 +10,8 @@ public class RootLifetimeScope : LifetimeScope
         base.Configure(builder);
 
         builder.RegisterComponent(GameSceneManager);
-        builder.Register<PlayerProvider>(Lifetime.Singleton);
 
+        builder.Register<PlayerProvider>(Lifetime.Singleton);
         builder.Register<itemData>(Lifetime.Singleton);
         builder.Register<EquipStats>(Lifetime.Singleton);
         builder.Register<PlayerData>(Lifetime.Singleton);
