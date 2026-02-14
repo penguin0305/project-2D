@@ -1,6 +1,8 @@
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 public class PlayerProvider
 {
-    internal Transform playerTransform { get; set; }
+    public Transform playerTransform;
 }

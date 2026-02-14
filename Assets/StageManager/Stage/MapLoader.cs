@@ -9,6 +9,7 @@ using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEditor.Build.Content;
 #endif
 using VContainer;
+using VContainer.Unity;
 
 public class MapLoader : MonoBehaviour
 {
@@ -40,11 +41,13 @@ public class MapLoader : MonoBehaviour
     private int stageDepth = 5;
 
     private PlayerProvider _playerProvider;
+    private IObjectResolver _objectResolver;
     [Inject]
-    public void Construct(PlayerProvider playerProvider)
+    public void Construct(PlayerProvider playerProvider, IObjectResolver objectResolver)
     {
         _playerProvider = playerProvider;
-        PlayerTransform = _playerProvider.playerTransform;
+        _objectResolver = objectResolver;
+        //PlayerTransform = _playerProvider.playerTransform;
     }
 
     void Start()
@@ -188,7 +191,8 @@ public class MapLoader : MonoBehaviour
         SetMapPool(); // 난이도 설정
         GameObject selectedMap = GetMap(); // 불러올 맵을 선택
         Vector3 spawnLoc = new Vector3(0, nextMapY, 0); // 선택한 맵을 로드할 위치 설정
-        Instantiate(selectedMap, spawnLoc, Quaternion.identity); // 다음 맵을 로드
+        GameObject map = _objectResolver.Instantiate(selectedMap, spawnLoc, Quaternion.identity); // 다음 맵을 로드
+        _objectResolver.InjectGameObject(map);
         Debug.Log("nextMap Loaded");
 
         // 마지막 스테이지가 아니라면 다음 스폰 위치를 재설정
@@ -204,13 +208,13 @@ public class MapLoader : MonoBehaviour
     void Update()
     {
         //플레이어 설정이 안된 경우 리턴
-        if (PlayerTransform == null)
+        if (_playerProvider.playerTransform == null)
         {
             Debug.Log("Player Required");
             return;
         }
         //플레이어가 맵의 특정 깊이에 도달하면 다음 맵을 불러옴
-        while (PlayerTransform.position.y < nextMapY + Threshold)
+        while (_playerProvider.playerTransform.position.y < nextMapY + Threshold)
         {
             SpawnMapPool();
             Debug.Log("nextMap Loaded");

@@ -1,8 +1,10 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+//using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer;
+using VContainer.Unity;
 
 // IInteractable 인터페이스를 상속받습니다.
 public class EndPortal : MonoBehaviour, IInteractable
@@ -15,15 +17,24 @@ public class EndPortal : MonoBehaviour, IInteractable
     public void Construct(StageManager stageManager)
     {
         _stageManager = stageManager;
+        _stageManager.OnStageClear += ActivatePortal;
     }
 
     private SpriteRenderer spriteRenderer;
     private bool isActivated;
+    /*
+    public void Initialize()
+    {
+        if (_stageManager != null)
+        {
+            _stageManager.OnStageClear += ActivatePortal;
+        }
+    }*/
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        _stageManager.OnStageClear += ActivatePortal;
+        //_stageManager.OnStageClear += ActivatePortal;
     }
 
     private void Start()
