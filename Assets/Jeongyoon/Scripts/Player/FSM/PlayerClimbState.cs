@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerClimbState : PlayerBaseState
 {
 	private float climbSpeed = 5f;
-	private float checkRadius = 0.3f;
 	private bool isJumpLatched;
 
 	public override void Enter(Player player)
