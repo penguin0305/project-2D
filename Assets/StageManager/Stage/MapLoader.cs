@@ -17,7 +17,7 @@ public class MapLoader : MonoBehaviour
     private Dictionary<string, List<GameObject>> mapPool = new Dictionary<string, List<GameObject>>();
     private string key; // 맵 프리셋의 난이도를 결정하기 위한 키
     private Queue<GameObject> usedMap = new Queue<GameObject>(); // 맵 생성을 관리하기 위한 큐
-    private Transform PlayerTransform;
+    public Transform PlayerTransform;
 
     /* 데모버전 사용 X
     [Header("StartingMap")]

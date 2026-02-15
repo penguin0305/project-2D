@@ -38,12 +38,12 @@ public class StartMenuController : MonoBehaviour
         {
             HistoryManager.Instance.ResetData();
         }
-            GameSceneManager.Instance.SetPlayerPrefab(Player);
-        }
-
 
         SceneManager.LoadScene("tScene");
     }
+
+
+
 
     public void OnQuitButtonClicked()
     {

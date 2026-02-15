@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VContainer; // DI 프레임워크
 
-namespace SupanthaPaul
+namespace YoungCameraFollow
+
 {
 	public class CameraFollow : MonoBehaviour
 	{
+		[SerializeField]
+		public Transform target;
 		[SerializeField]
 		private float smoothSpeed = 0.125f;
 		public Vector3 offset;
@@ -14,18 +16,8 @@ namespace SupanthaPaul
 		public Vector3 minCamerabounds;
 		public Vector3 maxCamerabounds;
 
-		//플레이어 추적 할당을 DI로 받도록 수정
-		private Transform target;
-        private PlayerProvider _playerProvider;
-        [Inject]
-        public void Construct(PlayerProvider playerProvider)
-        {
-            _playerProvider = playerProvider;
-			target = _playerProvider.playerTransform;
-        }
 
-
-        private void FixedUpdate()
+		private void FixedUpdate()
 		{
 			if (target == null) return;
 

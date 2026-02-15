@@ -1,4 +1,4 @@
-using SupanthaPaul;
+using YoungCameraFollow;
 using VContainer;
 using VContainer.Unity;
 using UnityEngine;

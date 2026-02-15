@@ -9,7 +9,7 @@ public class SceneSetup : MonoBehaviour
 
     void Start()
     {
-        GameObject playerInstance = Instantiate(GameManager.Instance.playerPrefab, spawnPoint.position, Quaternion.identity);
+        GameObject playerInstance = Instantiate(GameSceneManager.Instance.playerPrefab, spawnPoint.position, Quaternion.identity);
 
         camerafollow.target = playerInstance.transform;
 

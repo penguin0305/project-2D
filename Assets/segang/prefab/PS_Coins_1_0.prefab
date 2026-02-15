@@ -196,12 +196,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8089094859355405138}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ea36637ea6ad5e45b08d5691d5e37f8, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a0ad55546dd3fd4cb395e8ac60a6681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemScore: 10
+  itemScore: 0
   data: {fileID: 11400000, guid: 76c9e9ecd7d2a824fb043dd5124395c4, type: 2}
-  stageManager: {fileID: 0}
 --- !u!70 &7996963799662764512
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

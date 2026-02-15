@@ -2852,6 +2852,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1218011014}
+  mapLoader: {fileID: 0}
+  camerafollow: {fileID: 849542646}
 --- !u!114 &1892636305
 MonoBehaviour:
   m_ObjectHideFlags: 0
