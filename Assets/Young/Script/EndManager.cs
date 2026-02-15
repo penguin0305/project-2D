@@ -59,7 +59,13 @@ public class EndingDirector : MonoBehaviour
 
     public void GoToStartScene()
     {
+        if (HistoryManager.Instance != null)
+        {
+            //HistoryManager.Instance.playTime = 0f; - 추가 수정 필요
+        }
+
         Time.timeScale = 1f;
+
         SceneManager.LoadScene("Start1115");
     }
 }

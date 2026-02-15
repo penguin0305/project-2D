@@ -4,46 +4,79 @@ using System.Collections;
 public class PlayerUI : MonoBehaviour
 {
     public TextMeshProUGUI HP;
-    //public TextMeshProUGUI skillText;
+    //public TextMeshProUGUI skillText;-½ºÅ³ Ãß°¡
 
-    private Player player;
-    //private PlayerSkill playerSkill;
+    private PlayerStats playerstats;
+    //private PlayerSkill playerSkill;-½ºÅ³ Ãß°¡
+
+    [SerializeField] private TextMeshProUGUI timerText;
 
     IEnumerator Start()
     {
-        // playerStatsï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (0.1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
-        while (player == null)
+        // playerStats¸¦ Ã£À» ¶§±îÁö ´ë±â
+        while (playerstats == null)
         {
-            player = FindAnyObjectByType<Player>();
-            //playerSkill = FindObjectOfType<PlayerSkill>();
-            if (player == null)
+            playerstats = FindAnyObjectByType<PlayerStats>();
+            //playerSkill = FindObjectOfType<PlayerSkill>();-½ºÅ³ Ãß°¡
+            if (playerstats == null)
             {
                 yield return null;
             }
         }
 
-        player.OnCheckHP += UpdateHP;
-        //playerSkill.OnCheckSkillCount += UpdateSkillUI;
-        UpdateHP(player.Status.CurrentHealth);
+        playerstats.OnCheckHP += UpdateHP;
+        //playerSkill.OnCheckSkillCount += UpdateSkillUI;-½ºÅ³ Ãß°¡
+        UpdateHP(playerstats.CurrentHP);
+
+        if (timerText != null)
+        {
+            timerText.text = "00:00";
+        }
+    }
+
+    void Update()
+    {
+        UpdateTimer();
     }
     void UpdateHP(int currentHp)
     {
-            HP.text = $"{currentHp}";
+        HP.text = $"{currentHp}";
     }
-
+    /*-½ºÅ³ Ãß°¡
     void UpdateSkillUI(int currentSkill)
     {
 
-            //skillText.text = $"{currentSkill}";
+        skillText.text = $"{currentSkill}";
+    }
+    */
+
+
+    void UpdateTimer()
+    {
+        if (timerText == null) return;
+
+        if (HistoryManager.Instance != null)
+        {
+            UpdateTimerUI(HistoryManager.Instance.playTime);
+        }
+    }
+
+    private void UpdateTimerUI(float Seconds)
+    {
+
+        int minutes = Mathf.FloorToInt(Seconds / 60);
+        int seconds = Mathf.FloorToInt(Seconds % 60);
+
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     void OnDestroy()
     {
-        if (player != null)
+        if (playerstats != null)
         {
-            player.OnCheckHP -= UpdateHP;
+            playerstats.OnCheckHP -= UpdateHP;
         }
-        /*
+        /*-½ºÅ³ Ãß°¡
         if (playerSkill != null)
         {
             playerSkill.OnCheckSkillCount -= UpdateSkillUI;

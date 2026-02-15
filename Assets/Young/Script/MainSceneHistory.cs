@@ -52,6 +52,16 @@ public class HistoryManager : MonoBehaviour
     public void GameClear()
     {
         isGameActive = false;
-        SceneManager.LoadScene("EndScene");
+    }
+
+    public void ResetData()
+    {
+        playTime = 0f;
+        DefeatCount = 0;
+        currentHP = 20;
+        coinCount = 0;
+        tempcoinCount = 0;
+        isGameActive = true;
+        Debug.Log("History Data Reset");
     }
 }

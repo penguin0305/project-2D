@@ -6,6 +6,10 @@ public class GameSceneManager : MonoBehaviour
 
     public GameObject playerPrefab;
 
+    public void SetPlayerPrefab(GameObject prefab)
+    {
+        playerPrefab = prefab;
+    }
     private void Awake()
     {
         if (Instance == null)
@@ -17,10 +21,5 @@ public class GameSceneManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    public void SetPlayerPrefab(GameObject prefab)
-    {
-        playerPrefab = prefab;
     }
 }
