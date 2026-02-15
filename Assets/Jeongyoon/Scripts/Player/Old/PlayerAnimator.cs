@@ -5,8 +5,6 @@ public class PlayerAnimator : MonoBehaviour
 	private Animator animator;
 	private SpriteRenderer spriteRenderer;
 	private Player player;
-
-	private float moveSpeed;
 	public bool IsFacingRight { get; private set; } = true;
 
 	private void Awake()
@@ -21,8 +19,6 @@ public class PlayerAnimator : MonoBehaviour
 		CheckSpeed();
 		CheckGrounded();
 		CheckDeath();
-
-		UpdateFacing();
 	}
 
 	private void CheckSpeed()
@@ -49,21 +45,5 @@ public class PlayerAnimator : MonoBehaviour
 	public void DoDamageAnim()
 	{
 		animator.SetTrigger("Damage");
-	}
-
-	private void UpdateFacing()
-	{
-		float moveX = player.Input.Move.x;
-
-		if (moveX > 0f)
-		{
-			spriteRenderer.flipX = false;
-			IsFacingRight = true;
-		}
-		else if (moveX < 0f)
-		{
-			spriteRenderer.flipX = true;
-			IsFacingRight = false;
-		}
 	}
 }
