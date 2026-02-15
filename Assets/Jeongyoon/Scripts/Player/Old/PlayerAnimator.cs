@@ -20,6 +20,7 @@ public class PlayerAnimator : MonoBehaviour
 	{
 		CheckSpeed();
 		CheckGrounded();
+		CheckDeath();
 
 		UpdateFacing();
 	}
@@ -38,6 +39,16 @@ public class PlayerAnimator : MonoBehaviour
 	public void DoMeleeAttack()
 	{
 		animator.SetTrigger("MeleeAttack");
+	}
+
+	public void CheckDeath()
+	{
+		animator.SetBool("Death", player.Status.CurrentHealth <= 0);
+	}
+
+	public void DoDamageAnim()
+	{
+		animator.SetTrigger("Damage");
 	}
 
 	private void UpdateFacing()

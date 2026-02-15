@@ -13,6 +13,7 @@ public class PlayerMotor : MonoBehaviour
 
 	private Rigidbody2D rb;
 	public bool IsGrounded { get; private set; }
+	public bool IsFacingRight { get; private set; }
 
 	private void Awake()
 	{
@@ -24,6 +25,14 @@ public class PlayerMotor : MonoBehaviour
 	public void DetectGrounded()
 	{
 		IsGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+	}
+
+	public void UpdateFacingDirection(float horizontalInput)
+	{
+		if (horizontalInput > 0f)
+			IsFacingRight = true;
+		else if (horizontalInput < 0f)
+			IsFacingRight = false;
 	}
 	
 	public void SetGravityScale(float gravity) => rb.gravityScale = gravity;

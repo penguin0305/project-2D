@@ -184,10 +184,10 @@ GameObject:
   - component: {fileID: 1272831585399129031}
   - component: {fileID: 3551494539317404591}
   - component: {fileID: 522335942348825645}
+  - component: {fileID: 3945385568700428353}
   - component: {fileID: 6973292453351160238}
   - component: {fileID: 6153650724410632339}
   - component: {fileID: 3215668948851388652}
-  - component: {fileID: 5137956125067841813}
   - component: {fileID: 5421245616274091923}
   - component: {fileID: 1298686109826051431}
   - component: {fileID: 4911162895550230951}
@@ -501,9 +501,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6187c117212533d4d8aeba41e675b5ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ladderLayer:
-    serializedVersion: 2
-    m_Bits: 0
+--- !u!114 &3945385568700428353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3058659472406823714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5abeb5d54cdf7fc4ba8dbcd4206083c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 20
 --- !u!95 &6973292453351160238
 Animator:
   serializedVersion: 7
@@ -553,19 +563,6 @@ MonoBehaviour:
   meleeCollider: {fileID: 5323463313846824200}
   attackCooldown: 0.5
   isMeleeAttacking: 0
---- !u!114 &5137956125067841813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3058659472406823714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41f11a18da7d7f640ad2bbd82d5d4f42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 20
 --- !u!114 &5421245616274091923
 MonoBehaviour:
   m_ObjectHideFlags: 0

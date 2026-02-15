@@ -52,6 +52,7 @@ public class PlayerGroundState : PlayerBaseState
 			speed *= DashSpeedMultiplier;
 		
 		player.Motor.SetVelocityX(player.Input.Move.x * speed);
+		player.Motor.UpdateFacingDirection(player.Input.Move.x);
 	}
 
 	private void Jump(Player player)

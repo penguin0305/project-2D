@@ -6,25 +6,25 @@ public class PlayerUI : MonoBehaviour
     public TextMeshProUGUI HP;
     //public TextMeshProUGUI skillText;
 
-    private PlayerStats playerStats;
+    private Player player;
     //private PlayerSkill playerSkill;
 
     IEnumerator Start()
     {
-        // playerStats¸¦ Ã£À» ¶§±îÁö ¹«ÇÑ ´ë±â (0.1ÃÊ °£°Ý)
-        while (playerStats == null)
+        // playerStatsï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (0.1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+        while (player == null)
         {
-            playerStats = FindAnyObjectByType<PlayerStats>();
+            player = FindAnyObjectByType<Player>();
             //playerSkill = FindObjectOfType<PlayerSkill>();
-            if (playerStats == null)
+            if (player == null)
             {
                 yield return null;
             }
         }
 
-        playerStats.OnCheckHP += UpdateHP;
+        player.OnCheckHP += UpdateHP;
         //playerSkill.OnCheckSkillCount += UpdateSkillUI;
-        UpdateHP(playerStats.CurrentHP);
+        UpdateHP(player.Status.CurrentHealth);
     }
     void UpdateHP(int currentHp)
     {
@@ -39,9 +39,9 @@ public class PlayerUI : MonoBehaviour
 
     void OnDestroy()
     {
-        if (playerStats != null)
+        if (player != null)
         {
-            playerStats.OnCheckHP -= UpdateHP;
+            player.OnCheckHP -= UpdateHP;
         }
         /*
         if (playerSkill != null)

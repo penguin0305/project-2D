@@ -12,16 +12,12 @@ public class PlayerStunnedState : PlayerBaseState
 		Debug.Log("Player is Stunned!");
 		elapsed = 0f;
 
-		player.Motor.SetVelocityX(0f);
+		player.Motor.StopHorizontal();
 	}
 
 	public override void Tick(Player player)
 	{
 		elapsed += Time.deltaTime;
-	}
-
-	public override void FixedTick(Player player)
-	{
 		CheckStateTransitions(player);
 	}
 

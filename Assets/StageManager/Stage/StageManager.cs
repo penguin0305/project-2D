@@ -12,24 +12,24 @@ using UnityEditor.Build.Content;
 public class StageManager : MonoBehaviour
 {
 
-    //½ºÅ©¸³Æ® ÂüÁ¶
+    //ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
     [Header("References")]
-    public PlayerStats player;
+    public Player player;
 
 
-    //ÀÌº¥Æ® ¹ßÇà
+    //ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
     public event System.Action OnStageFail;
     public event System.Action<List<itemData>> OnStageClear;
     public event System.Action OnStageEscape;
     public event System.Action<int> OnAddScore;
 
-    //½ºÅ×ÀÌÁö ³»¿¡¼­ ÇÊ¿äÇÑ º¯¼ö
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     bool IsClear = false;
     bool CheckTrigger = false;
     int StageScore = 0;
 
-    // ¾ÆÀÌÅÛÀ» º¸°üÇÏ´Â ÀÓ½Ã ÀÎº¥Åä¸® »ý¼º   ItemData Å¬·¡½º ¸¸µé¾îÁö¸é ±×°Å¿¡ ¸Â°Ô ¼öÁ¤ 
-    private List<itemData> tmpinventory = new List<itemData>(); // ¸ÖÆ¼ÇÃ·¹ÀÌÀÇ °æ¿ì µñ¼Å³Ê¸® »ç¿ë <PID, List<ItemData>>
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ó½ï¿½ ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½   ItemData Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×°Å¿ï¿½ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ 
+    private List<itemData> tmpinventory = new List<itemData>(); // ï¿½ï¿½Æ¼ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å³Ê¸ï¿½ ï¿½ï¿½ï¿½ <PID, List<ItemData>>
  
     private void OnEnable()
     {
@@ -47,10 +47,10 @@ public class StageManager : MonoBehaviour
     }
 
 
-    //ÇÔ¼ö ÀÌ¸§: CalcPoint
-    //±â´É: ÀûÀ» Ã³Ä¡ÇßÀ» ¶§ Á¡¼ö¿Í È¹µæ°ñµå¸¦ ¹Þ¾Æ¿Í¼­ Ã³¸®ÇÏ´Â ÇÔ¼ö
-    //ÆÄ¶ó¹ÌÅÍ: int score -> ÇØ´ç ½ºÅ×ÀÌÁöÀÇ Á¡¼ö Áõ°¡·®
-    //¹ÝÈ¯°ª: X (ÀÌº¥Æ®¸¦ ±¸µ¶ÇÏ´Â ½ºÅ©¸³Æ®¿¡°Ô ½ºÅ×ÀÌÁö Á¡¼ö¸¦ Àü´Þ)
+    //ï¿½Ô¼ï¿½ ï¿½Ì¸ï¿½: CalcPoint
+    //ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ Ã³Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ï¿½å¸¦ ï¿½Þ¾Æ¿Í¼ï¿½ Ã³ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
+    //ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½: int score -> ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //ï¿½ï¿½È¯ï¿½ï¿½: X (ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
     public void CalcPoint(int score)
     {
         StageScore += score;
@@ -64,30 +64,30 @@ public class StageManager : MonoBehaviour
         StageEnd();
     }
 
-    //ÇÔ¼ö ÀÌ¸§: StageEnd
-    //±â´É: ½ºÅ×ÀÌÁö Á¾·á¸¦ ¾Ë¸®´Â ÇÔ¼ö
-    //ÆÄ¶ó¹ÌÅÍ: bool IsClear -> IsClear == trueÀÌ¸é Å¬¸®¾î
-    //¹ÝÈ¯°ª: X
+    //ï¿½Ô¼ï¿½ ï¿½Ì¸ï¿½: StageEnd
+    //ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½á¸¦ ï¿½Ë¸ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+    //ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½: bool IsClear -> IsClear == trueï¿½Ì¸ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
+    //ï¿½ï¿½È¯ï¿½ï¿½: X
     public void StageEnd()
     {
-        if(IsClear) // Å¬¸®¾î Á¶°ÇÀ» ¸¸Á·ÇßÀ¸¸é,
+        if(IsClear) // Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,
         {
             Debug.Log("Stage Clear");
-            OnStageClear?.Invoke(tmpinventory); // ÀÌº¥Æ®¸¦ ±¸µ¶ÁßÀÎ ½ºÅ©¸³Æ®¿¡ tmpinventory¸¦ ÀÎÀÚ·Î Àü´Þ
+            OnStageClear?.Invoke(tmpinventory); // ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ tmpinventoryï¿½ï¿½ ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
         else
         {
             OnStageFail?.Invoke();
             Debug.Log("Game Over");
-            tmpinventory.Clear(); // tmpinventory ÃÊ±âÈ­
+            tmpinventory.Clear(); // tmpinventory ï¿½Ê±ï¿½È­
         }
     }
 
     /*
-    //ÇÔ¼ö ÀÌ¸§: StageEscape
-    //±â´É: °ÔÀÓÀÌ Áß°£¿¡ Áß´ÜµÇ¾úÀ½À» ¾Ë¸®´Â ÇÔ¼ö
-    //ÆÄ¶ó¹ÌÅÍ: bool trigger -> player·ÎºÎÅÍ 'Á¤´çÇÑ ¹æ½Ä'ÀÓÀ» true·Î ¹Þ°Å³ª ±×·¸Áö ¾ÊÀ¸¸é false
-    //¹ÝÈ¯°ª: X (ÀÌº¥Æ® Àü´Þ°ªµµ ¾øÀ½)
+    //ï¿½Ô¼ï¿½ ï¿½Ì¸ï¿½: StageEscape
+    //ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ß´ÜµÇ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+    //ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½: bool trigger -> playerï¿½Îºï¿½ï¿½ï¿½ 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½'ï¿½ï¿½ï¿½ï¿½ trueï¿½ï¿½ ï¿½Þ°Å³ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ false
+    //ï¿½ï¿½È¯ï¿½ï¿½: X (ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½Þ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
     public void StageEscape(bool trigger)
     {
         OnStageEscape?.Invoke();
@@ -98,10 +98,10 @@ public class StageManager : MonoBehaviour
     */
 
 
-    //ÇÔ¼ö ÀÌ¸§: GetItem
-    //±â´É: È¹µæÇÑ ¾ÆÀÌÅÛÀ» ÀÓ½Ã ÀÎº¥Åä¸®¿¡ Ãß°¡
-    //ÆÄ¶ó¹ÌÅÍ: ItemData item -> ÀÎº¥Åä¸®¿¡ Ãß°¡ÇÒ ¾ÆÀÌÅÛ
-    //¹ÝÈ¯°ª: X
+    //ï¿½Ô¼ï¿½ ï¿½Ì¸ï¿½: GetItem
+    //ï¿½ï¿½ï¿½: È¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ß°ï¿½
+    //ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½: ItemData item -> ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //ï¿½ï¿½È¯ï¿½ï¿½: X
     public void GetItem(itemData item)
     {
         itemData Existing = tmpinventory.Find(x => x.itemID == item.itemID);
@@ -113,15 +113,15 @@ public class StageManager : MonoBehaviour
         else if (item.itemID != 1234)
         {
             tmpinventory.Add(item);
-            item.itemQuantity = 1;//»õ·Î¿î ¾ÆÀÌÅÛÀÌ ¸®½ºÆ®¿¡ Ãß°¡µÆÀ» ¶§ °³¼ö 1·Î ¸¸µê(¼¼°­)
+            item.itemQuantity = 1;//ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
         }
 
-        Debug.Log(item.itemID + " È¹µæ");
-        Debug.Log(item.itemQuantity + "°³");
+        Debug.Log(item.itemID + " È¹ï¿½ï¿½");
+        Debug.Log(item.itemQuantity + "ï¿½ï¿½");
         if (item.itemID == 1234)
-            CheckTrigger = true; // »óÈ£ÀÛ¿ëÀ» À§ÇÑ Æ®¸®°Å Ã¼Å©
+            CheckTrigger = true; // ï¿½ï¿½È£ï¿½Û¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
         /*
-        if (item.itemID == 12345) // Å¬¸®¾î Ã³¸® Å×½ºÆ®¿ë
+        if (item.itemID == 12345) // Å¬ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½×½ï¿½Æ®ï¿½ï¿½
         {
             IsClear = true;
             StageEnd();
@@ -137,15 +137,15 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    /*   ÀÌº¥Æ® Ã¼ÀÌ´× ³¡    */
+    /*   ï¿½Ìºï¿½Æ® Ã¼ï¿½Ì´ï¿½ ï¿½ï¿½    */
 
     void Update()
     {
         /*
-         //¸ÊÀÇ ÃÖ»ó´ÜÀ¸·Î ÀÌµ¿ ½Ã Å»Ãâ ½ÃµµÀÓÀ» È®ÀÎ
+         //ï¿½ï¿½ï¿½ï¿½ ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ Å»ï¿½ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
          if (PlayerTransform.position.y > -Threshold)
          {
-             StageEscape(false); // ÇÃ·¹ÀÌ¸¦ Áß´ÜÇÏµÇ, È¹µæÇÑ ¾ÆÀÌÅÛÀÌ ÃÊ±âÈ­
+             StageEscape(false); // ï¿½Ã·ï¿½ï¿½Ì¸ï¿½ ï¿½ß´ï¿½ï¿½Ïµï¿½, È¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
          }
          */
     }
@@ -153,7 +153,7 @@ public class StageManager : MonoBehaviour
  
     private void OnDisable()
     {
-        // ÀÌº¥Æ® ±¸µ¶ ÇØÁ¦
+        // ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         player.OnDeath -= StageEnd;
         //enemy.OnDeath -= CalcPoint;
         //Object.OnGetItem -= GetItem;

@@ -54,6 +54,7 @@ public class PlayerAirborneState : PlayerBaseState
 	private void Move(Player player)
 	{
 		player.Motor.SetVelocityX(player.Input.Move.x * AirMoveSpeed);
+		player.Motor.UpdateFacingDirection(player.Input.Move.x);
 	}
 
 	private void Jump(Player player)
