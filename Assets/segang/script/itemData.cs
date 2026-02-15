@@ -8,8 +8,7 @@ public class itemData : ScriptableObject
         potion,
         coin,
         key,
-        quest,
-        equip
+        quest
     }
     [Header("고유한 아이템의 ID(중복불가)")]
     [SerializeField] public int itemID;
