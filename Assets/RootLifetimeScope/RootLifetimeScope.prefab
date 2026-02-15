@@ -50,3 +50,8 @@ MonoBehaviour:
   autoInjectGameObjects: []
   GameSceneManager: {fileID: 232788514979707166, guid: c6d0f5651e6f76c448e69d7babd744e7,
     type: 3}
+  initialEquipments:
+  - {fileID: 11400000, guid: e3204860f3b737a468513ca026f5b314, type: 2}
+  - {fileID: 11400000, guid: 5197b7943d58a4d4ebf9c4ec2c232f77, type: 2}
+  - {fileID: 11400000, guid: ca9853406d0f44149aff1ef614f63b9d, type: 2}
+  - {fileID: 11400000, guid: 69efabaac4403014ca44d9d113689c8f, type: 2}

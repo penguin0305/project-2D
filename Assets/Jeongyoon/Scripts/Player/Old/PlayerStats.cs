@@ -12,10 +12,10 @@ public class PlayerStats : MonoBehaviour
     {
         _playerData = playerData;
         _equipStats = equipData;
-
-        ApplyEquipment();
     }
-    private void ApplyEquipment() { }
+    private void ApplyEquipment() {
+        maxHP += _equipStats.sBonusHP;
+    }
 
     [SerializeField] private int maxHP = 20;
 
@@ -31,6 +31,7 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
+        ApplyEquipment();
         currentHP = maxHP;
         OnCheckHP?.Invoke(currentHP);
         //HistoryManager.Instance.UpdateHP(currentHP);
