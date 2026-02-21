@@ -38,11 +38,16 @@ public class PlayerGroundState : PlayerBaseState
 		if (player.Input.ConsumeJumpPressed())
 			isJumpLatched = true;
 		if (player.Input.ConsumeAttackPressed())
-			player.Combat.TryMeleeAttack();
+		{
+			if (player.Combat.CurrentMode == PlayerCombat.CombatMode.Melee)
+				player.Combat.TryMeleeAttack();
+			else if (player.Combat.CurrentMode == PlayerCombat.CombatMode.Range)
+				player.Combat.TryRangeAttack();
+		}
 		if (player.Input.ConsumeInteractPressed())
 			player.Interaction.TryInteract();
 		if (player.Input.ConsumeUseItem1Pressed())
-			player.BombPlacer.TryPlaceBomb();
+			player.Combat.SwitchMode();
 	}
 
 	private void Move(Player player)

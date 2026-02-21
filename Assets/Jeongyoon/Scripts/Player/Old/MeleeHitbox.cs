@@ -2,23 +2,23 @@ using UnityEngine;
 
 public class MeleeHitbox : MonoBehaviour
 {
-	private PlayerCombat combat;
+	private Player player;
 
 	private void Awake()
 	{
-		combat = GetComponentInParent<PlayerCombat>();
+		player = GetComponentInParent<Player>();
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (!combat.isMeleeAttacking)
+		if (!player.Combat.isMeleeAttacking)
 			return;
 		
 		if (collision.CompareTag("Enemy"))
 		{
 			var dummy = collision.GetComponent<enemyCombat>();
 			if (dummy)
-				dummy.OnHit(5, transform);//ÇÃ·¹ÀÌ¾î °ø°Ý°ú ¹Ý´ë¹æÇâÀ¸·Î ³Ë¹é
+				dummy.OnHit(player.Status.MeleeATK, transform);//ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½Ý°ï¿½ ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¹ï¿½
 		}
 	}
 }
