@@ -18,13 +18,14 @@ public class PlayerAnimator : MonoBehaviour
 	{
 		CheckSpeed();
 		CheckGrounded();
+		UpdateFacing();
 		CheckDeath();
 	}
 
 	private void CheckSpeed()
 	{
 		float moveInputX = Mathf.Abs(player.Input.Move.x);
-                animator.SetFloat("Speed", moveInputX);
+		animator.SetFloat("Speed", moveInputX);
 	}
 
 	private void CheckGrounded()
@@ -37,6 +38,11 @@ public class PlayerAnimator : MonoBehaviour
 		animator.SetTrigger("MeleeAttack");
 	}
 
+	public void DoRangeAttack()
+	{
+		animator.SetTrigger("RangeAttack");
+	}
+
 	public void CheckDeath()
 	{
 		animator.SetBool("Death", player.Status.CurrentHealth <= 0);
@@ -46,4 +52,14 @@ public class PlayerAnimator : MonoBehaviour
 	{
 		animator.SetTrigger("Damage");
 	}
+
+	private void UpdateFacing()
+	{
+		float moveX = player.Input.Move.x;
+
+		if (moveX > 0f)
+			spriteRenderer.flipX = false;
+		else if (moveX < 0f)
+			spriteRenderer.flipX = true;
+	} 
 }

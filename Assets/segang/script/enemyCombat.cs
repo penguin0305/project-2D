@@ -19,10 +19,10 @@ public class enemyCombat : MonoBehaviour
     bool isHit = false;//피격처리 중복 방지
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerStats ps = collision.GetComponent<PlayerStats>();
-        if (ps != null)
+        Player p = collision.GetComponent<Player>();
+        if (p != null)
 
-            ps.TakeDamage(monserAttackPower);
+            p.ApplyDamage(monserAttackPower, 0.2f, true);
     }
 
     public void OnHit(int damage, Transform playerTransform)

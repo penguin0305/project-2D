@@ -91,7 +91,7 @@ public class PlayerCombat : MonoBehaviour
 			return;
 		
 		lastRangeAttackTime = Time.time;
-		animator.DoMeleeAttack(); // tmp
+		animator.DoRangeAttack(); // tmp
 		audio.PlayMelee(); // tmp
 		SpawnProjectile();
 	}

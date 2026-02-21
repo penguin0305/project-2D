@@ -2,11 +2,11 @@ using UnityEngine;
 using System.Collections;
 public class fallingTrapController : MonoBehaviour
 {
-    [Header("Èçµé¸²")]
+    [Header("ï¿½ï¿½é¸²")]
     public float shakeTime = 1f;
     public float shakePower = 0.05f;
 
-    [Header("³«ÇÏ")]
+    [Header("ï¿½ï¿½ï¿½ï¿½")]
     public float gravity = 5f;
     public int damage = 10;
 
@@ -70,10 +70,10 @@ public class fallingTrapController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            PlayerStats ps = collision.collider.GetComponent<PlayerStats>();
-            if (ps != null)
+            Player p = collision.collider.GetComponent<Player>();
+            if (p != null)
             {
-                ps.TakeDamage(damage);
+                p.ApplyDamage(damage, 0.2f, true);
                 Destroy(gameObject);
             }
         }
