@@ -1,18 +1,22 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    public itemData item;
     public Image Image;
     public TextMeshProUGUI amountText;
 
-    public void SetItem(Sprite sprite, int amount)
+    public void SetItem(itemData newitemData, int amount)
     {
-        Image.sprite = sprite;
+        item = newitemData;
+
+        Image.sprite = newitemData.mItemImage;
         Image.enabled = true;
 
-        if (amount > 1)
+        if (amount >= 1)
         {
             amountText.text = amount.ToString();
         }
@@ -23,4 +27,35 @@ public class InventorySlot : MonoBehaviour
         }
 
     }
+    public void DeleteSlot()
+    {
+        Image.sprite = null;
+        Image.enabled = false;
+        amountText.text = "";
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (item != null)
+        {
+            // ≈¯∆¡ ∫∏¿Ã±‚
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        // ≈¯∆¡ º˚±‚±‚
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (item != null)
+        {
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                // ¿Â∫Ò æ∆¿Ã≈€ ¿Â¬¯
+            }
+        }
+    }
 }
+

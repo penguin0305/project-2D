@@ -1,36 +1,41 @@
 using System.Collections.Generic;
 using UnityEngine;
-
 public class InventoryUI : MonoBehaviour
 {
     [Header("slot")]
     public Transform slotPanel;
-    public GameObject slot;
+    public InventorySlot[] slot;
 
     [Header("ItemList")]
     public List<itemData> ItemList;
 
     private void OnEnable()
     {
-        CreateInventory();
+        slot = slotPanel.GetComponentsInChildren<InventorySlot>();
+        UpdateInventory();
     }
-
-    public void CreateInventory()
+    public void UpdateInventory()
     {
-        foreach (Transform child in slotPanel)
-        {
-            Destroy(child.gameObject);
-        }
 
         if (InventoryManager.Instance == null) return;
+        if (InventoryManager.Instance.tmpInventory == null) return;
 
-        foreach ((int id, int count) in InventoryManager.Instance.tmpInventory)
+        for (int i = 0; i < slot.Length; i++)
+        {
+            slot[i].DeleteSlot();
+        }
+
+        int slotIndex = 0;
+
+        foreach ((int id, int amount) in InventoryManager.Instance.tmpInventory)
         {
             itemData data = ItemList.Find(x => x.itemID == id);
 
-            GameObject newSlot = Instantiate(slot, slotPanel);
-
-            newSlot.GetComponent<InventorySlot>().SetItem(data.mItemImage, count);
+            if (data != null)
+            {
+                slot[slotIndex].SetItem(data, amount);
+                slotIndex++;
+            }
         }
     }
 }
