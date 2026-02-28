@@ -3,15 +3,14 @@ using UnityEngine;
 public class enemyAttack : MonoBehaviour
 {
     [Header("공격패턴이 있는 모든 몬스터가 사용가능한 스크립트")]
-    public float attackCooldown = 4f;   // 공격 쿨타임
-    public int damage = 10;
-    private float lastAttackTime;
+    public float attackCooldown = 2f;   // 공격 쿨타임
+    private float lastAttackTime = 0f;
     private bool playerInRange = false;
     private Transform player;
     Animator animator;
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInParent<Animator>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,20 +25,17 @@ public class enemyAttack : MonoBehaviour
         {
             if (Time.time >= lastAttackTime + attackCooldown)
             {
-                Attack();
-                animator.SetBool("isAttacking", true);
+                animator.SetTrigger("isAttacking");
                 lastAttackTime = Time.time;
             }
         }
-        else
-            animator.SetBool("isAttacking", false);
     }
-    void Attack()
+    /*void Attack()
     {
         Debug.Log("몬스터 공격!");
         // 플레이어에게 데미지 주기
         //공견판정 추가 해야함
-    }
+    }*/ //애니메이션과 연동되는 공격판정을 위해 따로 구현 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
