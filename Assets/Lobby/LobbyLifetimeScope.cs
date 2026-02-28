@@ -14,5 +14,6 @@ public class LobbyLifetimeScope : LifetimeScope
 
         builder.RegisterComponent(SceneSetup);
         builder.RegisterComponent(CameraFollow);
+        builder.RegisterComponentInHierarchy<WeaponSlot>();
     }
 }

@@ -39,7 +39,7 @@ public class StartMenuController : MonoBehaviour
             HistoryManager.Instance.ResetData();
         }
 
-        SceneManager.LoadScene("tScene");
+        SceneManager.LoadScene("Lobby");
     }
 
 

@@ -28,6 +28,16 @@ public class EquipStats
         }
     }
 
+    public void Remove(EquipCategory category)
+    {
+        if (category == EquipCategory.Weapon)
+        {
+            equipData.Remove(category);
+            equipLevels.Remove(category);
+            RecalculateStats();
+        }
+    }
+
     public void Upgrade() { }
 
     private void RecalculateStats()
