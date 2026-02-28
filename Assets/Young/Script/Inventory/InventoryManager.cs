@@ -7,6 +7,8 @@ public class InventoryManager : MonoBehaviour
 
     public Dictionary<int, int> tmpInventory = new Dictionary<int, int>();
 
+    public List<int> itemOrder = new List<int>();
+
     private void Awake()
     {
         if (Instance == null)
@@ -16,15 +18,16 @@ public class InventoryManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public void AddItem(itemData item, int amount = 1)
+    public void AddItem(itemData item)
     {
         if (tmpInventory.ContainsKey(item.itemID))
         {
-            tmpInventory[item.itemID] += amount;
+            tmpInventory[item.itemID] += 1;
         }
         else
         {
-            tmpInventory.Add(item.itemID, amount);
+            tmpInventory.Add(item.itemID, 1);
+            itemOrder.Add(item.itemID);
         }
 
         Debug.Log($"{item.mItemType} 획득");
@@ -37,15 +40,31 @@ public class InventoryManager : MonoBehaviour
             }
         }
     }
-}
-    /* 특정 상호작용 갯수 확인용
-    public int GetItemCount(int id)
+
+    public void RemoveItem(int id)
     {
         if (tmpInventory.ContainsKey(id))
         {
-            return tmpInventory[id];
+            tmpInventory[id] -= 1;
+
+            if (tmpInventory[id] <= 0)
+            {
+                tmpInventory.Remove(id);
+                itemOrder.Remove(id);
+            }
         }
-        return 0;
     }
 
-    */
+    /* 특정 상호작용 갯수 확인용
+public int GetItemCount(int id)
+{
+    if (tmpInventory.ContainsKey(id))
+    {
+        return tmpInventory[id];
+    }
+    return 0;
+}
+
+*/
+}
+

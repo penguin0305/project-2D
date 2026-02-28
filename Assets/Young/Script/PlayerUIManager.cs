@@ -6,7 +6,7 @@ public class PlayerUI : MonoBehaviour
     public TextMeshProUGUI HP;
     //public TextMeshProUGUI skillText;-스킬 추가
 
-    private PlayerStats playerstats;
+    private Player player;
     //private PlayerSkill playerSkill;-스킬 추가
 
     [SerializeField] private TextMeshProUGUI timerText;
@@ -14,19 +14,19 @@ public class PlayerUI : MonoBehaviour
     IEnumerator Start()
     {
         // playerStats를 찾을 때까지 대기
-        while (playerstats == null)
+        while (player == null)
         {
-            playerstats = FindAnyObjectByType<PlayerStats>();
+            player = FindAnyObjectByType<Player>();
             //playerSkill = FindObjectOfType<PlayerSkill>();-스킬 추가
-            if (playerstats == null)
+            if (player == null)
             {
                 yield return null;
             }
         }
 
-        playerstats.OnCheckHP += UpdateHP;
+        player.OnCheckHP += UpdateHP;
         //playerSkill.OnCheckSkillCount += UpdateSkillUI;-스킬 추가
-        UpdateHP(playerstats.CurrentHP);
+        UpdateHP(player.Status.CurrentHealth);
 
         if (timerText != null)
         {
@@ -72,9 +72,9 @@ public class PlayerUI : MonoBehaviour
 
     void OnDestroy()
     {
-        if (playerstats != null)
+        if (player != null)
         {
-            playerstats.OnCheckHP -= UpdateHP;
+            player.OnCheckHP -= UpdateHP;
         }
         /*-스킬 추가
         if (playerSkill != null)
