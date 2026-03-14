@@ -11,7 +11,6 @@ public sealed class Player : MonoBehaviour
 	public PlayerInteraction Interaction { get; private set; }
 	public PlayerAudio Audio { get; private set; }
 	public PlayerAnimator Animator { get; private set; }
-	public PlayerBombPlacer BombPlacer { get; private set;}
 
 	[Header("States")]
 	private IPlayerState currentState;
@@ -36,7 +35,6 @@ public sealed class Player : MonoBehaviour
 		Interaction = GetComponentInChildren<PlayerInteraction>();
 		Audio = GetComponent<PlayerAudio>();
 		Animator = GetComponent<PlayerAnimator>();
-		BombPlacer = GetComponent<PlayerBombPlacer>();
 	}
 
 	private void Awake()
@@ -123,8 +121,6 @@ public sealed class Player : MonoBehaviour
 			Audio = GetComponent<PlayerAudio>();
 		if (!Animator)
 			Animator = GetComponent<PlayerAnimator>();
-		if (!BombPlacer)
-			BombPlacer = GetComponent<PlayerBombPlacer>();
 	}
 
 	private void InitializeStates()

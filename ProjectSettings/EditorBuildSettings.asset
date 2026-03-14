@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/Lobby.unity
     guid: d8a09dc1a414d4646a1afa572c1b3999
+  - enabled: 1
+    path: Assets/Jeongyoon/NetworkDemo/Multiplay Demo.unity
+    guid: 46c9e642b9ad4be4aad89e860164257b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a17b85cbc1fbca74dbb38fceb2cb7409,
       type: 2}
