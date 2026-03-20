@@ -12,7 +12,7 @@ public class GameOverManager : MonoBehaviour
 
     [SerializeField] private AudioSource BGM;
 
-    private PlayerStats playerStats;
+    private Player player;
 
     void Start()
     {
@@ -21,11 +21,11 @@ public class GameOverManager : MonoBehaviour
             gameOverUI.SetActive(false);
         }
 
-        playerStats = FindAnyObjectByType<PlayerStats>();
+        player = FindAnyObjectByType<Player>();
 
-        if (playerStats != null)
+        if (player != null)
         {
-            playerStats.OnDeath += GameOver;
+            player.OnDeath += GameOver;
         }
     }
 
@@ -47,9 +47,9 @@ public class GameOverManager : MonoBehaviour
 
     void OnDestroy()
     {
-        if (playerStats != null)
+        if (player != null)
         {
-            playerStats.OnDeath -= GameOver;
+            player.OnDeath -= GameOver;
         }
     }
 }
