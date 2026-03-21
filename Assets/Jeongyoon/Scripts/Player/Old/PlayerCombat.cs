@@ -2,7 +2,8 @@ using System.Collections;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
-public class PlayerCombat : MonoBehaviour
+//public class PlayerCombat : MonoBehaviour
+public class PlayerCombat : Unity.Netcode.NetworkBehaviour
 {
 	[Header("Melee Attack")]
 	[SerializeField] private Collider2D meleeCollider;
@@ -12,8 +13,10 @@ public class PlayerCombat : MonoBehaviour
 	private Vector2 meleeColliderBaseOffset;
 
 	[Header("Range Attack")]
-	[SerializeField] private GameObject arrowPrefab;
-	[SerializeField] private Transform muzzle;
+	//[SerializeField] private GameObject arrowPrefab;
+	[SerializeField] protected GameObject arrowPrefab;
+	//[SerializeField] private Transform muzzle;
+	[SerializeField] protected Transform muzzle;
 	[SerializeField] private float rangeAttackCooldown = 0.4f;
 	private float lastRangeAttackTime;
 
@@ -27,9 +30,11 @@ public class PlayerCombat : MonoBehaviour
 
 	private PlayerAnimator animator;
 	private PlayerAudio audio;
-	private Player player;
+	//private Player player;
+	protected Player player;
 
-	private void Awake()
+	//private void Awake()
+	protected virtual void Awake()
 	{
 		animator = GetComponent<PlayerAnimator>();
 		audio = GetComponent<PlayerAudio>();
@@ -51,7 +56,8 @@ public class PlayerCombat : MonoBehaviour
 	{
 		Vector2 offset = meleeColliderBaseOffset;
 
-		if (animator.IsFacingRight)
+		//if (animator.IsFacingRight)
+		if (player.Motor.IsFacingRight)
 			offset.x = Mathf.Abs(meleeColliderBaseOffset.x);
 		else
 			offset.x = -Mathf.Abs(meleeColliderBaseOffset.x);
@@ -96,7 +102,8 @@ public class PlayerCombat : MonoBehaviour
 		SpawnProjectile();
 	}
 
-	public void SpawnProjectile()
+	//public void SpawnProjectile()
+	public virtual void SpawnProjectile()
 	{
 		GameObject arrowObject = Instantiate(arrowPrefab, muzzle.position, Quaternion.identity);
 		Projectile arrow = arrowObject.GetComponent<Projectile>();
