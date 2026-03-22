@@ -1,7 +1,7 @@
 using UnityEngine;
+using Unity.Netcode;
 
-
-public class enemyController : MonoBehaviour
+public class enemyController : NetworkBehaviour
 {
     public enemyCombat eCombat;
 
@@ -108,10 +108,10 @@ public class enemyController : MonoBehaviour
     public virtual void die()
     {
 
-
+        if (!IsServer) return;
 
         dropper.DropItems();//아이템 드랍 함수 인스펙터창에서 프리팹과 드랍가중치 설정가능
-        Destroy(gameObject, 0.1f);
+        GetComponent<NetworkObject>().Despawn();
         Debug.Log($"{gameObject.name} 사망");
     }
 

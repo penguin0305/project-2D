@@ -17,12 +17,20 @@ public class enemyCombat : MonoBehaviour
     SpriteRenderer sr;
 
     bool isHit = false;//피격처리 중복 방지
+
+    //네트워크 수정
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Player p = collision.GetComponent<Player>();
-        if (p != null)
+        if (!Unity.Netcode.NetworkManager.Singleton.IsServer) return;
 
-            p.ApplyDamage(monserAttackPower, 0.2f, true);
+        if (collision.CompareTag("Player"))
+        {
+            var status = collision.GetComponent<PlayerStatus>();
+            if (status != null)
+            {
+                status.ChangeHealth(-monserAttackPower);
+            }
+        }
     }
 
     public void OnHit(int damage, Transform playerTransform)
@@ -31,7 +39,11 @@ public class enemyCombat : MonoBehaviour
         
         if(eController.currentHealth<=0)
         {
-            HistoryManager.Instance.AddDefeatCount();
+            if (NetworkHistoryManager.Instance != null)
+            {
+                NetworkHistoryManager.Instance.AddDefeatCountServerRpc(Unity.Netcode.NetworkManager.Singleton.LocalClientId);
+            }
+
             eController.die();
         }
         if (!isHit)//중복처리 방지

@@ -699,13 +699,13 @@ PrefabInstance:
     - target: {fileID: 9195258672906178197, guid: cfbb7ebdc2599d84db1a8f9a30f61df6,
         type: 3}
       propertyPath: NetworkConfig.Prefabs.NetworkPrefabsLists.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9195258672906178197, guid: cfbb7ebdc2599d84db1a8f9a30f61df6,
         type: 3}
       propertyPath: 'NetworkConfig.Prefabs.NetworkPrefabsLists.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 9f555f6f5fae1654797a14e6d4e812a3,
+      objectReference: {fileID: 11400000, guid: 7f5e4b289b4653e48bb4892c3e3bf0fa,
         type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

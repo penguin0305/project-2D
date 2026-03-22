@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
+
+    public static InventoryUI Instance;
+
     [Header("slot")]
     public Transform slotPanel;
     public InventorySlot[] slot;
@@ -17,8 +20,8 @@ public class InventoryUI : MonoBehaviour
     public void UpdateInventory()
     {
 
-        if (InventoryManager.Instance == null) return;
-        if (InventoryManager.Instance.tmpInventory == null) return;
+        if (NetworkInventoryManager.Instance == null) return;
+        if (NetworkInventoryManager.Instance.tmpInventory == null) return;
 
         for (int i = 0; i < slot.Length; i++)
         {
@@ -27,11 +30,14 @@ public class InventoryUI : MonoBehaviour
 
         int slotIndex = 0;
 
-        foreach ((int id, int amount) in InventoryManager.Instance.tmpInventory)
+        foreach (var item in NetworkInventoryManager.Instance.tmpInventory)
         {
+            int id = item.Key;
+            int amount = item.Value;
+
             itemData data = ItemList.Find(x => x.itemID == id);
 
-            if (data != null)
+            if (data != null && slotIndex < slot.Length)
             {
                 slot[slotIndex].SetItem(data, amount);
                 slotIndex++;
