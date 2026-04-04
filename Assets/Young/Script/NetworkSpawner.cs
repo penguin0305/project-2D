@@ -13,28 +13,47 @@ public class MultiplayGameManager : NetworkBehaviour
     {
         if (IsServer)
         {
-            NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SpawnPlayers;
+
+            foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
+        {
+            SpawnSinglePlayer(clientId);
+        }
+
+        NetworkManager.Singleton.SceneManager.OnLoadComplete += OnClientSceneLoaded;
         }
     }
 
-    private void SpawnPlayers(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+    private void OnClientSceneLoaded(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
     {
-        int spawnIndex = 0;
-
-        foreach (ulong clientId in clientsCompleted)
+        if (IsServer)
         {
+            SpawnSinglePlayer(clientId);
+        }
+    }
 
+    private void SpawnSinglePlayer(ulong clientId)
+    {
+        if (!IsServer) return;
+
+        if (NetworkManager.Singleton.ConnectedClients.TryGetValue(clientId, out var client))
+        {
+            if (client.PlayerObject != null) return;
+        }
+
+            int spawnIndex = (int)clientId;
             int characterTypeIndex = (int)(clientId % (ulong)characterPrefabs.Length);
 
             GameObject selectedPrefab = characterPrefabs[characterTypeIndex];
-
             Transform spawnPoint = spawnPoints[spawnIndex % spawnPoints.Length];
 
-            GameObject playerInstance = Instantiate(selectedPrefab, spawnPoint.position, spawnPoint.rotation);
+        if (NetworkHistoryManager.Instance != null)
+        {
+            NetworkHistoryManager.Instance.RegisterPlayer(clientId);
+        }
 
+        GameObject playerInstance = Instantiate(selectedPrefab, spawnPoint.position, spawnPoint.rotation);
             playerInstance.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
 
-            spawnIndex++;
-        }
+
     }
 }

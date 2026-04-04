@@ -1,5 +1,7 @@
 using UnityEngine;
-public class PlayerStatus : MonoBehaviour
+using Unity.Netcode;
+
+public class PlayerStatus : NetworkBehaviour
 {
 	[SerializeField] private int maxHealth = 20;
 	private int baseMeleeATK = 5;
@@ -15,6 +17,15 @@ public class PlayerStatus : MonoBehaviour
 		CurrentHealth = maxHealth;
 		MeleeATK = baseMeleeATK;
 		RangeATK = baseRangeATK;
+
+		//network 시스템 추가
+		if (IsOwner)
+		{
+			if (NetworkHistoryManager.Instance != null)
+			{
+				NetworkHistoryManager.Instance.UpdateHPServerRpc(OwnerClientId, CurrentHealth);
+			}
+		}
 	}
 	public void ChangeHealth(int amount)
 	{
@@ -22,5 +33,15 @@ public class PlayerStatus : MonoBehaviour
 			return;
 
 		CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, maxHealth);
+
+
+		//network 시스템 추가
+		if (IsOwner)
+		{
+			if (NetworkHistoryManager.Instance != null)
+			{
+				NetworkHistoryManager.Instance.UpdateHPServerRpc(OwnerClientId, CurrentHealth);
+			}
+		}
 	}
 }

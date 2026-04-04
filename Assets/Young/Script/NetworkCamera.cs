@@ -6,7 +6,7 @@ public class NetworkCameraSetup : NetworkBehaviour
 {
     public override void OnNetworkSpawn()
     {
-        if (IsOwner)
+        if (IsOwner && IsLocalPlayer)
         {
             Camera mainCamera = Camera.main;
 
