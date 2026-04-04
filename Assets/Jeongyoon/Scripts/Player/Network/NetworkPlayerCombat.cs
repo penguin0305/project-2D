@@ -1,3 +1,4 @@
+/*
 using Unity.Netcode;
 using UnityEngine;
 
@@ -24,3 +25,4 @@ public class NetworkPlayerCombat : PlayerCombat
 		arrowObject.GetComponent<NetworkProjectile>().NetworkSetup(player.Status.RangeATK, shootDir, shooterId);
 	}
 }
+*/

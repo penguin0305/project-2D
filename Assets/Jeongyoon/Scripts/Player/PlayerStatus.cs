@@ -12,13 +12,12 @@ public class PlayerStatus : NetworkBehaviour
 	public int RangeATK { get; private set; }
 	public int Armor { get; private set; }
 
-	private void Start()
+	private void Awake()
 	{
 		CurrentHealth = maxHealth;
 		MeleeATK = baseMeleeATK;
 		RangeATK = baseRangeATK;
 
-		//network 시스템 추가
 		if (IsOwner)
 		{
 			if (NetworkHistoryManager.Instance != null)
@@ -34,8 +33,6 @@ public class PlayerStatus : NetworkBehaviour
 
 		CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, maxHealth);
 
-
-		//network 시스템 추가
 		if (IsOwner)
 		{
 			if (NetworkHistoryManager.Instance != null)

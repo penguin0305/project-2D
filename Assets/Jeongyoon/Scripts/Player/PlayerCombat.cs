@@ -1,9 +1,9 @@
 using System.Collections;
-using UnityEditor.PackageManager;
+using Unity.Netcode;
 using UnityEngine;
 
 //public class PlayerCombat : MonoBehaviour
-public class PlayerCombat : Unity.Netcode.NetworkBehaviour
+public class PlayerCombat : NetworkBehaviour
 {
 	[Header("Melee Attack")]
 	[SerializeField] private Collider2D meleeCollider;
@@ -13,10 +13,10 @@ public class PlayerCombat : Unity.Netcode.NetworkBehaviour
 	private Vector2 meleeColliderBaseOffset;
 
 	[Header("Range Attack")]
-	//[SerializeField] private GameObject arrowPrefab;
-	[SerializeField] protected GameObject arrowPrefab;
-	//[SerializeField] private Transform muzzle;
-	[SerializeField] protected Transform muzzle;
+	[SerializeField] private GameObject arrowPrefab;
+	// [SerializeField] protected GameObject arrowPrefab;
+	[SerializeField] private Transform muzzle;
+	// [SerializeField] protected Transform muzzle;
 	[SerializeField] private float rangeAttackCooldown = 0.4f;
 	private float lastRangeAttackTime;
 
@@ -30,11 +30,11 @@ public class PlayerCombat : Unity.Netcode.NetworkBehaviour
 
 	private PlayerAnimator animator;
 	private PlayerAudio audio;
-	//private Player player;
-	protected Player player;
+	private Player player;
+	// protected Player player;
 
-	//private void Awake()
-	protected virtual void Awake()
+	private void Awake()
+	// protected virtual void Awake()
 	{
 		animator = GetComponent<PlayerAnimator>();
 		audio = GetComponent<PlayerAudio>();
@@ -102,13 +102,29 @@ public class PlayerCombat : Unity.Netcode.NetworkBehaviour
 		SpawnProjectile();
 	}
 
-	//public void SpawnProjectile()
-	public virtual void SpawnProjectile()
+	// public virtual void SpawnProjectile()
+	public void SpawnProjectile()
 	{
-		GameObject arrowObject = Instantiate(arrowPrefab, muzzle.position, Quaternion.identity);
-		Projectile arrow = arrowObject.GetComponent<Projectile>();
+		if (IsServer)
+			SpawnProjectileOnServer(muzzle.position, player.Motor.IsFacingRight);
+		else
+			SpawnProjectileServerRpc(muzzle.position, player.Motor.IsFacingRight);
+	}
 
-		Vector2 shootDir = player.Motor.IsFacingRight ? Vector2.right : Vector2.left;
-		arrow.Setup(player.Status.RangeATK, shootDir);
+	[Rpc(SendTo.Server)]
+	private void SpawnProjectileServerRpc(Vector3 spawnPosition, bool facingRight)
+	{
+		SpawnProjectileOnServer(spawnPosition, facingRight);
+	}
+
+	private void SpawnProjectileOnServer(Vector3 spawnPosition, bool facingRight)
+	{
+		GameObject arrowObject = Instantiate(arrowPrefab, spawnPosition, Quaternion.identity);
+		arrowObject.GetComponent<NetworkObject>().Spawn(true);
+
+		Vector2 shootDir = facingRight ? Vector2.right : Vector2.left;
+		ulong shooterId = GetComponent<NetworkObject>().NetworkObjectId;
+
+		arrowObject.GetComponent<Projectile>().NetworkSetup(player.Status.RangeATK, shootDir, shooterId);
 	}
 }

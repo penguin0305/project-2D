@@ -1,3 +1,4 @@
+/*
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -94,3 +95,4 @@ public class NetworkPlayer : NetworkBehaviour
 		player.ChangeState(player.Dead);
 	}
 }
+*/

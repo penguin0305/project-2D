@@ -1,3 +1,4 @@
+/*
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -42,3 +43,4 @@ public class NetworkHealthDisplay : MonoBehaviour
 			transform.forward = Camera.main.transform.forward;
 	}
 }
+*/

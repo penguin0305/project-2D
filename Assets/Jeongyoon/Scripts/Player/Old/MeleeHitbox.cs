@@ -1,3 +1,4 @@
+/*
 using UnityEngine;
 
 public class MeleeHitbox : MonoBehaviour
@@ -22,3 +23,4 @@ public class MeleeHitbox : MonoBehaviour
 		}
 	}
 }
+*/
