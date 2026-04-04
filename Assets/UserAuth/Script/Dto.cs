@@ -8,7 +8,7 @@ public class RegisterRequest
     public string Name;
     public string Email;
     public string Password;
-    public string Nickname;
+    public string Username;
 }
 
 [Serializable]

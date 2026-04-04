@@ -29,7 +29,6 @@ public class TapNavigation : MonoBehaviour
             {
                 if (selectables[i].gameObject == current)
                 {
-                    // Shift Tab이면 이전으로, 그냥 Tab이면 다음으로 이동
                     int nextIndex;
                     if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
                     {

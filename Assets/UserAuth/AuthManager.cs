@@ -5,19 +5,21 @@ using UnityEngine.Networking;
 
 public class AuthManager : MonoBehaviour
 {
-    private readonly string baseUrl = "https://localhost:7026/api/account";
+    private readonly string baseUrl = "http://3.37.127.156:8080/api/account"; // 로컬은 https://localhost:7026/api/account
     private IAuthUI ui;
+    private PlayerDataManager playerData;
 
     void Awake()
     {
         ui = GetComponent<IAuthUI>();
+        playerData = GetComponent<PlayerDataManager>();
     }
 
     public void OnClickRegister()
     {
         if (!ui.ValidateRegisterInputs())
         {
-            Debug.LogWarning("모든 필드를 입력해주세요.");
+            ui.ShowErrorPopup("All fields are required.");
             return;
         }
 
@@ -29,7 +31,7 @@ public class AuthManager : MonoBehaviour
     {
         if (!ui.ValidateLoginInputs())
         {
-            Debug.LogWarning("모든 필드를 입력해주세요.");
+            ui.ShowErrorPopup("Invalid ID or password.");
             return;
         }
 
@@ -95,7 +97,7 @@ public class AuthManager : MonoBehaviour
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log($"성공: {request.downloadHandler.text}");
+                Debug.Log($"성공: {request.downloadHandler.text}"); // 서버로부터 전달받은 로그
 
                 if (isLogin)
                 {
@@ -103,6 +105,7 @@ public class AuthManager : MonoBehaviour
                     PlayerPrefs.SetString("AuthToken", res.token);
                     PlayerPrefs.Save();
                     Debug.Log("토큰이 성공적으로 저장되었습니다.");
+                    playerData.FetchMyData();
 
                     ui.ShowStartButton();
                 }
@@ -113,7 +116,23 @@ public class AuthManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError($"에러 ({request.responseCode}): {request.downloadHandler.text}");
+                string serverMessage = request.downloadHandler.text;
+
+                if (string.IsNullOrWhiteSpace(serverMessage))
+                {
+                    ui.ShowErrorPopup("Please check your network connection.");
+                }
+                // 예상치 못한 에러가 발생하는 경우
+                else if (serverMessage.Contains("<!DOCTYPE html>") || serverMessage.Length > 100)
+                {
+                    ui.ShowErrorPopup("Please try again later.");
+                }
+                
+                else
+                {
+                    ui.ShowErrorPopup(serverMessage);
+                }
+                Debug.Log($"에러 ({request.responseCode}): {serverMessage}");
             }
         }
     }

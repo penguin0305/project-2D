@@ -5,11 +5,14 @@ public interface IAuthUI
     bool IsRegisterPanelActive { get; }
     bool IsLoginPanelActive { get; }
 
-    // 패널 제어 명령
+    // 패널 제어
     void ShowLoginPanel();
     void ShowRegisterPanel();
     void ShowStartButton();
     void SetLoadingPanel(bool isActive);
+
+    //에러 팝업
+    void ShowErrorPopup(string message);
 
     // 유효성 검사 및 데이터 수집
     bool ValidateRegisterInputs();
