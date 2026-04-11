@@ -2644,6 +2644,7 @@ GameObject:
   - component: {fileID: 655410310}
   - component: {fileID: 655410311}
   - component: {fileID: 655410312}
+  - component: {fileID: 655410313}
   m_Layer: 0
   m_Name: StartController
   m_TagString: Untagged
@@ -2734,6 +2735,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c5ad17afb336404e969068d831cd12d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &655410313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655410307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b73aae3522c780468bd051caf94dcc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &703180678
