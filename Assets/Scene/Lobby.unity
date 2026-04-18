@@ -379,7 +379,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   SceneSetup: {fileID: 1892636304}
-  CameraFollow: {fileID: 849542646}
+  CameraFollow: {fileID: 0}
 --- !u!4 &835338666
 Transform:
   m_ObjectHideFlags: 0
@@ -539,18 +539,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87bf8c1bb82c18141b66b97e913ccc1e, type: 3}
---- !u!114 &849542646 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2644038771920387516, guid: 87bf8c1bb82c18141b66b97e913ccc1e,
-    type: 3}
-  m_PrefabInstance: {fileID: 849542645}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da8cb3c2cd71ab24cac5aca842992d26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &852029482
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,8 +636,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eCategory: 0
   icon: {fileID: 852029486}
-  playerAnimator: {fileID: 6973292453351160238, guid: 5d5b863d209410741b16c62ef4e8b47e,
-    type: 3}
   initialWeapon: {fileID: 11400000, guid: db26e398fd96c4247a7d54bd806cf0de, type: 2}
 --- !u!114 &852029486
 MonoBehaviour:
