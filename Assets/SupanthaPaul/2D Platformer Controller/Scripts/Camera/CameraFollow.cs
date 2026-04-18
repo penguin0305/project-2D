@@ -1,43 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿	using System.Collections;
+	using System.Collections.Generic;
+	using UnityEngine;
 
-namespace YoungCameraFollow
+	namespace YoungCameraFollow
 
-{
-	public class CameraFollow : MonoBehaviour
 	{
-		[SerializeField]
-		public Transform target;
-		[SerializeField]
-		private float smoothSpeed = 0.125f;
-		public Vector3 offset;
-		[Header("Camera bounds")]
-		public Vector3 minCamerabounds;
-		public Vector3 maxCamerabounds;
-
-
-		private void FixedUpdate()
+		public class CameraFollow : MonoBehaviour
 		{
-			if (target == null) return;
+			[SerializeField]
+			public Transform target;
 
-			Vector3 desiredPosition = target.localPosition + offset;
-			var localPosition = transform.localPosition;
-			Vector3 smoothedPosition = Vector3.Lerp(localPosition, desiredPosition, smoothSpeed);
-			localPosition = smoothedPosition;
+			public Vector3 offset = new Vector3(0, 0, -10f);
 
-			// clamp camera's position between min and max
-			localPosition = new Vector3(
-				Mathf.Clamp(localPosition.x, minCamerabounds.x, maxCamerabounds.x),
-				Mathf.Clamp(localPosition.y, minCamerabounds.y, maxCamerabounds.y),
-				Mathf.Clamp(localPosition.z, minCamerabounds.z, maxCamerabounds.z)
-				);
-			transform.localPosition = localPosition;
+
+		private void LateUpdate()
+			{
+				if (target == null) return;
+
+			transform.position = target.position + offset;
 		}
 
-		public void SetTarget(Transform targetToSet)
-		{
-			target = targetToSet;
+			public void SetTarget(Transform targetToSet)
+			{
+				target = targetToSet;
+			}
 		}
 	}
-}

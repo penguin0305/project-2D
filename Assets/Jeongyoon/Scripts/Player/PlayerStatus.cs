@@ -7,41 +7,64 @@ public class PlayerStatus : NetworkBehaviour
 	private int baseMeleeATK = 5;
 	private int baseRangeATK = 3;
 	private int baseArmor = 0;
-	public int CurrentHealth { get; private set; }
 	public int MeleeATK { get; private set; }
 	public int RangeATK { get; private set; }
 	public int Armor { get; private set; }
 
+	public NetworkVariable<int> currentHealthNet = new NetworkVariable<int>(20);
+	public int CurrentHealth => currentHealthNet.Value;
 	private void Start()
 	{
-		CurrentHealth = maxHealth;
 		MeleeATK = baseMeleeATK;
 		RangeATK = baseRangeATK;
 
-		//network 시스템 추가
+		if (NetworkPlayerUI.Instance != null)
+		{
+			NetworkPlayerUI.Instance.UpdateHP(maxHealth);
+			Debug.Log("UI 연결 성공! 체력을 초기화합니다.");
+		}
+
+	}
+
+	public override void OnNetworkSpawn()
+	{
+		if (IsServer)
+		{
+			currentHealthNet.Value = maxHealth;
+		}
+
 		if (IsOwner)
 		{
-			if (NetworkHistoryManager.Instance != null)
+			if (NetworkPlayerUI.Instance != null)
 			{
-				NetworkHistoryManager.Instance.UpdateHPServerRpc(OwnerClientId, CurrentHealth);
+				NetworkPlayerUI.Instance.UpdateHP(currentHealthNet.Value);
 			}
+			currentHealthNet.OnValueChanged += OnChangeHealth;
+		}
+	}
+
+	public override void OnNetworkDespawn()
+	{
+		if (IsOwner)
+		{
+			currentHealthNet.OnValueChanged -= OnChangeHealth;
+		}
+	}
+
+	private void OnChangeHealth(int oldValue, int newValue)
+	{
+		if (NetworkPlayerUI.Instance != null)
+		{
+			NetworkPlayerUI.Instance.UpdateHP(newValue);
 		}
 	}
 	public void ChangeHealth(int amount)
 	{
-		if (CurrentHealth <= 0 && amount < 0)
+		if (!IsServer) return;
+
+		if (currentHealthNet.Value <= 0 && amount < 0)
 			return;
 
-		CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, maxHealth);
-
-
-		//network 시스템 추가
-		if (IsOwner)
-		{
-			if (NetworkHistoryManager.Instance != null)
-			{
-				NetworkHistoryManager.Instance.UpdateHPServerRpc(OwnerClientId, CurrentHealth);
-			}
-		}
+		currentHealthNet.Value = Mathf.Clamp(currentHealthNet.Value + amount, 0, maxHealth);
 	}
 }

@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 1272831585399129031}
   - component: {fileID: 3551494539317404591}
   - component: {fileID: 522335942348825645}
+  - component: {fileID: 7775772235874536405}
   - component: {fileID: 3945385568700428353}
   - component: {fileID: 6973292453351160238}
   - component: {fileID: 6153650724410632339}
@@ -500,6 +501,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6187c117212533d4d8aeba41e675b5ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7775772235874536405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3058659472406823714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3906116126
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &3945385568700428353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,6 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abeb5d54cdf7fc4ba8dbcd4206083c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   maxHealth: 20
 --- !u!95 &6973292453351160238
 Animator:
@@ -559,6 +586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0f7e43ef2d7de4081614270024fbb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   meleeCollider: {fileID: 5323463313846824200}
   attackCooldown: 0.5
   isMeleeAttacking: 0

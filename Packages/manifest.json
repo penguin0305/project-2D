@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.2d.tilemap": "1.0.0",
     "com.unity.cinemachine": "3.1.5",
@@ -14,6 +15,9 @@
     "com.unity.netcode.gameobjects": "2.10.0",
     "com.unity.render-pipelines.universal": "17.0.4",
     "com.unity.services.authentication": "3.6.0",
+    "com.unity.services.lobby": "1.2.2",
+    "com.unity.services.multiplay": "1.2.5",
+    "com.unity.services.relay": "1.0.5",
     "com.unity.test-framework": "1.5.1",
     "com.unity.timeline": "1.8.7",
     "com.unity.ugui": "2.0.0",
