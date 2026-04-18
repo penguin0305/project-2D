@@ -15,7 +15,8 @@ public class SpikeDamage : MonoBehaviour
         */
         if (collision.TryGetComponent<Player>(out Player player))
         {
-            player.ApplyDamage(damage, 0.2f, true);
+            // player.ApplyDamage(damage, 0.2f, true);
+            player.TakeDamage(damage, 0.2f, true);
         }
     }
 }

@@ -55,11 +55,19 @@ public class PlayerAnimator : MonoBehaviour
 
 	private void UpdateFacing()
 	{
+		// 비소유자: 서버에서 동기화된 NetworkVariable 기준
+		if (!player.IsOwner)
+		{
+			spriteRenderer.flipX = player.isFacingLeft.Value;
+			return;
+		}
+
+		// Owner: 로컬 입력 기준 (기존 로직)
 		float moveX = player.Input.Move.x;
 
 		if (moveX > 0f)
 			spriteRenderer.flipX = false;
 		else if (moveX < 0f)
 			spriteRenderer.flipX = true;
-	} 
+	}
 }

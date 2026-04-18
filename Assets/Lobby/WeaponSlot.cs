@@ -7,9 +7,7 @@ public class WeaponSlot : MonoBehaviour, IPointerClickHandler
 {
     private EquipStats _equipStats;
     public EquipCategory eCategory = EquipCategory.Weapon;
-
     public Image icon;
-    public Animator playerAnimator;
 
     private WeaponData _weapon;
     [SerializeField] private WeaponData initialWeapon; // UI테스트용
@@ -43,11 +41,6 @@ public class WeaponSlot : MonoBehaviour, IPointerClickHandler
             icon.sprite = _weapon.mItemImage;
             icon.enabled = true;
         }
-
-        if (playerAnimator != null)
-        {
-            playerAnimator.SetInteger("WeaponType", (int)_weapon.weaponType);
-        }
     }
 
     public void Unequip()
@@ -62,10 +55,6 @@ public class WeaponSlot : MonoBehaviour, IPointerClickHandler
             icon.enabled = false;
         }
 
-        if (playerAnimator != null)
-        {
-            playerAnimator.SetInteger("WeaponType", 0);
-        }
 
         _weapon = null;
     }
@@ -76,11 +65,6 @@ public class WeaponSlot : MonoBehaviour, IPointerClickHandler
         if (newWeapon == null) return;
 
         _equipStats.Initialize(EquipCategory.Weapon, newWeapon, newWeapon.level);
-
-        if (playerAnimator != null)
-        {
-            playerAnimator.SetInteger("WeaponType", (int)newWeapon.weaponType);
-        }
     }
     */
 

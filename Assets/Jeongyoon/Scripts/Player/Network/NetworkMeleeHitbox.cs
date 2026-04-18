@@ -1,3 +1,4 @@
+/*
 using UnityEngine;
 
 public class NetworkMeleeHitbox : MonoBehaviour
@@ -32,3 +33,4 @@ public class NetworkMeleeHitbox : MonoBehaviour
 		}
 	}
 }
+*/

@@ -73,7 +73,8 @@ public class fallingTrapController : MonoBehaviour
             Player p = collision.collider.GetComponent<Player>();
             if (p != null)
             {
-                p.ApplyDamage(damage, 0.2f, true);
+                // p.ApplyDamage(damage, 0.2f, true);
+                p.TakeDamage(damage, 0.2f, true);
                 Destroy(gameObject);
             }
         }

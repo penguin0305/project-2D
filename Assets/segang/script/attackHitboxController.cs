@@ -19,6 +19,7 @@ public class attackHitboxController : MonoBehaviour
         Player p = collision.GetComponent<Player>();
         if (p != null)
 
-            p.ApplyDamage(attackPower, 0.2f, true);
+            // p.ApplyDamage(attackPower, 0.2f, true);
+            p.TakeDamage(attackPower, 0.2f, true);
     }
 }

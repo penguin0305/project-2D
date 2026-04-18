@@ -11,27 +11,10 @@ public class PlayerStatus : NetworkBehaviour
 	public int RangeATK { get; private set; }
 	public int Armor { get; private set; }
 
-	public NetworkVariable<int> currentHealthNet = new NetworkVariable<int>(20);
-	public int CurrentHealth => currentHealthNet.Value;
-	private void Start()
+	private void Awake()
 	{
 		MeleeATK = baseMeleeATK;
 		RangeATK = baseRangeATK;
-
-		if (NetworkPlayerUI.Instance != null)
-		{
-			NetworkPlayerUI.Instance.UpdateHP(maxHealth);
-			Debug.Log("UI 연결 성공! 체력을 초기화합니다.");
-		}
-
-	}
-
-	public override void OnNetworkSpawn()
-	{
-		if (IsServer)
-		{
-			currentHealthNet.Value = maxHealth;
-		}
 
 		if (IsOwner)
 		{
@@ -65,6 +48,14 @@ public class PlayerStatus : NetworkBehaviour
 		if (currentHealthNet.Value <= 0 && amount < 0)
 			return;
 
-		currentHealthNet.Value = Mathf.Clamp(currentHealthNet.Value + amount, 0, maxHealth);
+		CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, maxHealth);
+
+		if (IsOwner)
+		{
+			if (NetworkHistoryManager.Instance != null)
+			{
+				NetworkHistoryManager.Instance.UpdateHPServerRpc(OwnerClientId, CurrentHealth);
+			}
+		}
 	}
 }
