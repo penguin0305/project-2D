@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5278143464167306235}
   - component: {fileID: 3869997964730833867}
-  - component: {fileID: 2671586740083489934}
   - component: {fileID: 8926591972236201929}
   m_Layer: 0
   m_Name: Entrance
@@ -89,19 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2671586740083489934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7407171270198644719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd4abaf39cc94624e95e90efeb1c9587, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MainSceneName: tScene
 --- !u!61 &8926591972236201929
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -39,11 +39,17 @@ EditorBuildSettings:
     path: Assets/Young/SceneTest/NetworkStart_Test.unity
     guid: 0683431e5fdb45c43a70cf3d9ab57473
   - enabled: 1
-    path: Assets/Young/SceneTest/NetworkMain.unity
+    path: Assets/Scene/NetworkMain.unity
     guid: a1e7c7d6fb06d5d47b33ca9b7bb3740f
   - enabled: 1
     path: Assets/Jeongyoon/Demo/Multiplay Demo.unity
     guid: 46c9e642b9ad4be4aad89e860164257b
+  - enabled: 1
+    path: Assets/Scene/NetworkLobby.unity
+    guid: 0163b0b4f67f8d74f9ffb4b8597f1b11
+  - enabled: 1
+    path: Assets/Young/SceneTest/Start1115_test.unity
+    guid: 7a0b37fc77a0ddd47af54f3d57beefb8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a17b85cbc1fbca74dbb38fceb2cb7409,
       type: 2}

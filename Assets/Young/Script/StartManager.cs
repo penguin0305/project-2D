@@ -7,7 +7,6 @@ public class StartMenuController : MonoBehaviour
     public GameObject playerPrefab;
     public static StartMenuController Instance;
 
-
     /// 재시작용 캐릭터 프리팹 정보 저장
     private void Awake()
     {
@@ -39,7 +38,7 @@ public class StartMenuController : MonoBehaviour
             HistoryManager.Instance.ResetData();
         }
 
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("NetworkLobby");
     }
 
 

@@ -7,31 +7,55 @@ public class PlayerStatus : NetworkBehaviour
 	private int baseMeleeATK = 5;
 	private int baseRangeATK = 3;
 	private int baseArmor = 0;
-	public int CurrentHealth { get; private set; }
 	public int MeleeATK { get; private set; }
 	public int RangeATK { get; private set; }
 	public int Armor { get; private set; }
+	public int CurrentHealth { get; private set; }
 
+	public NetworkVariable<int> currentHealthNet = new NetworkVariable<int>();
 	private void Awake()
 	{
-		CurrentHealth = maxHealth;
 		MeleeATK = baseMeleeATK;
 		RangeATK = baseRangeATK;
+		CurrentHealth = maxHealth;
 
 		if (IsOwner)
 		{
-			if (NetworkHistoryManager.Instance != null)
+			if (NetworkPlayerUI.Instance != null)
 			{
-				NetworkHistoryManager.Instance.UpdateHPServerRpc(OwnerClientId, CurrentHealth);
+				NetworkPlayerUI.Instance.UpdateHP(currentHealthNet.Value);
 			}
+			currentHealthNet.OnValueChanged += OnChangeHealth;
+		}
+	}
+
+	public override void OnNetworkDespawn()
+	{
+		if (IsOwner)
+		{
+			currentHealthNet.OnValueChanged -= OnChangeHealth;
+		}
+	}
+
+	private void OnChangeHealth(int oldValue, int newValue)
+	{
+		if (NetworkPlayerUI.Instance != null)
+		{
+			NetworkPlayerUI.Instance.UpdateHP(newValue);
 		}
 	}
 	public void ChangeHealth(int amount)
 	{
-		if (CurrentHealth <= 0 && amount < 0)
+		if (!IsServer) return;
+
+		if (currentHealthNet.Value <= 0 && amount < 0)
 			return;
 
-		CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, maxHealth);
+
+		//04-18 영웅_체력 동기화 수정
+		int nextHealth = Mathf.Clamp(currentHealthNet.Value + amount, 0, maxHealth);
+		currentHealthNet.Value = nextHealth;
+		CurrentHealth = nextHealth;
 
 		if (IsOwner)
 		{

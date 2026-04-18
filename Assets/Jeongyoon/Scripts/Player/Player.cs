@@ -74,23 +74,23 @@ public sealed class Player : NetworkBehaviour
 
 	// 추가: 비소유자 입력/카메라/오디오 비활성화, NetworkVariable 콜백 등록
 	public override void OnNetworkSpawn()
-	{
-		if (!IsOwner)
-		{
-			var playerInput = GetComponent<PlayerInput>();
-			if (playerInput != null)
-				playerInput.enabled = false;
+    {
+        if (!IsOwner)
+        {
+            var playerInput = GetComponent<PlayerInput>();
+            if (playerInput != null)
+                playerInput.enabled = false;
 
-			foreach (var cam in GetComponentsInChildren<Camera>())
-				cam.enabled = false;
+            foreach (var cam in GetComponentsInChildren<Camera>())
+                cam.enabled = false;
 
-			foreach (var listener in GetComponentsInChildren<AudioListener>())
-				listener.enabled = false;
-		}
-		HpDisplay.ForceSync();
-	}
+            foreach (var listener in GetComponentsInChildren<AudioListener>())
+                listener.enabled = false;
+        }
+        //HpDisplay.ForceSync();
+    }
 
-	public override void OnNetworkDespawn()
+    public override void OnNetworkDespawn()
 	{
 		
 	}

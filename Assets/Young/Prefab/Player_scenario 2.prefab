@@ -59,10 +59,8 @@ GameObject:
   - component: {fileID: 4650678099619594889}
   - component: {fileID: 4390259166546566844}
   - component: {fileID: -1149110504447591540}
-  - component: {fileID: 3337466687904312627}
-  - component: {fileID: 1023131857364753069}
   m_Layer: 0
-  m_Name: Player_Network2
+  m_Name: Player_scenario 2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1087130689
+  GlobalObjectIdHash: 1662783799
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -711,33 +709,6 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &3337466687904312627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3058659472406823714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3bd5e1078556b048a9d871f7eac5f27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fixedZ: -10
---- !u!114 &1023131857364753069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3058659472406823714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da8cb3c2cd71ab24cac5aca842992d26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  offset: {x: 0, y: 0, z: -10}
 --- !u!1 &6612652690774076235
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,7 +831,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1658268361244876657}
   - component: {fileID: 5323463313846824200}
-  - component: {fileID: 3878996419975372364}
   m_Layer: 0
   m_Name: MeleeHitbox
   m_TagString: Untagged
@@ -929,18 +899,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.7859444, y: 0.61365575}
   m_EdgeRadius: 0
---- !u!114 &3878996419975372364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8514956836220714372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daee42e694374404ab4632c984b41018, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6562614989232944434
 PrefabInstance:
   m_ObjectHideFlags: 0
