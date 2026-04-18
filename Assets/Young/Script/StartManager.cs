@@ -38,7 +38,7 @@ public class StartMenuController : MonoBehaviour
             HistoryManager.Instance.ResetData();
         }
 
-        SceneManager.LoadScene("NetworkScenario");
+        SceneManager.LoadScene("NetworkLobby");
     }
 
 
