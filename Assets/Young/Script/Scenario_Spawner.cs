@@ -1,19 +1,15 @@
 using UnityEngine;
-using Unity.Netcode;
 
 public class LocalSpawner : MonoBehaviour
 {
+    public GameObject PlayerPrefab;
     public Transform spawnPoint;
 
-    private void Update()
+    private void Start()
     {
-        if (NetworkManager.Singleton != null &&
-            NetworkManager.Singleton.IsConnectedClient &&
-            NetworkManager.Singleton.LocalClient.PlayerObject != null)
+        if (PlayerPrefab != null && spawnPoint != null)
         {
-            NetworkManager.Singleton.LocalClient.PlayerObject.transform.position = spawnPoint.position;
-
-            enabled = false;
+            Instantiate(PlayerPrefab, spawnPoint.position, spawnPoint.rotation);
         }
     }
 }

@@ -28,6 +28,10 @@ namespace Gameplay.UI.Main
         [SerializeField] private TMP_Text clientReadyText;
         [SerializeField] private Button readyButton;
         [SerializeField] private Button startButton;
+        [SerializeField] private Button leaveButton;
+
+        [SerializeField] private TMP_Text[] playerNameTexts = new TMP_Text[4];
+        [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[4];
         private void Awake()
         {
             createLobbyButton.onClick.AddListener(() => { createLobbyUi.Show(); });
@@ -61,6 +65,21 @@ namespace Gameplay.UI.Main
             startButton.onClick.AddListener(() =>
             {
                 ProjectSpellGameMultiplayer.Singleton.StartMultiplayerGame();
+            });
+
+            leaveButton.onClick.AddListener(() =>
+            {
+                if (NetworkManager.Singleton.IsHost)
+                {
+                    ProjectSpellGameLobby.Singleton.DeleteLobby();
+                }
+                else
+                {
+                    ProjectSpellGameLobby.Singleton.LeaveLobby();
+                }
+
+                NetworkManager.Singleton.Shutdown();
+                HideLobbyRoomPopup();
             });
         }
 
@@ -96,6 +115,15 @@ namespace Gameplay.UI.Main
                 }
             };
 
+            NetworkManager.Singleton.OnClientDisconnectCallback += (clientId) =>
+            {
+                if (clientId == NetworkManager.Singleton.LocalClientId || clientId == NetworkManager.ServerClientId)
+                {
+                    HideLobbyRoomPopup();
+                }
+            };
+
+
             HideLobbyRoomPopup();
         }
 
@@ -122,9 +150,11 @@ namespace Gameplay.UI.Main
 
         private void ClearRoomUI()
         {
-            hostNameText.text = "Waiting";
-            clientNameText.text = "Waiting";
-            clientReadyText.text = "";
+            for (int i = 0; i < playerNameTexts.Length; i++)
+            {
+                if (playerNameTexts[i] != null) playerNameTexts[i].text = "";
+                if (playerReadyTexts[i] != null) playerReadyTexts[i].text = "";
+            }
         }
         private string GetRandomName()
         {
@@ -140,7 +170,10 @@ namespace Gameplay.UI.Main
 
         public void HideLobbyRoomPopup()
         {
-            lobbyRoomPanel.SetActive(false);
+            if (lobbyRoomPanel != null)
+            {
+                lobbyRoomPanel.SetActive(false);
+            }
         }
         private void UpdateRoomUI(object sender, EventArgs e)
         {
@@ -151,21 +184,29 @@ namespace Gameplay.UI.Main
             startButton.gameObject.SetActive(NetworkManager.Singleton.IsServer);
             readyButton.gameObject.SetActive(NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer);
 
+            int slotIndex = 0;
+
             foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
             {
+                if (slotIndex >= 4) break;
+
                 var playerInfo = ProjectSpellGameMultiplayer.Singleton.GetPlayerInfoByClientId(clientId);
                 if (string.IsNullOrEmpty(playerInfo.Name.ToString())) continue;
 
+                playerNameTexts[slotIndex].text = playerInfo.Name.ToString();
+
                 if (clientId == NetworkManager.ServerClientId)
                 {
-                    hostNameText.text = playerInfo.Name.ToString();
+                    playerReadyTexts[slotIndex].text = "HOST";
                 }
-                else // ¼Õ´Ô
+                else
                 {
-                    clientNameText.text = playerInfo.Name.ToString();
-                    clientReadyText.text = playerInfo.IsReady ? "READY" : "WAITING";
+                    playerReadyTexts[slotIndex].text = playerInfo.IsReady ? "READY" : "";
                 }
+
+                slotIndex++;
             }
+
         }
         private void OnDestroy()
         {

@@ -202,6 +202,33 @@ public class ProjectSpellGameLobby : MonoBehaviour
         }
     }
 
+    public async void DeleteLobby()
+    {
+        if (_joinedLobby != null)
+        {
+            try
+            {
+                await LobbyService.Instance.DeleteLobbyAsync(_joinedLobby.Id);
+                _joinedLobby = null;
+            }
+            catch (LobbyServiceException e) { Debug.LogException(e); }
+        }
+    }
+
+
+    public async void LeaveLobby()
+    {
+        if (_joinedLobby != null)
+        {
+            try
+            {
+                string playerId = AuthenticationService.Instance.PlayerId;
+                await LobbyService.Instance.RemovePlayerAsync(_joinedLobby.Id, playerId);
+                _joinedLobby = null;
+            }
+            catch (LobbyServiceException e) { Debug.LogException(e); }
+        }
+    }
     private async void OnApplicationQuit()
     {
         if (_joinedLobby != null && _joinedLobby.HostId == AuthenticationService.Instance.PlayerId)

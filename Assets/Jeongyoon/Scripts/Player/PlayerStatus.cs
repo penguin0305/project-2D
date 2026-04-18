@@ -10,7 +10,9 @@ public class PlayerStatus : NetworkBehaviour
 	public int MeleeATK { get; private set; }
 	public int RangeATK { get; private set; }
 	public int Armor { get; private set; }
+	public int CurrentHealth { get; private set; }
 
+	public NetworkVariable<int> currentHealthNet = new NetworkVariable<int>();
 	private void Awake()
 	{
 		MeleeATK = baseMeleeATK;
