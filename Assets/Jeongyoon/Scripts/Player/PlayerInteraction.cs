@@ -12,11 +12,23 @@ public class PlayerInteraction : MonoBehaviour
         currentTarget = null;
     }
 
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    IInteractable interactable = other.GetComponent<IInteractable>();
+    //    if (interactable != null)
+    //    {
+    //        currentTarget = interactable;
+    //    }
+    //}
+
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Entered: " + other.name);
+
         IInteractable interactable = other.GetComponent<IInteractable>();
         if (interactable != null)
         {
+            Debug.Log("Interactable 발견");
             currentTarget = interactable;
         }
     }
@@ -39,7 +51,6 @@ public class PlayerInteraction : MonoBehaviour
     }
 
     public bool HasTarget()
-
 	{
 		return currentTarget != null;
 	}
