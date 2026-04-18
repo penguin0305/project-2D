@@ -17,6 +17,7 @@ public class PlayerStatus : NetworkBehaviour
 	{
 		MeleeATK = baseMeleeATK;
 		RangeATK = baseRangeATK;
+		CurrentHealth = maxHealth;
 
 		if (IsOwner)
 		{
@@ -50,7 +51,11 @@ public class PlayerStatus : NetworkBehaviour
 		if (currentHealthNet.Value <= 0 && amount < 0)
 			return;
 
-		CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, maxHealth);
+
+		//04-18 영웅_체력 동기화 수정
+		int nextHealth = Mathf.Clamp(currentHealthNet.Value + amount, 0, maxHealth);
+		currentHealthNet.Value = nextHealth;
+		CurrentHealth = nextHealth;
 
 		if (IsOwner)
 		{
