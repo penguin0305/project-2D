@@ -11,7 +11,8 @@ public class StageLifetimeScope : LifetimeScope
     [SerializeField] private MapLoader MapLoader;
     //[SerializeField] private EndPortal EndPortal;
     [SerializeField] private Boss Boss;
-    
+    [SerializeField] private CameraFollow CameraFollow;
+
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -21,7 +22,7 @@ public class StageLifetimeScope : LifetimeScope
 
         builder.RegisterComponent(Boss);
         builder.RegisterComponent(MapLoader);
-        //builder.RegisterComponent(CameraFollow);
+        builder.RegisterComponent(CameraFollow);
         builder.RegisterComponent(StageManager);
         builder.RegisterComponent(SceneSetup);
     }

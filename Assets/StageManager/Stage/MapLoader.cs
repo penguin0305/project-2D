@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using JetBrains.Annotations;
+using Unity.Netcode;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine.Rendering.Universal;
@@ -10,21 +10,15 @@ using UnityEditor.Build.Content;
 #endif
 using VContainer;
 using VContainer.Unity;
+using YoungCameraFollow;
 
-public class MapLoader : MonoBehaviour
+public class MapLoader : NetworkBehaviour
 {
     // 맵 프리셋에 대한 딕셔너리<난이도, 프리셋>
     private Dictionary<string, List<GameObject>> mapPool = new Dictionary<string, List<GameObject>>();
     private string key; // 맵 프리셋의 난이도를 결정하기 위한 키
     private Queue<GameObject> usedMap = new Queue<GameObject>(); // 맵 생성을 관리하기 위한 큐
-    public Transform PlayerTransform;
-
-    /* 데모버전 사용 X
-    [Header("StartingMap")]
-    public GameObject StartingMap;
-    public List<GameObject> OtherPreset;
-    public GameObject LastMap;
-    */
+    
 
     //맵 생성을 위한 프리팹 리스트 지정
     [Header("Pooling Candidate")]
@@ -40,83 +34,22 @@ public class MapLoader : MonoBehaviour
     private int mapCount = 0; // 만들어진 맵의 수. 난이도 조절에 사용
     private int stageDepth = 5;
 
-    private PlayerProvider _playerProvider;
     private IObjectResolver _objectResolver;
+
     [Inject]
-    public void Construct(PlayerProvider playerProvider, IObjectResolver objectResolver)
+    public void Construct(IObjectResolver objectResolver)
     {
-        _playerProvider = playerProvider;
         _objectResolver = objectResolver;
-        //PlayerTransform = _playerProvider.playerTransform;
     }
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
+        if(!IsServer) return; // 서버에서만 맵 로딩 관리
         key = "beginning";
         mapCount += 1; // 난이도 설정을 위한 맵 카운트 증가
-        /* 시작 맵을 씬에 올려두지 않는 경우
-        //시작 맵 불러오기
-        if (StartingMap != null)
-        {
-            Instantiate(StartingMap, Vector3.zero, Quaternion.identity);
-            //다음 맵이 생성될 위치 조정
-            nextMapY = -MapHeight;
-            Debug.Log("StartingMap Called");
-        }
-        else Debug.LogError("StartingMap Required");
-
-        //플레이어 불러오기
-        if (playerPrefab != null)
-        {
-            GameObject SpawnedPlayer = Instantiate(playerPrefab, playerSpawn, Quaternion.identity);
-            Debug.Log("Player Spawned");
-            //cam이 플레이어를 추적하도록 하는 스크립트 추가
-        }
-        else Debug.Log("Player Setting Required");
-        */
         nextMapY = -mapHeight; // 다음 맵이 로드될 위치 조정
         Debug.Log("nextMapY: " + nextMapY);
     }
-
-    /* 데모버전 사용 X
-    //함수 이름: SpawnRandomMap 
-    //기능: 플레이어의 진행을 추적하여 다음에 생성될 맵을 랜덤하게 결정하는 함수
-    //파라미터: X
-    //반환값: X
-    public void SpawnRandomMap()
-    {
-        mapCount += 1;
-        //랜덤 프리셋이 없을 경우 리턴
-        if (OtherPreset.Count == 0)
-        {
-            Debug.Log("RandomMap Required"); return;
-        }
-        // 5번째 맵이 마지막
-        if (mapCount == 5)
-        {
-            Vector3 SpawnLoc = new Vector3(0, nextMapY, 0);
-            Instantiate(LastMap, SpawnLoc, Quaternion.identity);
-            Debug.Log("Last Map");
-            nextMapY = nextMapY - 1242148 * MapHeight;
-        }
-
-        else
-        {
-            //랜덤 프리셋의 맵 결정. 실제 맵에 적용 시 랜덤 관련 보정 필요
-            int MapIndex = Random.Range(0, OtherPreset.Count);
-            GameObject SelectedMap = OtherPreset[MapIndex];
-
-            //선택된 맵을 정해진 위치에 생성
-            Vector3 SpawnLoc = new Vector3(0, nextMapY, 0);
-            Instantiate(SelectedMap, SpawnLoc, Quaternion.identity);
-
-            //다음 맵이 생성될 위치 조정
-            nextMapY -= MapHeight;
-            Debug.Log("nextMapY: " + nextMapY);
-            
-        }
-    }
-    */
 
 
     // 함수 이름: SetMapPool
@@ -193,6 +126,16 @@ public class MapLoader : MonoBehaviour
         Vector3 spawnLoc = new Vector3(0, nextMapY, 0); // 선택한 맵을 로드할 위치 설정
         GameObject map = _objectResolver.Instantiate(selectedMap, spawnLoc, Quaternion.identity); // 다음 맵을 로드
         _objectResolver.InjectGameObject(map);
+        var networkObject = map.GetComponent<NetworkObject>();
+        if (networkObject != null)
+        {
+            networkObject.Spawn();
+        }
+        else
+        {
+            Debug.LogError("맵 프리팹에 네트워크 오브젝트 필요");
+        }
+
         Debug.Log("nextMap Loaded");
 
         // 마지막 스테이지가 아니라면 다음 스폰 위치를 재설정
@@ -207,17 +150,29 @@ public class MapLoader : MonoBehaviour
     
     void Update()
     {
-        //플레이어 설정이 안된 경우 리턴
-        if (_playerProvider.playerTransform == null)
+        if (!IsServer) return;
+        float playerLoc = float.MaxValue; // 플레이어 위치를 담기 위해 초기화
+
+        foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
         {
-            Debug.Log("Player Required");
-            return;
+            // 플레이어 오브젝트가 존재하는지 확인
+            if (client.PlayerObject != null)
+            {
+                float playerY = client.PlayerObject.transform.position.y;
+                if (playerY < playerLoc)
+                {
+                    playerLoc = playerY;
+                }
+            }
         }
-        //플레이어가 맵의 특정 깊이에 도달하면 다음 맵을 불러옴
-        while (_playerProvider.playerTransform.position.y < nextMapY + Threshold)
+
+        // 플레이어가 없는 경우(위치를 못받음) 리턴
+        if (playerLoc == float.MaxValue) return;
+
+        // 가장 아래에 있는 플레이어가 맵의 특정 깊이에 도달하면 다음 맵을 불러옴
+        while (playerLoc < nextMapY + Threshold)
         {
             SpawnMapPool();
-            Debug.Log("nextMap Loaded");
             Debug.Log("mapCount: " + mapCount);
         }
     }
