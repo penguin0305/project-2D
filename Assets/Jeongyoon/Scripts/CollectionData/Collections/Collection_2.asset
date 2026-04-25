@@ -15,4 +15,9 @@ MonoBehaviour:
   collectionId: 2
   collectionName: GreatSword
   icon: {fileID: 1433700066, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: Item Description Sample
+  description: Melee ATK +0.8 / level
+  bonusMaxHP: 0
+  bonusMeleeATK: 0.8
+  bonusRangeATK: 0
+  bonusArmor: 0
+  bonusSpeed: 0

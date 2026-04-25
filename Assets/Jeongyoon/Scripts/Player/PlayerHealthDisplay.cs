@@ -16,14 +16,14 @@ public class PlayerHealthDisplay : MonoBehaviour
 	private void OnEnable()
 	{
 		// NetworkHealthDisplay: networkPlayer.CurrentHealth.OnValueChanged += OnHealthChanged;
-		player.NetworkHealth.OnValueChanged += OnHealthChanged;
-		UpdateText(player.NetworkHealth.Value);
+		player.Status.currentHealthNet.OnValueChanged += OnHealthChanged;
+		UpdateText(player.Status.currentHealthNet.Value);
 	}
 
 	private void OnDisable()
 	{
 		// NetworkHealthDisplay: networkPlayer.CurrentHealth.OnValueChanged -= OnHealthChanged;
-		player.NetworkHealth.OnValueChanged -= OnHealthChanged;
+		player.Status.currentHealthNet.OnValueChanged -= OnHealthChanged;
 	}
 
 	private void OnHealthChanged(int oldValue, int newValue)
@@ -46,6 +46,6 @@ public class PlayerHealthDisplay : MonoBehaviour
 
 	public void ForceSync()
 	{
-		UpdateText(player.NetworkHealth.Value);
+		UpdateText(player.Status.currentHealthNet.Value);
 	}
 }
