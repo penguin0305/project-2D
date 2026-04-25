@@ -4,20 +4,19 @@ using System.Collections;
 public class PlayerUI : MonoBehaviour
 {
     public TextMeshProUGUI HP;
-    //public TextMeshProUGUI skillText;-½ºÅ³ Ãß°¡
+    //public TextMeshProUGUI skillText;ìŠ¤í‚¬ê¸°ëŠ¥
 
     private Player player;
-    //private PlayerSkill playerSkill;-½ºÅ³ Ãß°¡
+    //private PlayerSkill playerSkill;ìŠ¤í‚¬ê¸°ëŠ¥
 
     [SerializeField] private TextMeshProUGUI timerText;
 
     IEnumerator Start()
     {
-        // playerStats¸¦ Ã£À» ¶§±îÁö ´ë±â
         while (player == null)
         {
             player = FindAnyObjectByType<Player>();
-            //playerSkill = FindObjectOfType<PlayerSkill>();-½ºÅ³ Ãß°¡
+            //playerSkill = FindObjectOfType<PlayerSkill>();ìŠ¤í‚¬ê¸°ëŠ¥
             if (player == null)
             {
                 yield return null;
@@ -25,7 +24,7 @@ public class PlayerUI : MonoBehaviour
         }
 
         player.OnCheckHP += UpdateHP;
-        //playerSkill.OnCheckSkillCount += UpdateSkillUI;-½ºÅ³ Ãß°¡
+        //playerSkill.OnCheckSkillCount += UpdateSkillUI;ìŠ¤í‚¬ê¸°ëŠ¥
         UpdateHP(player.Status.CurrentHealth);
 
         if (timerText != null)
@@ -42,7 +41,7 @@ public class PlayerUI : MonoBehaviour
     {
         HP.text = $"{currentHp}";
     }
-    /*-½ºÅ³ Ãß°¡
+    /*ìŠ¤í‚¬ê¸°ëŠ¥
     void UpdateSkillUI(int currentSkill)
     {
 
@@ -76,7 +75,7 @@ public class PlayerUI : MonoBehaviour
         {
             player.OnCheckHP -= UpdateHP;
         }
-        /*-½ºÅ³ Ãß°¡
+        /*ìŠ¤í‚¬ê¸°ëŠ¥
         if (playerSkill != null)
         {
             playerSkill.OnCheckSkillCount -= UpdateSkillUI;

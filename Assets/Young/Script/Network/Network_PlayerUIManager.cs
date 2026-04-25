@@ -1,17 +1,20 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using Unity.Netcode;
 
 public class NetworkPlayerUI : MonoBehaviour
 {
     public static NetworkPlayerUI Instance;
 
     public TextMeshProUGUI HP;
-    //public TextMeshProUGUI skillText;-½ºÅ³ Ãß°¡
+    //public TextMeshProUGUI skillText;ìŠ¤í‚¬ì¶”ê°€
 
-    //private PlayerSkill playerSkill;-½ºÅ³ Ãß°¡
+    //private PlayerSkill playerSkill;ìŠ¤í‚¬ì¶”ê°€
 
     [SerializeField] private TextMeshProUGUI timerText;
+
+     private PlayerStatus localPlayerStatus;
 
     private void Awake()
     {
@@ -41,11 +44,18 @@ public class NetworkPlayerUI : MonoBehaviour
     {
         HP.text = $"{currentHp}";
     }
-    /*-½ºÅ³ Ãß°¡
+    /*-ìŠ¤í‚¬ì¶”ê°€
     void UpdateSkillUI(int currentSkill)
     {
 
         skillText.text = $"{currentSkill}";
     }
     */
-}
+
+        private void OnDestroy()
+    {
+        if (localPlayerStatus != null)
+        {
+            localPlayerStatus.currentHealthNet.OnValueChanged -= (oldValue, newValue) => { UpdateHP(newValue); };
+        }
+    }}
