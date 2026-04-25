@@ -61,7 +61,7 @@ public class EndingDirector : MonoBehaviour
     {
         if (HistoryManager.Instance != null)
         {
-            //HistoryManager.Instance.playTime = 0f; - Ãß°¡ ¼öÁ¤ ÇÊ¿ä
+            //HistoryManager.Instance.playTime = 0f; - ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
         }
 
         Time.timeScale = 1f;
