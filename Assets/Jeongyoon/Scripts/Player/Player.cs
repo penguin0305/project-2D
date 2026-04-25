@@ -149,7 +149,6 @@ public sealed class Player : NetworkBehaviour
 		int finalDamage = Mathf.Max(1, damage - Status.Armor);
 		Status.ChangeHealth(-finalDamage);
 		OnCheckHP?.Invoke(Status.CurrentHealth);
-		HistoryManager.Instance?.UpdateHP(Status.CurrentHealth);
 
 		DamageAnimClientRpc();
 
