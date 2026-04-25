@@ -3,7 +3,7 @@ using Unity.Netcode;
 
 public class enemyController : NetworkBehaviour
 {
-    public enemyCombat eCombat;
+    private enemyCombat eCombat;
 
    /* public itemDropController dropper;
     protected Animator animator;*/
@@ -32,7 +32,7 @@ public class enemyController : NetworkBehaviour
     private void Awake()
     {
         currentHealth = maxHealth;
-
+        eCombat= GetComponent<enemyCombat>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         dropper = GetComponent<itemDropController>();
         animator = GetComponent<Animator>();
@@ -49,10 +49,7 @@ public class enemyController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("v"))//추격시작 테스트용 v키를 누르면 추적 시작->현재 추적 기능 없음
-        {
-            Debug.Log("추적시작");//작동확인용 로그
-        }
+ 
     }
     private void FixedUpdate()
     {
@@ -66,7 +63,7 @@ public class enemyController : NetworkBehaviour
         {
             // ----- 걷는 중 -----
             float dir = movingRight ? 1f : -1f;
-
+            transform.rotation = movingRight ? Quaternion.Euler(new Vector3(0, 0, 0)) : Quaternion.Euler(new Vector3(0, 180, 0));
             transform.position += new Vector3(dir * moveSpeed * Time.deltaTime, 0, 0);
 
             if (timer >= walkTime)        // 걷는 시간 끝
@@ -82,9 +79,6 @@ public class enemyController : NetworkBehaviour
             {
                 // 방향 전환
                 movingRight = !movingRight;
-                spriteRenderer.flipX = !spriteRenderer.flipX;
-
-                // 다시 걷기 시작
                 isWalking = true;
                 timer = 0f;
             }
@@ -94,16 +88,6 @@ public class enemyController : NetworkBehaviour
         animator.SetBool("isWalking", isWalking);
     }//맨 위 walkTime초만큼 걷고 idleTime만큼 가만히있음 이후 방향을 바꾸고 동일한 과정 실행
 
-    private void chasePlayer()
-    {
-        Vector2 direction = (player.position - transform.position).normalized;
-        transform.position += (Vector3)direction * moveSpeed * Time.deltaTime;
-
-        // 좌우 방향 전환
-        if (direction.x != 0)
-            spriteRenderer.flipX = direction.x < 0;
-    }//현재 추적기능
-     ///없음
 
     public virtual void die()
     {
