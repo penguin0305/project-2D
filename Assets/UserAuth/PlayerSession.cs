@@ -43,4 +43,35 @@ public class PlayerSession : MonoBehaviour
 
         OnPlayerDataUpdated?.Invoke();
     }
+
+    // temp
+    public void UpdateItem(int eid, int level, int exp, int failCount)
+    {
+        if (PlayerItems == null)
+            PlayerItems = new List<PlayerItem>();
+
+        foreach (var item in PlayerItems)
+        {
+            if (item.eid == eid)
+            {
+                item.enhance_level = level;
+                item.dup_count = exp;
+                item.enhance_fail_count = failCount;
+
+                OnPlayerDataUpdated?.Invoke();
+                return;
+            }
+        }
+
+        PlayerItems.Add(new PlayerItem
+        {
+            eid = eid,
+            enhance_level = level,
+            dup_count = exp,
+            enhance_fail_count = failCount,
+            type = "collection"
+        });
+
+        OnPlayerDataUpdated?.Invoke();
+    }
 }

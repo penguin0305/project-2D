@@ -42,7 +42,7 @@ EditorBuildSettings:
     path: Assets/Scene/NetworkMain.unity
     guid: a1e7c7d6fb06d5d47b33ca9b7bb3740f
   - enabled: 1
-    path: Assets/Jeongyoon/NetworkDemo/Multiplay Demo.unity
+    path: Assets/Jeongyoon/Demo/Multiplay Demo.unity
     guid: 46c9e642b9ad4be4aad89e860164257b
   - enabled: 1
     path: Assets/Scene/NetworkLobby.unity
