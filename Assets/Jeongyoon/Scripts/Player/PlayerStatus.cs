@@ -19,15 +19,27 @@ public class PlayerStatus : NetworkBehaviour
 		RangeATK = baseRangeATK;
 		CurrentHealth = maxHealth;
 
-		if (IsOwner)
-		{
-			if (NetworkPlayerUI.Instance != null)
-			{
-				NetworkPlayerUI.Instance.UpdateHP(currentHealthNet.Value);
-			}
-			currentHealthNet.OnValueChanged += OnChangeHealth;
-		}
 	}
+
+public override void OnNetworkSpawn()
+    {
+        if (IsServer)
+        {
+            currentHealthNet.Value = maxHealth;
+        }
+
+		CurrentHealth = currentHealthNet.Value;
+
+        if (IsOwner)
+        {
+            if (NetworkPlayerUI.Instance != null)
+            {
+                NetworkPlayerUI.Instance.UpdateHP(currentHealthNet.Value);
+            }
+            
+            currentHealthNet.OnValueChanged += OnChangeHealth;
+        }
+    }
 
 	public override void OnNetworkDespawn()
 	{
@@ -39,11 +51,14 @@ public class PlayerStatus : NetworkBehaviour
 
 	private void OnChangeHealth(int oldValue, int newValue)
 	{
+	
 		if (NetworkPlayerUI.Instance != null)
 		{
 			NetworkPlayerUI.Instance.UpdateHP(newValue);
 		}
+				CurrentHealth = newValue;
 	}
+	
 	public void ChangeHealth(int amount)
 	{
 		if (!IsServer) return;
@@ -52,17 +67,7 @@ public class PlayerStatus : NetworkBehaviour
 			return;
 
 
-		//04-18 영웅_체력 동기화 수정
-		int nextHealth = Mathf.Clamp(currentHealthNet.Value + amount, 0, maxHealth);
-		currentHealthNet.Value = nextHealth;
-		CurrentHealth = nextHealth;
-
-		if (IsOwner)
-		{
-			if (NetworkHistoryManager.Instance != null)
-			{
-				NetworkHistoryManager.Instance.UpdateHPServerRpc(OwnerClientId, CurrentHealth);
-			}
-		}
+		currentHealthNet.Value = Mathf.Clamp(currentHealthNet.Value + amount, 0, maxHealth);
+        CurrentHealth = currentHealthNet.Value;
 	}
 }

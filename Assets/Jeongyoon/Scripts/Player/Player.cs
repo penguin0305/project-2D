@@ -143,7 +143,6 @@ public sealed class Player : NetworkBehaviour
 		Status.ChangeHealth(-damage);
 		NetworkHealth.Value = Status.CurrentHealth; // 추가: NetworkVariable 갱신
 		OnCheckHP?.Invoke(Status.CurrentHealth);
-		HistoryManager.Instance?.UpdateHP(Status.CurrentHealth);
 
 		// Animator.DoDamageAnim();
 		DamageAnimClientRpc(); // 변경: 모든 클라이언트에 애니메이션 전파

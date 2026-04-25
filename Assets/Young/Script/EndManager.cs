@@ -14,6 +14,9 @@ public class EndingDirector : MonoBehaviour
     [Header("Speed")]
     public float Speed = 0.5f;
 
+    [Header("LoadScene")]
+    public string LoadSceneName;
+
     private GameObject playerInstance;
     private PlayerMovement movement;
 
@@ -61,11 +64,11 @@ public class EndingDirector : MonoBehaviour
     {
         if (HistoryManager.Instance != null)
         {
-            //HistoryManager.Instance.playTime = 0f; - Ãß°¡ ¼öÁ¤ ÇÊ¿ä
+            //HistoryManager.Instance.playTime = 0f; - ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
         }
 
         Time.timeScale = 1f;
 
-        SceneManager.LoadScene("Start1115");
+        SceneManager.LoadScene(LoadSceneName);
     }
 }
