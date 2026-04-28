@@ -8,4 +8,11 @@ public class CollectionData : ScriptableObject
 	public Sprite icon;
 	[TextArea]
 	public string description;
+
+	[Header("Stat Bonus Per Level")]
+	public int bonusMaxHP;
+	public float bonusMeleeATK;
+	public float bonusRangeATK;
+	public float bonusArmor;
+	public float bonusSpeed;
 }
