@@ -5,7 +5,6 @@ public class PlayerAnimator : MonoBehaviour
 	private Animator animator;
 	private SpriteRenderer spriteRenderer;
 	private Player player;
-	public bool IsFacingRight { get; private set; } = true;
 
 	private void Awake()
 	{
@@ -16,21 +15,31 @@ public class PlayerAnimator : MonoBehaviour
 
 	private void LateUpdate()
 	{
-		CheckSpeed();
-		CheckGrounded();
-		UpdateFacing();
+		if (player.IsOwner)
+		{
+			// 기존: 로컬 입력 직접 읽기 (그대로 유지)
+			float moveX = player.Input.Move.x;
+			animator.SetFloat("Speed", Mathf.Abs(moveX));
+			animator.SetBool("IsGrounded", player.Motor.IsGrounded);
+
+			if (moveX > 0f)
+				spriteRenderer.flipX = false;
+			else if (moveX < 0f)
+				spriteRenderer.flipX = true;
+		}
+		else
+		{
+			// 기존: 로컬 입력만 읽어서 비소유자 애니메이션 안 됐음
+			// float moveInputX = Mathf.Abs(player.Input.Move.x);
+			// animator.SetFloat("Speed", moveInputX);
+			// animator.SetBool("IsGrounded", player.Motor.IsGrounded);
+			// → PlayerSync에서 동기화된 값 읽기
+			animator.SetFloat("Speed", Mathf.Abs(player.Sync.moveX.Value));
+			animator.SetBool("IsGrounded", player.Sync.isGrounded.Value);
+			spriteRenderer.flipX = player.Sync.isFacingLeft.Value;
+		}
+
 		CheckDeath();
-	}
-
-	private void CheckSpeed()
-	{
-		float moveInputX = Mathf.Abs(player.Input.Move.x);
-		animator.SetFloat("Speed", moveInputX);
-	}
-
-	private void CheckGrounded()
-	{
-		animator.SetBool("IsGrounded", player.Motor.IsGrounded);
 	}
 
 	public void DoMeleeAttack()
@@ -43,31 +52,13 @@ public class PlayerAnimator : MonoBehaviour
 		animator.SetTrigger("RangeAttack");
 	}
 
-	public void CheckDeath()
-	{
-		animator.SetBool("Death", player.Status.CurrentHealth <= 0);
-	}
-
 	public void DoDamageAnim()
 	{
 		animator.SetTrigger("Damage");
 	}
 
-	private void UpdateFacing()
+	private void CheckDeath()
 	{
-		// 비소유자: 서버에서 동기화된 NetworkVariable 기준
-		if (!player.IsOwner)
-		{
-			spriteRenderer.flipX = player.isFacingLeft.Value;
-			return;
-		}
-
-		// Owner: 로컬 입력 기준 (기존 로직)
-		float moveX = player.Input.Move.x;
-
-		if (moveX > 0f)
-			spriteRenderer.flipX = false;
-		else if (moveX < 0f)
-			spriteRenderer.flipX = true;
+		animator.SetBool("Death", player.Status.CurrentHealth <= 0);
 	}
 }

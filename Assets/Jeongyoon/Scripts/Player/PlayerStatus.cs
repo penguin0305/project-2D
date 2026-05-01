@@ -1,7 +1,6 @@
 using UnityEngine;
-using Unity.Netcode;
 
-public class PlayerStatus : NetworkBehaviour
+public class PlayerStatus : MonoBehaviour
 {
 	private int baseMaxHealth = 100;
 	private int baseMeleeATK = 5;
@@ -22,38 +21,34 @@ public class PlayerStatus : NetworkBehaviour
 	public float Speed { get; private set; }
 	public int CurrentHealth { get; private set; }
 
-	public NetworkVariable<int> currentHealthNet = new NetworkVariable<int>(
-		0,
-		NetworkVariableReadPermission.Everyone,
-		NetworkVariableWritePermission.Server
-	);
+	private PlayerSync sync;
 
 	private void Awake()
 	{
+		sync = GetComponent<PlayerSync>();
 		RecalculateStats();
 	}
 
-	public override void OnNetworkSpawn()
+	private void Start()
 	{
-		currentHealthNet.OnValueChanged += OnChangeHealth;
+		sync.health.OnValueChanged += OnChangeHealth;
 	}
 
-	public override void OnNetworkDespawn()
+	private void OnDestroy()
 	{
-		currentHealthNet.OnValueChanged -= OnChangeHealth;
+		if (sync != null)
+			sync.health.OnValueChanged -= OnChangeHealth;
 	}
 
 	private void OnChangeHealth(int oldValue, int newValue)
 	{
 		CurrentHealth = newValue;
-
-		if (IsOwner && NetworkPlayerUI.Instance != null)
-			NetworkPlayerUI.Instance.UpdateHP(newValue);
 	}
 
 	public void ApplyBonus(BonusStatResult bonus)
 	{
-		if (!IsServer) return;
+		if (!sync.IsServer)
+			return;
 
 		bonusMaxHealth = bonus.maxHP;
 		bonusMeleeATK  = (int)bonus.meleeATK;
@@ -63,14 +58,13 @@ public class PlayerStatus : NetworkBehaviour
 
 		RecalculateStats();
 
-		currentHealthNet.Value = MaxHealth;
+		sync.health.Value = MaxHealth;
 		CurrentHealth = MaxHealth;
 
-		SyncBonusClientRpc(bonusMaxHealth, bonusMeleeATK, bonusRangeATK, bonusArmor, bonusSpeed);
+		sync.SyncBonusRpc(bonusMaxHealth, bonusMeleeATK, bonusRangeATK, bonusArmor, bonusSpeed);
 	}
 
-	[Rpc(SendTo.ClientsAndHost)]
-	private void SyncBonusClientRpc(int maxHP, int meleeATK, int rangeATK, int armor, float speed)
+	public void ApplySyncedBonus(int maxHP, int meleeATK, int rangeATK, int armor, float speed)
 	{
 		bonusMaxHealth = maxHP;
 		bonusMeleeATK  = meleeATK;
@@ -78,7 +72,7 @@ public class PlayerStatus : NetworkBehaviour
 		bonusArmor     = armor;
 		bonusSpeed     = speed;
 		RecalculateStats();
-		CurrentHealth  = currentHealthNet.Value;
+		CurrentHealth  = sync.health.Value;
 	}
 
 	private void RecalculateStats()
@@ -91,19 +85,20 @@ public class PlayerStatus : NetworkBehaviour
 
 	public void ChangeHealth(int amount)
 	{
-		if (!IsServer) return;
-
-		if (currentHealthNet.Value <= 0 && amount < 0)
+		if (!sync.IsServer)
 			return;
 
-		int nextHealth = Mathf.Clamp(currentHealthNet.Value + amount, 0, MaxHealth);
-		currentHealthNet.Value = nextHealth;
+		if (sync.health.Value <= 0 && amount < 0)
+			return;
+
+		int nextHealth = Mathf.Clamp(sync.health.Value + amount, 0, MaxHealth);
+		sync.health.Value = nextHealth;
 		CurrentHealth = nextHealth;
 
-		if (IsOwner)
+		if (sync.IsOwner)
 		{
 			if (NetworkHistoryManager.Instance != null)
-				NetworkHistoryManager.Instance.UpdateHPServerRpc(OwnerClientId, CurrentHealth);
+				NetworkHistoryManager.Instance.UpdateHPServerRpc(sync.OwnerClientId, CurrentHealth);
 		}
 	}
 }

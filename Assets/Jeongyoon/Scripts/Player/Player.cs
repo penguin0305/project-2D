@@ -14,6 +14,7 @@ public sealed class Player : NetworkBehaviour
 	public PlayerAudio Audio { get; private set; }
 	public PlayerAnimator Animator { get; private set; }
 	public PlayerHealthDisplay HpDisplay { get; private set; }
+	public PlayerSync Sync { get; private set; }
 
 	[Header("States")]
 	private IPlayerState currentState;
@@ -27,12 +28,6 @@ public sealed class Player : NetworkBehaviour
 	public event System.Action OnDeath;
 	public event System.Action<int> OnCheckHP;
 
-	public NetworkVariable<bool> isFacingLeft = new NetworkVariable<bool>(
-		false,
-		NetworkVariableReadPermission.Everyone,
-		NetworkVariableWritePermission.Owner
-	);
-
 	private void Reset()
 	{
 		Input = GetComponent<PlayerInputState>();
@@ -44,6 +39,7 @@ public sealed class Player : NetworkBehaviour
 		Audio = GetComponent<PlayerAudio>();
 		Animator = GetComponent<PlayerAnimator>();
 		HpDisplay = GetComponentInChildren<PlayerHealthDisplay>();
+		Sync = GetComponent<PlayerSync>();
 	}
 
 	private void Awake()
@@ -109,18 +105,6 @@ public sealed class Player : NetworkBehaviour
 	{
 		currentState?.Tick(this);
 	}
-
-	private void LateUpdate()
-	{
-		if (!IsOwner) return;
-
-		float moveX = Input.Move.x;
-		if (moveX > 0f)
-			isFacingLeft.Value = false;
-		else if (moveX < 0f)
-			isFacingLeft.Value = true;
-	}
-
 	private void FixedUpdate()
 	{
 		Motor.DetectGrounded();
@@ -149,6 +133,7 @@ public sealed class Player : NetworkBehaviour
 		int finalDamage = Mathf.Max(1, damage - Status.Armor);
 		Status.ChangeHealth(-finalDamage);
 		OnCheckHP?.Invoke(Status.CurrentHealth);
+		HistoryManager.Instance?.UpdateHP(Status.CurrentHealth);
 
 		DamageAnimClientRpc();
 
@@ -226,6 +211,8 @@ public sealed class Player : NetworkBehaviour
 			Animator = GetComponent<PlayerAnimator>();
 		if (!HpDisplay)
 			HpDisplay = GetComponentInChildren<PlayerHealthDisplay>();
+		if (!Sync)
+			Sync = GetComponent<PlayerSync>();
 	}
 
 	private void InitializeStates()

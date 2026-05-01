@@ -1,3 +1,5 @@
+/*
+
 using UnityEngine;
 using VContainer;
 public class PlayerStats : MonoBehaviour
@@ -61,3 +63,5 @@ public class PlayerStats : MonoBehaviour
         OnDeath?.Invoke();
     }
 }
+
+*/
