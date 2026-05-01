@@ -70,9 +70,9 @@ public class PlayerSync : NetworkBehaviour
 
 	// PlayerStatus.ApplyBonus에서 위임받아 클라이언트에 보너스 동기화
 	[Rpc(SendTo.ClientsAndHost)]
-	public void SyncBonusRpc(int maxHP, int meleeATK, int rangeATK, int armor, float speed)
+	public void SyncBonusRpc(int maxHP, int meleeATK, int rangeATK, int armor, float speed, float critRate, float critDamage)
 	{
-		player.Status.ApplySyncedBonus(maxHP, meleeATK, rangeATK, armor, speed);
+		player.Status.ApplySyncedBonus(maxHP, meleeATK, rangeATK, armor, speed, critRate, critDamage);
 	}
 
 	// 기존: 없었음 (Owner만 로컬에서 애니메이션 실행)
@@ -90,4 +90,12 @@ public class PlayerSync : NetworkBehaviour
 	{
 		player.Animator.DoRangeAttack();
 	}
-} 
+
+	// 모든 클라이언트에 데미지 팝업 표시
+	[Rpc(SendTo.ClientsAndHost)]
+	public void ShowFloatingDamageRpc(int value, Vector3 position, int popupType)
+	{
+		if (FloatingDamageManager.Instance != null)
+			FloatingDamageManager.Instance.Show(value, position, (FloatingDamageType)popupType);
+	}
+}

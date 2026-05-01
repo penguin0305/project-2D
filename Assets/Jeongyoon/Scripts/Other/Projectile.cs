@@ -9,27 +9,29 @@ public class Projectile : NetworkBehaviour
 	[SerializeField] private float lifetime = 2f;
 	[SerializeField] private float visualOffset = -45f;
 	private int damage;
+	private bool isCrit;
 	private bool alreadyHit = false;
 	private Vector2 direction;
 	private ulong shooterNetworkObjectId;
 
 	// public void Setup(int damage, Vector2 direction)
-	public void NetworkSetup(int damage, Vector2 direction, ulong shooterNetworkObjectId)
+	public void NetworkSetup(int damage, bool isCrit, Vector2 direction, ulong shooterNetworkObjectId)
 	{
 		this.shooterNetworkObjectId = shooterNetworkObjectId;
-		SetupClientRpc(damage, direction);
+		SetupClientRpc(damage, isCrit, direction);
 	}
 
 	// [ClientRpc]
 	[Rpc(SendTo.ClientsAndHost)]
-	private void SetupClientRpc(int damage, Vector2 direction)
+	private void SetupClientRpc(int damage, bool isCrit, Vector2 direction)
 	{
-		Setup(damage, direction);
+		Setup(damage, isCrit, direction);
 	}
 
-	public void Setup(int damage, Vector2 direction)
+	public void Setup(int damage, bool isCrit, Vector2 direction)
 	{
 		this.damage = damage;
+		this.isCrit = isCrit;
 		this.direction = direction;
 
 		float angle = Mathf.Atan2(this.direction.y, this.direction.x) * Mathf.Rad2Deg;
@@ -74,7 +76,7 @@ public class Projectile : NetworkBehaviour
 		{
 			alreadyHit = true;
 			// targetPlayer.TakeDamageServerRpc(damage, 0f, true); // 서버에서 ServerRpc 호출 불가
-			targetPlayer.TakeDamage(damage, 0f, true);
+			targetPlayer.TakeDamage(damage, 0f, true, isCrit);
 			GetComponent<NetworkObject>().Despawn();
 		}
 	}
