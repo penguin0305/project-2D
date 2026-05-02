@@ -43,7 +43,7 @@ public class PlayerSession : MonoBehaviour
         this.Level = pData.level;
         this.Exp = pData.exp;
         this.Currency = pData.currency;
-        this.PlayerItems = pData.playeritems;
+        this.PlayerItems = pData.items;
 
         OnPlayerDataUpdated?.Invoke();
     }

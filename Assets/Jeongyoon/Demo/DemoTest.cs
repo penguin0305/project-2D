@@ -34,7 +34,7 @@ public class TestScript : MonoBehaviour
             exp = 0,
             currency = 1000,
 
-            playeritems = new List<PlayerItem>
+            items = new List<PlayerItem>
             {
                 new PlayerItem
                 {

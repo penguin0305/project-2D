@@ -11,7 +11,7 @@ public class PlayerData
     public int level;
     public int exp;
     public int currency;
-    public List<PlayerItem> playeritems;
+    public List<PlayerItem> items;
 }
 
 [System.Serializable]

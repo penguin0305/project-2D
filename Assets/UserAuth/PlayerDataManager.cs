@@ -5,6 +5,7 @@ using System.Text;
 using System.Transactions;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Linq;
 
 public class PlayerDataManager : MonoBehaviour
 {
@@ -61,8 +62,8 @@ public class PlayerDataManager : MonoBehaviour
                 // JSON to PlayerData
                 string jsonResponse = request.downloadHandler.text;
                 PlayerData pData = JsonUtility.FromJson<PlayerData>(jsonResponse);
-                Debug.Log($"데이터 로드, 닉네임: {pData.username}, 레벨: {pData.level}, 재화: {pData.currency}");
-
+                string itemsString = pData.items != null && pData.items.Count > 0 ? string.Join(", ", pData.items.Select(item => item.eid)) : "없음";
+                Debug.Log($"데이터 로드, 닉네임: {pData.username}, 레벨: {pData.level}, 아이템 개수: {(pData.items != null ? pData.items.Count : 0)}개, [아이템 목록: {itemsString}]");
                 PlayerSession.Instance.UpdateSessionData(pData);
             }
             else
@@ -82,7 +83,7 @@ public class PlayerDataManager : MonoBehaviour
             level = PlayerSession.Instance.Level,
             exp = PlayerSession.Instance.Exp,
             currency = PlayerSession.Instance.Currency,
-            playeritems = PlayerSession.Instance.PlayerItems
+            items = PlayerSession.Instance.PlayerItems
         };
 
         string jsonData = JsonUtility.ToJson(saveData);
@@ -101,9 +102,6 @@ public class PlayerDataManager : MonoBehaviour
             request.SetRequestHeader("Content-Type", "application/json");
             request.SetRequestHeader("Authorization", $"Bearer {token}");
 
-            // 데이터를 JSON 문자열로 변환한 직후에 로그를 찍어봅니다.
-            string json = JsonUtility.ToJson(saveData);
-            Debug.Log("서버로 보내는 JSON 데이터: " + json);
             // 요청
             yield return request.SendWebRequest();
 
