@@ -9,7 +9,9 @@ public class itemData : ScriptableObject
         coin,
         key,
         quest,
-        collection_0
+        collection_0,
+        equipment
+
     }
     [SerializeField] public int itemID;
    
