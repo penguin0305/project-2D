@@ -1,20 +1,42 @@
+#define LOCALn
+using System;
 using System.Collections;
 using System.Text;
+using System.Transactions;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class PlayerDataManager : MonoBehaviour
 {
-    private readonly string baseUrl = "http://3.37.127.156:8080/api/playerdata"; // 로컬은 https://localhost:7026/api/playerdata
+#if LOCAL
+    private readonly string baseUrl = "https://localhost:7026/api/playerdata";
+#else
+    private readonly string baseUrl = "http://3.37.127.156:8080/api/playerdata";
+#endif
 
     public void FetchMyData()
     {
         StartCoroutine(GetPlayerDataRoutine());
     }
-
     public void SaveMyData()
     {
         StartCoroutine(SavePlayerDataRoutine());
+    }
+    // 서버에서 처리하는 로직이 있는 경우 비동기 함수를 순차적으로 실행시켜 세션을 업데이트
+    public void SaveAndFetch(Action onComplete = null)
+    {
+        StartCoroutine(SaveAndFetchData(onComplete));
+    }
+    public IEnumerator SaveAndFetchData(Action onComplete) // 인자는 콜백용
+    {
+        yield return StartCoroutine(SavePlayerDataRoutine());
+        yield return StartCoroutine(GetPlayerDataRoutine());
+        onComplete?.Invoke(); // 콜백용으로만 동작
+    }
+
+    public void SendLog(EnhanceLogDto logData)
+    {
+        StartCoroutine(PostLogCoroutine(logData));
     }
 
     private IEnumerator GetPlayerDataRoutine()
@@ -79,6 +101,9 @@ public class PlayerDataManager : MonoBehaviour
             request.SetRequestHeader("Content-Type", "application/json");
             request.SetRequestHeader("Authorization", $"Bearer {token}");
 
+            // 데이터를 JSON 문자열로 변환한 직후에 로그를 찍어봅니다.
+            string json = JsonUtility.ToJson(saveData);
+            Debug.Log("서버로 보내는 JSON 데이터: " + json);
             // 요청
             yield return request.SendWebRequest();
 
@@ -89,6 +114,32 @@ public class PlayerDataManager : MonoBehaviour
             else
             {
                 Debug.LogError($"데이터 저장 실패 ({request.responseCode}): {request.error}");
+            }
+        }
+    }
+
+    private IEnumerator PostLogCoroutine(EnhanceLogDto data)
+    {
+        string json = JsonUtility.ToJson(data);
+        byte[] jsonToSend = new UTF8Encoding().GetBytes(json);
+
+        // UnityWebRequest 생성
+        using (UnityWebRequest request = new UnityWebRequest(baseUrl, "POST"))
+        {
+            request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            // 서버 응답 대기
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("강화 로그 서버 전송 성공");
+            }
+            else
+            {
+                Debug.LogError($"강화 로그 전송 실패: {request.error}");
             }
         }
     }

@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82dadccc52b9aa742b6cd2e261f9cff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eCombat: {fileID: 0}
+  ShowTopMostFoldoutHeaderGroup: 1
   moveSpeed: 2
   detectRange: 5
   maxHealth: 10

@@ -1,3 +1,4 @@
+#define LOCALn
 using System.Collections;
 using System.Text;
 using UnityEngine;
@@ -5,12 +6,16 @@ using UnityEngine.Networking;
 
 public class AuthManager : MonoBehaviour
 {
-    private readonly string baseUrl = "http://3.37.127.156:8080/api/account"; // ∑Œƒ√¿∫ https://localhost:7026/api/account
+#if LOCAL
+    private readonly string baseUrl = "https://localhost:7026/api/account";
+#else
+    private readonly string baseUrl = "http://3.37.127.156:8080/api/account";
+#endif
     private IAuthUI ui;
     private PlayerDataManager playerData;
 
     void Awake()
-    {
+    {   
         ui = GetComponent<IAuthUI>();
         playerData = GetComponent<PlayerDataManager>();
     }

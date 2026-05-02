@@ -34,7 +34,6 @@ public class StageManager : MonoBehaviour
     private void OnEnable()
     {
         
-        player.OnDeath += StageEnd;
         /*
         enemy.OnDeath += CalcPoint;
         Object.OnGetItem += GetItem;
@@ -154,7 +153,6 @@ public class StageManager : MonoBehaviour
     private void OnDisable()
     {
         // �̺�Ʈ ���� ����
-        player.OnDeath -= StageEnd;
         //enemy.OnDeath -= CalcPoint;
         //Object.OnGetItem -= GetItem;
     }

@@ -3697,7 +3697,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 655410314}
         m_TargetAssemblyTypeName: AuthManager, Assembly-CSharp
         m_MethodName: OnClickGuestLogin
         m_Mode: 1
@@ -6359,7 +6359,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 655410314}
         m_TargetAssemblyTypeName: AuthManager, Assembly-CSharp
         m_MethodName: OnClickLogin
         m_Mode: 1

@@ -31,7 +31,7 @@ public class TestSessionStub : MonoBehaviour
 			Debug.LogWarning("PlayerSession.Instance is null. Cannot inject test data.");
 			return;
 		}
-
+		/*
 		foreach (var item in testItems)
 		{
 			PlayerSession.Instance.UpdateItem(
@@ -40,7 +40,7 @@ public class TestSessionStub : MonoBehaviour
 				item.dup_count,
 				item.enhance_fail_count
 			);
-		}
+		}*/
 
 		Debug.Log($"[TestSessionStub] {testItems.Count}개 아이템 주입 완료");
 	}

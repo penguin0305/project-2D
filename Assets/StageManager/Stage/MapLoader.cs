@@ -124,7 +124,7 @@ public class MapLoader : NetworkBehaviour
         SetMapPool(); // 난이도 설정
         GameObject selectedMap = GetMap(); // 불러올 맵을 선택
         Vector3 spawnLoc = new Vector3(0, nextMapY, 0); // 선택한 맵을 로드할 위치 설정
-        GameObject map = _objectResolver.Instantiate(selectedMap, spawnLoc, Quaternion.identity); // 다음 맵을 로드
+        GameObject map = Instantiate(selectedMap, spawnLoc, Quaternion.identity); // 다음 맵을 로드
         _objectResolver.InjectGameObject(map);
         var networkObject = map.GetComponent<NetworkObject>();
         if (networkObject != null)

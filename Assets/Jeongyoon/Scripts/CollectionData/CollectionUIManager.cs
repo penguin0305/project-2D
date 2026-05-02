@@ -175,10 +175,6 @@ public class CollectionUIManager : MonoBehaviour
 
             ApplyToSession(collectionId, updatedState);
 
-            var dataManager = FindObjectOfType<PlayerDataManager>();
-            if (dataManager != null)
-                dataManager.SaveMyData();
-
             OnClickSlot(collectionId);
             Populate();
         });

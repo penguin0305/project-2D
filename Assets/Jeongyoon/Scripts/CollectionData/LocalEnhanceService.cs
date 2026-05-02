@@ -6,6 +6,11 @@ public class LocalEnhanceService : IEnhanceService
 
     public void Enhance(int collectionId, CollectionState state, System.Action<CollectionState> onComplete)
     {
+        PlayerDataManager pDataManager;
+        pDataManager = GameObject.FindAnyObjectByType<PlayerDataManager>();
+
+        int level_before = state.level;
+
         if (state.level >= MAX_LEVEL)
             return;
 
@@ -30,6 +35,8 @@ public class LocalEnhanceService : IEnhanceService
         {
             state.failCount++;
         }
+        EnhanceLogDto log = PlayerSession.Instance.MakeLogData(state, success, level_before, state.level);
+        pDataManager.SendLog(log);
 
         onComplete?.Invoke(state);
     }

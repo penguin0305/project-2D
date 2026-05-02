@@ -3205,6 +3205,12 @@ PrefabInstance:
       propertyPath: NetworkConfig.NetworkTransport
       value: 
       objectReference: {fileID: 470461706}
+    - target: {fileID: 9195258672906178197, guid: cfbb7ebdc2599d84db1a8f9a30f61df6,
+        type: 3}
+      propertyPath: 'NetworkConfig.Prefabs.NetworkPrefabsLists.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e101f5dd9d3bdc54b8a9692c147038f3,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3955,7 +3961,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 51dccbd854b89104f8b5a90a41e4a28a, type: 3}
   m_Resource: {fileID: 8300000, guid: 51dccbd854b89104f8b5a90a41e4a28a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.545
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -19784,7 +19790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  gameSceneName: Multiplay Demo
+  gameSceneName: tScene
 --- !u!1 &2031184984
 GameObject:
   m_ObjectHideFlags: 0
