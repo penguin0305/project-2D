@@ -15,12 +15,18 @@ public class MeleeHitbox : MonoBehaviour
 		if (!player.IsOwner) return;
 		if (!player.Combat.isMeleeAttacking) return;
 
+		// 치명타 계산 (공격자 기준)
+		int damage = player.Status.MeleeATK;
+		bool isCrit = UnityEngine.Random.value < Mathf.Clamp(player.Status.CritRate, 0f, 1f);
+		if (isCrit)
+			damage = Mathf.Max(1, Mathf.RoundToInt(damage * player.Status.CritDamage));
+
 		// 기존 적 처리
 		if (collision.CompareTag("Enemy"))
 		{
 			var enemy = collision.GetComponent<enemyCombat>();
 			if (enemy)
-				enemy.OnHit(player.Status.MeleeATK, transform);
+				enemy.OnHit(damage, transform);
 		}
 
 		// 플레이어 PvP
@@ -29,7 +35,7 @@ public class MeleeHitbox : MonoBehaviour
 		if (targetPlayer != null && targetPlayer != player)
 		{
 			// NetworkMeleeHitbox: targetNetPlayer.TakeDamageServerRpc(...)
-			targetPlayer.TakeDamageServerRpc(player.Status.MeleeATK, 0.3f, true);
+			targetPlayer.TakeDamageServerRpc(damage, 0.3f, true, isCrit);
 		}
 	}
 }

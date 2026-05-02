@@ -15,4 +15,11 @@ MonoBehaviour:
   collectionId: 6
   collectionName: Short Axe
   icon: {fileID: 1862495017, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: Item Description Sample
+  description: Crit Rate +1% / Level
+  bonusMaxHP: 0
+  bonusMeleeATK: 0
+  bonusRangeATK: 0
+  bonusArmor: 0
+  bonusSpeed: 0
+  bonusCritRate: 0.01
+  bonusCritDamage: 0

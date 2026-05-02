@@ -35,7 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/Lobby.unity
     guid: d8a09dc1a414d4646a1afa572c1b3999
-  - enabled: 0
+  - enabled: 1
     path: Assets/Young/SceneTest/NetworkStart_Test.unity
     guid: 0683431e5fdb45c43a70cf3d9ab57473
   - enabled: 1
@@ -47,21 +47,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/NetworkLobby.unity
     guid: 0163b0b4f67f8d74f9ffb4b8597f1b11
-  - enabled: 0
+  - enabled: 1
     path: Assets/Young/SceneTest/Start1115_test.unity
     guid: 7a0b37fc77a0ddd47af54f3d57beefb8
   - enabled: 1
-    path: Assets/Young/SceneTest/Start1115_Young.unity
-    guid: 468d203467aa27b4cb8a121900f0ec60
-  - enabled: 1
-    path: Assets/Young/SceneTest/NetworkLobby_Young.unity
-    guid: 71ae6fcc8ffb8a343be2da9610d8e34c
-  - enabled: 1
-    path: Assets/Young/SceneTest/NetworkEnding_Young.unity
-    guid: 1dc346302da8de64da594cc750e1076c
-  - enabled: 1
-    path: Assets/Young/SceneTest/NetworkMain_Young.unity
-    guid: 40f659c5fa7d34c4a9e1c7f727eb106b
+    path: Assets/segang/scene/tmpScene.unity
+    guid: 77555593e47274447b10fd9ec1ad2ba8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a17b85cbc1fbca74dbb38fceb2cb7409,
       type: 2}

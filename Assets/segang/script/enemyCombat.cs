@@ -21,10 +21,15 @@ public class enemyCombat : MonoBehaviour
     //네트워크 수정
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!Unity.Netcode.NetworkManager.Singleton.IsServer) return;
+        if (!Unity.Netcode.NetworkManager.Singleton.IsServer)
+        {
+            Debug.Log("서버없음");
+            return;
+        }
 
         if (collision.CompareTag("Player"))
         {
+            Debug.Log("충돌");
             var status = collision.GetComponent<PlayerStatus>();
             if (status != null)
             {

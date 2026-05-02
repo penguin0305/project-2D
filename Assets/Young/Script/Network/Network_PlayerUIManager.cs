@@ -14,7 +14,7 @@ public class NetworkPlayerUI : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI timerText;
 
-     private PlayerStatus localPlayerStatus;
+    private Player player;
 
     private void Awake()
     {
@@ -24,26 +24,47 @@ public class NetworkPlayerUI : MonoBehaviour
         }
     }
 
-
     private void Update()
     {
+        // 스폰 이후 한 번만 찾아서 콜백 등록
+        if (player == null)
+        {
+            foreach (var p in FindObjectsByType<Player>(FindObjectsSortMode.None))
+            {
+                if (p.IsOwner)
+                {
+                    player = p;
+                    player.Sync.health.OnValueChanged += OnChangeHealth;
+                    UpdateHP(player.Sync.health.Value);
+                    break;
+                }
+            }
+        }
+
         if (timerText != null && NetworkHistoryManager.Instance != null)
         {
             UpdateTimerUI(NetworkHistoryManager.Instance.playTime.Value);
         }
     }
+
+    private void OnChangeHealth(int oldValue, int newValue)
+    {
+        UpdateHP(newValue);
+    }
+
     private void UpdateTimerUI(float Seconds)
     {
-
         int minutes = Mathf.FloorToInt(Seconds / 60);
         int seconds = Mathf.FloorToInt(Seconds % 60);
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
+
     public void UpdateHP(int currentHp)
     {
         HP.text = $"{currentHp}";
     }
+
     /*-스킬추가
     void UpdateSkillUI(int currentSkill)
     {
@@ -52,10 +73,11 @@ public class NetworkPlayerUI : MonoBehaviour
     }
     */
 
-        private void OnDestroy()
+    private void OnDestroy()
     {
-        if (localPlayerStatus != null)
+        if (player != null)
         {
-            localPlayerStatus.currentHealthNet.OnValueChanged -= (oldValue, newValue) => { UpdateHP(newValue); };
+            player.Sync.health.OnValueChanged -= OnChangeHealth;
         }
-    }}
+    }
+}

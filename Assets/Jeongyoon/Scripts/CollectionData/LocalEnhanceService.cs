@@ -38,6 +38,7 @@ public class LocalEnhanceService : IEnhanceService
     {
         switch (level)
         {
+            case 0: return 1;
             case 1: return 1;
             case 2: return 1;
             case 3: return 1;
@@ -71,6 +72,7 @@ public class LocalEnhanceService : IEnhanceService
     {
         switch (level)
         {
+            case 0: return 1f;
             case 1: return 1f;
             case 2: return 0.8f;
             case 3: return 0.6f;

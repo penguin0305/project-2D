@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 303286264449379016}
   - component: {fileID: 5479583177297087703}
   - component: {fileID: 2735387816538756680}
-  - component: {fileID: 6361873796544171945}
   - component: {fileID: 8207744660711528234}
   - component: {fileID: 2065581200095053505}
   - component: {fileID: 171299411899389940}
@@ -158,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 641182173
+  GlobalObjectIdHash: 1230475140
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -184,31 +183,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  eCombat: {fileID: 0}
   moveSpeed: 2
   detectRange: 5
   maxHealth: 10
   currentHealth: 0
   player: {fileID: 601420976079308504, guid: 5d5b863d209410741b16c62ef4e8b47e, type: 3}
---- !u!114 &6361873796544171945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 695339025985165424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8ca63bae3ced9d418a68917af1e3ff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heightDiff: 1.5
-  checkDuration: 1.2
-  jumpForce: 5
-  jumpCooldown: 5
-  maxGravity: 10
-  player: {fileID: 601420976079308504, guid: 5d5b863d209410741b16c62ef4e8b47e, type: 3}
-  timer: 0
 --- !u!114 &8207744660711528234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,7 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eController: {fileID: 0}
-  monserAttackPower: 0
+  monserAttackPower: 3
   knockbackForce: 5
   blinkDuration: 0.2
   blinkInterval: 0.05

@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class PlayerDataManager : MonoBehaviour
 {
-    private readonly string baseUrl = "http://3.37.127.156:8080/api/playerdata"; // ·ÎÄÃÀº https://localhost:7026/api/playerdata
+    private readonly string baseUrl = "http://3.37.127.156:8080/api/playerdata"; // ë¡œì»¬ì€ https://localhost:7026/api/playerdata
 
     public void FetchMyData()
     {
@@ -21,7 +21,7 @@ public class PlayerDataManager : MonoBehaviour
     {
         string token = PlayerPrefs.GetString("AuthToken", "");
         
-        if (string.IsNullOrEmpty(token)) yield break; // ÅäÅ«ÀÌ ¾øÀ¸¸é Áß´Ü
+        if (string.IsNullOrEmpty(token)) yield break; // í† í°ì´ ì—†ìœ¼ë©´ ì¤‘ë‹¨
 
 
         // GET request
@@ -29,7 +29,7 @@ public class PlayerDataManager : MonoBehaviour
         {
             request.SetRequestHeader("Authorization", $"Bearer {token}");
 
-            // HTTPS ÀÎÁõ¼­ ¿ìÈ¸ ( ³ªÁß¿¡ Áö¿ò )
+            // HTTPS ì¸ì¦ì„œ ìš°íšŒ ( ë‚˜ì¤‘ì— ì§€ì›€ )
             request.certificateHandler = new BypassCertificate();
 
             yield return request.SendWebRequest();
@@ -39,14 +39,14 @@ public class PlayerDataManager : MonoBehaviour
                 // JSON to PlayerData
                 string jsonResponse = request.downloadHandler.text;
                 PlayerData pData = JsonUtility.FromJson<PlayerData>(jsonResponse);
-                Debug.Log($"µ¥ÀÌÅÍ ·Îµå, ´Ğ³×ÀÓ: {pData.username}, ·¹º§: {pData.level}, ÀçÈ­: {pData.currency}");
+                Debug.Log($"ë°ì´í„° ë¡œë“œ, ë‹‰ë„¤ì„: {pData.username}, ë ˆë²¨: {pData.level}, ì¬í™”: {pData.currency}");
 
                 PlayerSession.Instance.UpdateSessionData(pData);
             }
             else
             {
-                // ÅäÅ«ÀÌ ¸¸·áµÇ¾ú°Å³ª Àß¸øµÈ °æ¿ì ¿¡·¯ ¸Ş½ÃÁö Ãâ·Â  
-                Debug.LogError($"µ¥ÀÌÅÍ ·Îµå ½ÇÆĞ ({request.responseCode}): {request.error}");
+                // í† í°ì´ ë§Œë£Œë˜ì—ˆê±°ë‚˜ ì˜ëª»ëœ ê²½ìš° ì—ëŸ¬ ë©”ì‹œì§€ ì¶œë ¥  
+                Debug.LogError($"ë°ì´í„° ë¡œë“œ ì‹¤íŒ¨ ({request.responseCode}): {request.error}");
             }
         }
      }
@@ -65,7 +65,7 @@ public class PlayerDataManager : MonoBehaviour
 
         string jsonData = JsonUtility.ToJson(saveData);
         string token = PlayerPrefs.GetString("AuthToken", "");
-        if (string.IsNullOrEmpty(token)) yield break; // ÅäÅ«ÀÌ ¾øÀ¸¸é Áß´Ü
+        if (string.IsNullOrEmpty(token)) yield break; // í† í°ì´ ì—†ìœ¼ë©´ ì¤‘ë‹¨
 
         string updateUrl = baseUrl + "/update";
 
@@ -75,20 +75,20 @@ public class PlayerDataManager : MonoBehaviour
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = new DownloadHandlerBuffer();
 
-            // Çì´õ ¼³Á¤ 
+            // í—¤ë” ì„¤ì • 
             request.SetRequestHeader("Content-Type", "application/json");
             request.SetRequestHeader("Authorization", $"Bearer {token}");
 
-            // ¿äÃ»
+            // ìš”ì²­
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log("µ¥ÀÌÅÍ ÀúÀå ¿Ï·á: " + request.downloadHandler.text);
+                Debug.Log("ë°ì´í„° ì €ì¥ ì™„ë£Œ: " + request.downloadHandler.text);
             }
             else
             {
-                Debug.LogError($"µ¥ÀÌÅÍ ÀúÀå ½ÇÆĞ ({request.responseCode}): {request.error}");
+                Debug.LogError($"ë°ì´í„° ì €ì¥ ì‹¤íŒ¨ ({request.responseCode}): {request.error}");
             }
         }
     }

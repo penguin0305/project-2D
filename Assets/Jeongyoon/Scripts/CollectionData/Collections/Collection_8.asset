@@ -15,4 +15,11 @@ MonoBehaviour:
   collectionId: 8
   collectionName: Mystic Axe
   icon: {fileID: 1407749748, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: Item Description Sample
+  description: Crit Rate +4% / Level
+  bonusMaxHP: 0
+  bonusMeleeATK: 0
+  bonusRangeATK: 0
+  bonusArmor: 0
+  bonusSpeed: 0
+  bonusCritRate: 0.04
+  bonusCritDamage: 0
