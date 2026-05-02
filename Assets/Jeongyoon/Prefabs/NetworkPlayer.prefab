@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 1298686109826051431}
   - component: {fileID: 4911162895550230951}
   - component: {fileID: 7287194845672243491}
+  - component: {fileID: 9125666836932771238}
   - component: {fileID: 4390259166546566844}
   - component: {fileID: 892398482194987606}
   m_Layer: 0
@@ -205,11 +206,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  isFacingLeft:
-    UpdateTraits:
-      MinSecondsBetweenUpdates: 0
-      MaxSecondsBetweenUpdates: 0
-    m_InternalValue: 0
 --- !u!114 &8119154543770814928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,13 +403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abeb5d54cdf7fc4ba8dbcd4206083c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  baseMaxHealth: 20
-  currentHealthNet:
-    UpdateTraits:
-      MinSecondsBetweenUpdates: 0
-      MaxSecondsBetweenUpdates: 0
-    m_InternalValue: 0
 --- !u!95 &6973292453351160238
 Animator:
   serializedVersion: 7
@@ -632,6 +621,39 @@ MonoBehaviour:
   landClip: {fileID: 8300000, guid: 917fd752a6e02bc4e876161abf009980, type: 3}
   meleeClip: {fileID: 8300000, guid: 3427d06a58d7f6849b82d45d9214dff6, type: 3}
   footstepClip: {fileID: 8300000, guid: eb8a54a306dba09429c98000db146d4c, type: 3}
+--- !u!114 &9125666836932771238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3058659472406823714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acf820715d32a1a40a7a429d92c20a44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  isFacingLeft:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
+  moveX:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
+  isGrounded:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
+  health:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
 --- !u!81 &4390259166546566844
 AudioListener:
   m_ObjectHideFlags: 0

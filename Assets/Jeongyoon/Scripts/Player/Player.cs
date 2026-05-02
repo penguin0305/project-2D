@@ -14,6 +14,7 @@ public sealed class Player : NetworkBehaviour
 	public PlayerAudio Audio { get; private set; }
 	public PlayerAnimator Animator { get; private set; }
 	public PlayerHealthDisplay HpDisplay { get; private set; }
+	public PlayerSync Sync { get; private set; }
 
 	[Header("States")]
 	private IPlayerState currentState;
@@ -27,11 +28,12 @@ public sealed class Player : NetworkBehaviour
 	public event System.Action OnDeath;
 	public event System.Action<int> OnCheckHP;
 
-	public NetworkVariable<bool> isFacingLeft = new NetworkVariable<bool>(
-		false,
-		NetworkVariableReadPermission.Everyone,
-		NetworkVariableWritePermission.Owner
-	);
+	// 기존: isFacingLeft는 PlayerSync로 이동
+	// public NetworkVariable<bool> isFacingLeft = new NetworkVariable<bool>(
+	//     false,
+	//     NetworkVariableReadPermission.Everyone,
+	//     NetworkVariableWritePermission.Owner
+	// );
 
 	private void Reset()
 	{
@@ -44,6 +46,7 @@ public sealed class Player : NetworkBehaviour
 		Audio = GetComponent<PlayerAudio>();
 		Animator = GetComponent<PlayerAnimator>();
 		HpDisplay = GetComponentInChildren<PlayerHealthDisplay>();
+		Sync = GetComponent<PlayerSync>();
 	}
 
 	private void Awake()
@@ -110,16 +113,14 @@ public sealed class Player : NetworkBehaviour
 		currentState?.Tick(this);
 	}
 
-	private void LateUpdate()
-	{
-		if (!IsOwner) return;
-
-		float moveX = Input.Move.x;
-		if (moveX > 0f)
-			isFacingLeft.Value = false;
-		else if (moveX < 0f)
-			isFacingLeft.Value = true;
-	}
+	// 기존: LateUpdate에서 isFacingLeft 갱신 → PlayerSync.LateUpdate로 이동
+	// private void LateUpdate()
+	// {
+	//     if (!IsOwner) return;
+	//     float moveX = Input.Move.x;
+	//     if (moveX > 0f) isFacingLeft.Value = false;
+	//     else if (moveX < 0f) isFacingLeft.Value = true;
+	// }
 
 	private void FixedUpdate()
 	{
@@ -127,35 +128,48 @@ public sealed class Player : NetworkBehaviour
 		currentState?.FixedTick(this);
 	}
 
-	public void TakeDamage(int damage, float stunDuration, bool knockback)
+	public void TakeDamage(int damage, float stunDuration, bool knockback, bool isCrit = false)
 	{
 		if (IsServer)
-			ApplyDamage(damage, stunDuration, knockback);
+			ApplyDamage(damage, stunDuration, knockback, isCrit);
 		else
-			TakeDamageServerRpc(damage, stunDuration, knockback);
+			TakeDamageServerRpc(damage, stunDuration, knockback, isCrit);
 	}
 
 	[Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
-	public void TakeDamageServerRpc(int damage, float stunDuration, bool knockback)
+	public void TakeDamageServerRpc(int damage, float stunDuration, bool knockback, bool isCrit = false)
 	{
-		ApplyDamage(damage, stunDuration, knockback);
+		ApplyDamage(damage, stunDuration, knockback, isCrit);
 	}
 
-	private void ApplyDamage(int damage, float stunDuration, bool knockback)
+	private void ApplyDamage(int damage, float stunDuration, bool knockback, bool isCrit = false)
 	{
 		if (currentState == Dead || currentState == Stunned)
 			return;
 
 		int finalDamage = Mathf.Max(1, damage - Status.Armor);
+
 		Status.ChangeHealth(-finalDamage);
 		OnCheckHP?.Invoke(Status.CurrentHealth);
+		HistoryManager.Instance?.UpdateHP(Status.CurrentHealth);
+
+		// 데미지 팝업 전파
+		FloatingDamageType popupType = isCrit ? FloatingDamageType.Crit : FloatingDamageType.Normal;
+		Sync.ShowFloatingDamageRpc(finalDamage, transform.position, (int)popupType);
 
 		DamageAnimClientRpc();
 
 		if (Status.CurrentHealth <= 0)
 		{
 			OnDeath?.Invoke();
-			SetDeadClientRpc();
+			SetDeadClientRpc(); // 변경: 모든 클라이언트에 사망 전파
+
+			// player gameover_영웅
+			if (GameOverManager.Instance != null)
+        	{
+            	GameOverManager.Instance.ReportPlayerDeathServerRpc();
+        	}
+
 			return;
 		}
 
@@ -226,6 +240,8 @@ public sealed class Player : NetworkBehaviour
 			Animator = GetComponent<PlayerAnimator>();
 		if (!HpDisplay)
 			HpDisplay = GetComponentInChildren<PlayerHealthDisplay>();
+		if (!Sync)
+			Sync = GetComponent<PlayerSync>();
 	}
 
 	private void InitializeStates()

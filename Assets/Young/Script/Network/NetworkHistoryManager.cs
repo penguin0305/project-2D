@@ -34,6 +34,19 @@ public class NetworkHistoryManager : NetworkBehaviour
         }
     }
 
+    public override void OnNetworkSpawn()
+    {
+        if (IsServer)
+        {
+
+            foreach (var client in NetworkManager.Singleton.ConnectedClientsIds)
+            {
+                RegisterPlayer(client);
+            }
+            NetworkManager.Singleton.OnClientConnectedCallback += RegisterPlayer;
+        }
+    }
+
     private void Update()
     {
         if (IsServer)
@@ -83,6 +96,11 @@ public class NetworkHistoryManager : NetworkBehaviour
             sessionData[clientId].tempcoinCount++;
             SendSyncDataToClient(clientId);
         }
+
+        else
+        {
+            Debug.LogWarning($"Client {clientId} is not registered in sessionData!");
+        }
     }
 
     private void SendSyncDataToClient(ulong clientId)
@@ -124,7 +142,13 @@ public class NetworkHistoryManager : NetworkBehaviour
 
             playTime.Value = 0f;
             isGameActive.Value = true;
-            Debug.Log("History Data Reset");
+            ResetLocalDataClientRpc();
         }
+    }
+
+    [ClientRpc]
+    private void ResetLocalDataClientRpc()
+    {
+        mySessionData = new PlayerSessionData();
     }
 }

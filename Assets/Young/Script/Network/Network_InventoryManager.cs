@@ -28,7 +28,7 @@ public class NetworkInventoryManager : NetworkBehaviour
             itemOrder.Add(item.itemID);
         }
 
-        Debug.Log($"{item.mItemType} È¹µæ");
+        Debug.Log($"{item.mItemType} È¹ï¿½ï¿½");
 
         ulong myClientId = NetworkManager.Singleton.LocalClientId;
 
@@ -63,7 +63,31 @@ public class NetworkInventoryManager : NetworkBehaviour
         }
     }
 
-    /* Æ¯Á¤ »óÈ£ÀÛ¿ë °¹¼ö È®ÀÎ¿ë
+    public void SendInventoryToSession()
+    {
+        if (PlayerSession.Instance == null) return;
+
+        foreach (var item in tmpInventory)
+        {
+            int itemID = item.Key;
+            int count = item.Value;
+
+            PlayerSession.Instance.UpdateItem(itemID, 1, count, 0);
+        }
+
+        tmpInventory.Clear();
+        itemOrder.Clear();
+    }
+
+    public void DontSendInventoryToSession()
+    {
+        if (PlayerSession.Instance == null) return;
+
+        tmpInventory.Clear();
+        itemOrder.Clear();
+    }
+
+    /* Æ¯ï¿½ï¿½ ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½
 public int GetItemCount(int id)
 {
     if (tmpInventory.ContainsKey(id))

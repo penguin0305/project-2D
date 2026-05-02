@@ -15,9 +15,11 @@ MonoBehaviour:
   collectionId: 0
   collectionName: Dagger
   icon: {fileID: -525750756, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: Melee ATK +0.3 / level
+  description: Melee ATK +1 / level
   bonusMaxHP: 0
-  bonusMeleeATK: 0.3
+  bonusMeleeATK: 1
   bonusRangeATK: 0
   bonusArmor: 0
   bonusSpeed: 0
+  bonusCritRate: 0
+  bonusCritDamage: 0

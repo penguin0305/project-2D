@@ -8,7 +8,6 @@ public class PauseMenuManager : MonoBehaviour
 
     private bool isPaused = false;
 
-    [SerializeField] private AudioSource BGM;
     void Start()
     {
         pauseMenuUI.SetActive(false);
@@ -35,22 +34,19 @@ public class PauseMenuManager : MonoBehaviour
 
         Time.timeScale = 1f;
         isPaused = false;
-        BGM.UnPause();
 
-        Debug.Log("°ÔÀÓ Àç°³");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ç°³");
     }
 
     void Pause()
     {
         pauseMenuUI.SetActive(true);
 
-        Time.timeScale = 0f;
         isPaused = true;
-        BGM.Pause();
 
-        Debug.Log("°ÔÀÓ ÀÏ½Ã Á¤Áö");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½");
     }
-
+/*
     public void OnQuitButtonClicked()
     {
         Debug.Log("Game End");
@@ -61,4 +57,5 @@ public class PauseMenuManager : MonoBehaviour
         Application.Quit();
 #endif
     }
+    */
 }

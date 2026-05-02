@@ -11341,30 +11341,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_001_0 (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 695339025985165424, guid: 397bfdf45843c484f96f06b8c513d2ff,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2065581200095053505, guid: 397bfdf45843c484f96f06b8c513d2ff,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5479583177297087703, guid: 397bfdf45843c484f96f06b8c513d2ff,
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 1217440241
-      objectReference: {fileID: 0}
-    - target: {fileID: 5479583177297087703, guid: 397bfdf45843c484f96f06b8c513d2ff,
-        type: 3}
-      propertyPath: SceneMigrationSynchronization
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5479583177297087703, guid: 397bfdf45843c484f96f06b8c513d2ff,
-        type: 3}
-      propertyPath: InScenePlacedSourceGlobalObjectIdHash
-      value: 641182173
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13852,6 +13832,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 2053795444
       objectReference: {fileID: 0}
+    - target: {fileID: 7906281077780441309, guid: 110869246e03d8e45bd05b7022b03c8f,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3326186792
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13959,6 +13944,11 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 661475201
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257233328152861371, guid: 18da617375f5dfc45a16a2f0955b0391,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 911720780
       objectReference: {fileID: 0}
     - target: {fileID: 9067685661284684364, guid: 18da617375f5dfc45a16a2f0955b0391,
         type: 3}

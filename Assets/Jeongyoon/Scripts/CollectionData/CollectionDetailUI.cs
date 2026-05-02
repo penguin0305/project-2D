@@ -26,6 +26,8 @@ public class CollectionDetailUI : MonoBehaviour
         nameText.text = data.collectionName;
         descriptionText.text = data.description;
 
+        // 기존: (state.level > 0 || state.exp > 0)
+        // dup_count(exp)가 0 초과면 보유
         bool isOwned = (state.level > 0 || state.exp > 0);
 
         if (!isOwned)
@@ -47,6 +49,8 @@ public class CollectionDetailUI : MonoBehaviour
             int pity = GetPity(state.level);
             failText.text = $"Fail: {state.failCount} / {pity}";
 
+            // 기존: state.exp >= need && state.level < 10
+            // 0레벨도 강화 가능
             enhanceButton.interactable = state.exp >= need && state.level < 10;
         }
 
@@ -61,6 +65,7 @@ public class CollectionDetailUI : MonoBehaviour
     {
         switch (level)
         {
+            case 0: return 1;
             case 1: return 1;
             case 2: return 1;
             case 3: return 1;
@@ -78,6 +83,7 @@ public class CollectionDetailUI : MonoBehaviour
     {
         switch (level)
         {
+            case 0: return 0;
             case 2: return 3;
             case 3: return 4;
             case 4: return 5;

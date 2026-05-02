@@ -1,6 +1,6 @@
 using UnityEngine;
-
-public class attackHitboxController : MonoBehaviour
+using Unity.Netcode;
+public class attackHitboxController : NetworkBehaviour
 {
     public int attackPower;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,10 +16,15 @@ public class attackHitboxController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Player p = collision.GetComponent<Player>();
-        if (p != null)
-
-            // p.ApplyDamage(attackPower, 0.2f, true);
-            p.TakeDamage(attackPower, 0.2f, true);
+        if (!Unity.Netcode.NetworkManager.Singleton.IsServer)
+        {
+            Debug.Log("서버없음");
+            return;
+        }
+        var status = collision.GetComponent<PlayerStatus>();
+        if (status != null)
+        {
+            status.ChangeHealth(-attackPower);
+        }
     }
 }

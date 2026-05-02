@@ -71,7 +71,8 @@ public class PlayerCombat : NetworkBehaviour
 			return;
 
 		lastMeleeAttackTime = Time.time;
-		animator.DoMeleeAttack();
+		animator.DoMeleeAttack();           // 로컬 Owner 실행
+		player.Sync.MeleeAttackAnimRpc();   // 기존: 없었음, 비소유자에게 전파
 		audio.PlayMelee();
 		StartCoroutine(MeleeAttack());
 	}
@@ -91,13 +92,15 @@ public class PlayerCombat : NetworkBehaviour
 	{
 		CurrentMode = (CurrentMode == CombatMode.Melee) ? CombatMode.Range : CombatMode.Melee;
 	}
+
 	public void TryRangeAttack()
 	{
 		if (Time.time < lastRangeAttackTime + rangeAttackCooldown)
 			return;
 		
 		lastRangeAttackTime = Time.time;
-		animator.DoRangeAttack(); // tmp
+		animator.DoRangeAttack();           // 로컬 Owner 실행
+		player.Sync.RangeAttackAnimRpc();   // 기존: 없었음, 비소유자에게 전파
 		audio.PlayMelee(); // tmp
 		SpawnProjectile();
 	}
@@ -125,6 +128,12 @@ public class PlayerCombat : NetworkBehaviour
 		Vector2 shootDir = facingRight ? Vector2.right : Vector2.left;
 		ulong shooterId = GetComponent<NetworkObject>().NetworkObjectId;
 
-		arrowObject.GetComponent<Projectile>().NetworkSetup(player.Status.RangeATK, shootDir, shooterId);
+		// 치명타 계산 (공격자 기준)
+		int damage = player.Status.RangeATK;
+		bool isCrit = UnityEngine.Random.value < Mathf.Clamp(player.Status.CritRate, 0f, 1f);
+		if (isCrit)
+			damage = Mathf.Max(1, Mathf.RoundToInt(damage * player.Status.CritDamage));
+
+		arrowObject.GetComponent<Projectile>().NetworkSetup(damage, isCrit, shootDir, shooterId);
 	}
 }

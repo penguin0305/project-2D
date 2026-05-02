@@ -17499,20 +17499,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testItems:
   - eid: 0
-    enhance_level: 1
-    dup_count: 60
+    enhance_level: 0
+    dup_count: 50
     enhance_fail_count: 0
   - eid: 1
-    enhance_level: 1
-    dup_count: 40
+    enhance_level: 0
+    dup_count: 50
     enhance_fail_count: 0
   - eid: 2
-    enhance_level: 1
-    dup_count: 15
+    enhance_level: 0
+    dup_count: 50
     enhance_fail_count: 0
   - eid: 3
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 4
     enhance_level: 1
-    dup_count: 70
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 5
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 6
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 7
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 8
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 9
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 10
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 11
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 12
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 13
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 14
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 15
+    enhance_level: 0
+    dup_count: 50
     enhance_fail_count: 0
 --- !u!4 &1243966677
 Transform:

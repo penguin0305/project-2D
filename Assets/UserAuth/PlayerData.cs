@@ -17,11 +17,11 @@ public class PlayerData
 [System.Serializable]
 public class PlayerItem
 {
-    public string id;
-    public int iid; // ÀÎ½ºÅÏ½º¾ÆÀÌµğ
-    public int eid;
+    public string id; // playerID
+    public int iid; // instanceID
+    public int eid; // ë³¸ì²´
     public string type;
-    public int dup_count;
+    public int dup_count; // ë³¸ì²´
     public int enhance_level;
     public int enhance_fail_count;
     public double base_atk = 0;
