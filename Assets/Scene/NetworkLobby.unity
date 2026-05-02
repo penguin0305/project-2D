@@ -17540,6 +17540,22 @@ MonoBehaviour:
     enhance_level: 0
     dup_count: 50
     enhance_fail_count: 0
+  - eid: 12
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 13
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 14
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
+  - eid: 15
+    enhance_level: 0
+    dup_count: 50
+    enhance_fail_count: 0
 --- !u!4 &1243966677
 Transform:
   m_ObjectHideFlags: 0
