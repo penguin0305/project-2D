@@ -1,12 +1,15 @@
 using UnityEngine;
+using Unity.Netcode;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
-public class EndingDirector : MonoBehaviour
+
+public class EndingDirector : NetworkBehaviour
 {
     [Header("Positions")]
-    public Transform spawnPoint;
-    public Transform TargetPoint;
+    public Transform[] SpawnPoints;
+    public Transform[] TargetPoints;
 
     [Header("UI")]
     public GameObject endingUI;
@@ -17,10 +20,9 @@ public class EndingDirector : MonoBehaviour
     [Header("LoadScene")]
     public string LoadSceneName;
 
-    private GameObject playerInstance;
-    private PlayerMovement movement;
-
-    void Start()
+    private List<GameObject> players = new List<GameObject>();
+    
+    public override void OnNetworkSpawn()
     {
         if (endingUI != null) endingUI.SetActive(false);
         StartCoroutine(EndingSequence());
@@ -28,45 +30,61 @@ public class EndingDirector : MonoBehaviour
 
     IEnumerator EndingSequence()
     {
-        if (GameSceneManager.Instance != null && GameSceneManager.Instance.playerPrefab != null)
+        var playerObjects = GameObject.FindGameObjectsWithTag("Player");
+        bool allReached = false;
+
+        for (int i = 0; i < playerObjects.Length; i++)
         {
-            playerInstance = Instantiate(GameSceneManager.Instance.playerPrefab, spawnPoint.position, Quaternion.identity);
+            var p = playerObjects[i];
+            players.Add(p);
+
+            if (i < SpawnPoints.Length)
+                p.transform.position = SpawnPoints[i].position;
+
+            var inputHandler = p.GetComponent<PlayerInputState>();
+            if (inputHandler != null) inputHandler.enabled = false;
         }
-
-        var inputHandler = playerInstance.GetComponent<PlayerInputState>();
-        movement = playerInstance.GetComponent<PlayerMovement>();
-
-        if (inputHandler != null)
+                while (!allReached)
         {
-            inputHandler.enabled = false;
-        }
-
-        Vector2 Moved = new Vector2(Speed, 0);
-
-        while (Mathf.Abs(playerInstance.transform.position.x - TargetPoint.position.x) > 0.1f)
-        {
-            if (movement != null)
+            allReached = true;
+            for (int i = 0; i < playerObjects.Length; i++)
             {
-                movement.RequestMove(Moved);
+                if (i >= TargetPoints.Length) continue;
+
+                var p = playerObjects[i];
+                var movement = p.GetComponent<PlayerMovement>();
+                
+                float dist = Mathf.Abs(p.transform.position.x - TargetPoints[i].position.x);
+                if (dist > 0.1f)
+                {
+                    Vector2 dir = new Vector2(Speed, 0);
+                    movement.RequestMove(dir);
+                    allReached = false;
+                }
+                else
+                {
+                    movement.RequestMove(Vector2.zero);
+                }
             }
             yield return null;
         }
 
-        if (movement != null)
-        {
-            movement.RequestMove(Vector2.zero);
-        }
-
-        if (endingUI != null) endingUI.SetActive(true);
+        endingUI.SetActive(true);
     }
 
-    public void GoToStartScene()
+
+    public void ExitButton()
     {
-        if (HistoryManager.Instance != null)
+        if (InventoryManager.Instance != null)
         {
-            //HistoryManager.Instance.playTime = 0f; - �߰� ���� �ʿ�
+            NetworkInventoryManager.Instance.SendInventoryToSession();
         }
 
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.Shutdown(); 
+        }
+        
         Time.timeScale = 1f;
 
         SceneManager.LoadScene(LoadSceneName);

@@ -8,7 +8,6 @@ public class NetworkPauseMenuManager : MonoBehaviour
 
     private bool isPaused = false;
 
-    [SerializeField] private AudioSource BGM;
     void Start()
     {
         pauseMenuUI.SetActive(false);
@@ -35,7 +34,7 @@ public class NetworkPauseMenuManager : MonoBehaviour
 
         isPaused = false;
 
-        Debug.Log("°ÔÀÓ Àç°³");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ç°³");
     }
 
     void Pause()
@@ -44,7 +43,7 @@ public class NetworkPauseMenuManager : MonoBehaviour
 
         isPaused = true;
 
-        Debug.Log("°ÔÀÓ ÀÏ½Ã Á¤Áö");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½");
     }
 
     public void OnQuitButtonClicked()

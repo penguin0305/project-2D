@@ -6,8 +6,8 @@ public class StartMenuController : MonoBehaviour
 {
     public GameObject playerPrefab;
     public static StartMenuController Instance;
-
-    /// Àç½ÃÀÛ¿ë Ä³¸¯ÅÍ ÇÁ¸®ÆÕ Á¤º¸ ÀúÀå
+    public string loadSceneName = "NetworkLobby";
+    /// ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void Awake()
     {
         if (Instance == null)
@@ -33,12 +33,7 @@ public class StartMenuController : MonoBehaviour
             GameSceneManager.Instance.SetPlayerPrefab(playerPrefab);
         }
 
-        if (HistoryManager.Instance != null)
-        {
-            HistoryManager.Instance.ResetData();
-        }
-
-        SceneManager.LoadScene("NetworkLobby");
+        SceneManager.LoadScene(loadSceneName);
     }
 
 

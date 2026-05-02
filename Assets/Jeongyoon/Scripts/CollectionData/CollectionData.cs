@@ -8,4 +8,5 @@ public class CollectionData : ScriptableObject
 	public Sprite icon;
 	[TextArea]
 	public string description;
+
 }

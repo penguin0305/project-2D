@@ -1,55 +1,28 @@
 using UnityEngine;
+using Unity.Netcode;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
-public class GameOverManager : MonoBehaviour
+public class GameOverUI : MonoBehaviour
 {
-    [Header("UI")]
-    public GameObject gameOverUI;
+    public string LobbySceneName = "NetworkLobby";
 
-    [Header("Scene")]
-    public string startSceneName = "Start1115";
-
-    [SerializeField] private AudioSource BGM;
-
-    private Player player;
-
-    void Start()
+    public void OnExitToLobbyButtonClicked()
     {
-        if (gameOverUI != null)
+        if (NetworkHistoryManager.Instance != null)
         {
-            gameOverUI.SetActive(false);
+            NetworkHistoryManager.Instance.ResetData();
         }
 
-        player = FindAnyObjectByType<Player>();
-
-        if (player != null)
+        if (NetworkInventoryManager.Instance != null)
         {
-            player.OnDeath += GameOver;
+            NetworkInventoryManager.Instance.DontSendInventoryToSession();
         }
-    }
 
-    private void GameOver()
-    {
-        Debug.Log("Game Over");
-
-        if (gameOverUI != null)
-            gameOverUI.SetActive(true);
-
-        BGM.Pause();
-        Time.timeScale = 0f;
-    }
-    public void ToStartScene()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(startSceneName);
-    }
-
-    void OnDestroy()
-    {
-        if (player != null)
+        if (NetworkManager.Singleton != null)
         {
-            player.OnDeath -= GameOver;
+            NetworkManager.Singleton.Shutdown();
         }
+
+        SceneManager.LoadScene(LobbySceneName);
     }
 }

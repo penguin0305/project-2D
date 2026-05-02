@@ -153,6 +153,13 @@ public sealed class Player : NetworkBehaviour
 			// OnDeath?.Invoke();
 			OnDeath?.Invoke();
 			SetDeadClientRpc(); // 변경: 모든 클라이언트에 사망 전파
+
+			// player gameover_영웅
+			if (GameOverManager.Instance != null)
+        	{
+            	GameOverManager.Instance.ReportPlayerDeathServerRpc();
+        	}
+
 			return;
 		}
 
