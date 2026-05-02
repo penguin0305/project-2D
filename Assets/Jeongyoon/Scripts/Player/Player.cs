@@ -68,31 +68,28 @@ public sealed class Player : NetworkBehaviour
 			var playerInput = GetComponent<PlayerInput>();
 			if (playerInput != null)
 				playerInput.enabled = false;
-
+ 
 			foreach (var cam in GetComponentsInChildren<Camera>())
 				cam.enabled = false;
-
+ 
 			foreach (var listener in GetComponentsInChildren<AudioListener>())
 				listener.enabled = false;
 		}
 		else
 		{
-			var items = PlayerSession.Instance?.PlayerItems;
-			if (items != null)
+			var items = PlayerSession.Instance?.PlayerItems ?? new System.Collections.Generic.List<PlayerItem>();
+			var itemsNet = new PlayerItemNetwork[items.Count];
+			for (int i = 0; i < items.Count; i++)
 			{
-				var itemsNet = new PlayerItemNetwork[items.Count];
-				for (int i = 0; i < items.Count; i++)
+				itemsNet[i] = new PlayerItemNetwork
 				{
-					itemsNet[i] = new PlayerItemNetwork
-					{
-						eid = items[i].eid,
-						enhance_level = items[i].enhance_level,
-						dup_count = items[i].dup_count,
-						enhance_fail_count = items[i].enhance_fail_count
-					};
-				}
-				SubmitItemsServerRpc(itemsNet);
+					eid = items[i].eid,
+					enhance_level = items[i].enhance_level,
+					dup_count = items[i].dup_count,
+					enhance_fail_count = items[i].enhance_fail_count
+				};
 			}
+			SubmitItemsServerRpc(itemsNet);
 		}
 	}
 
