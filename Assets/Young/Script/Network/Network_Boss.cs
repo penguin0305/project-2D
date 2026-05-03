@@ -9,10 +9,20 @@ public class Network_Boss : enemyController
         if (!IsServer) return;
 
         InteractPortal[] portals = Object.FindObjectsByType<InteractPortal>(FindObjectsSortMode.None);
+        
+        Portaltmp portal = Object.FindAnyObjectByType<Portaltmp>();
 
+        portal.ActivateVisual();
+        /*
         foreach (var portal in portals)
         {
             portal.ActivatePortal();
+        }
+        */
+
+        if (NetworkInventoryManager.Instance != null)
+        {
+            NetworkInventoryManager.Instance.SendInventoryToSession(10);
         }
 
         if (dropper != null)

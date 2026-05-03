@@ -13,6 +13,15 @@ public class NetworkInventoryManager : NetworkBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
+
+        int testItemID = 2;
+        int testQuantity = 1;
+
+        if (!tmpInventory.ContainsKey(testItemID))
+        {
+            tmpInventory.Add(testItemID, testQuantity);
+            itemOrder.Add(testItemID);
+        }
     }
 
     public void AddItem(itemData item)
@@ -28,7 +37,10 @@ public class NetworkInventoryManager : NetworkBehaviour
             itemOrder.Add(item.itemID);
         }
 
-        Debug.Log($"{item.mItemType} ȹ��");
+        foreach (KeyValuePair<int, int> entry in tmpInventory)
+        {
+            Debug.Log($"아이템 ID: {entry.Key} | 수량: {entry.Value}");
+        }
 
         ulong myClientId = NetworkManager.Singleton.LocalClientId;
 
@@ -84,7 +96,7 @@ public class NetworkInventoryManager : NetworkBehaviour
     {
         if (PlayerSession.Instance == null) return;
 
-        PlayerSession.Instance.UpdateStageData(tmpInventory, score);
+            PlayerSession.Instance.UpdateStageData(tmpInventory, score);
 
         tmpInventory.Clear();
         itemOrder.Clear();

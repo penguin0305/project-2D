@@ -20,3 +20,4 @@ MonoBehaviour:
   itemCooltime: -1
   mItemType: 4
   mItemImage: {fileID: -525750756, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
+  collectionInfo: {fileID: 11400000, guid: fae7b85f726aa604d9b6c6a2e9aad5cd, type: 2}

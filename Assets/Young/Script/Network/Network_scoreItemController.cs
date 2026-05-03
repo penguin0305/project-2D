@@ -5,8 +5,7 @@ public class NetworkscoreItemController : NetworkBehaviour
 {
     public int itemScore;
     public itemData data;
-    GameObject stageManager;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     private void Awake()
     {
 
