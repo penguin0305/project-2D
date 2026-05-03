@@ -15,8 +15,8 @@ MonoBehaviour:
   collectionId: 16
   collectionName: Leather Helmet
   icon: {fileID: -2101905279, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: HP +20 / Level
-  bonusMaxHP: 20
+  description: HP +10 / Level
+  bonusMaxHP: 10
   bonusMeleeATK: 0
   bonusRangeATK: 0
   bonusArmor: 0
