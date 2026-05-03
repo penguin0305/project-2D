@@ -8,7 +8,7 @@ public class PlayerStatus : MonoBehaviour
 	private int baseMeleeATK = 5;
 	private int baseRangeATK = 3;
 	private int baseArmor = 0;
-	private float baseSpeed = 0;
+	private float baseSpeed = 4f;
 	private float baseCritRate = 0.05f;
 	private float baseCritDamage = 1.5f;
 

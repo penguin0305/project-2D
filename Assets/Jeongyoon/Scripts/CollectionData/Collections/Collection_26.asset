@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9ca7b57268c0fe4bb53673f6bf578e9, type: 3}
-  m_Name: Collection_15
+  m_Name: Collection_26
   m_EditorClassIdentifier: 
-  collectionId: 15
-  collectionName: Leather Cap
-  icon: {fileID: -12217541, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: HP +5 / Level
-  bonusMaxHP: 5
+  collectionId: 26
+  collectionName: Red Elixir
+  icon: {fileID: -1666656044, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
+  description: HP +40 / Level
+  bonusMaxHP: 40
   bonusMeleeATK: 0
   bonusRangeATK: 0
   bonusArmor: 0

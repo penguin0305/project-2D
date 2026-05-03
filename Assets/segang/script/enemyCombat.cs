@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
-public class enemyCombat : MonoBehaviour
+using Unity.Netcode;
+
+public class enemyCombat : NetworkBehaviour, IDamageable
 {
     public enemyController eController;
     [Header("AttackPower")]
@@ -38,39 +40,87 @@ public class enemyCombat : MonoBehaviour
         }
     }
 
-    public void OnHit(int damage, Transform playerTransform)
+    // IDamageable 구현
+    public void TakeDamage(DamageInfo info)
     {
-        eController.currentHealth -= damage;//데미지 입는것에 제한없음 (무적시간 없음)
-        
-        if(eController.currentHealth<=0)
+        if (!IsServer) return;
+        if (eController.currentHealth <= 0) return;
+
+        eController.currentHealth -= info.damage;
+
+        // FloatingDamage 전파
+        ShowFloatingDamageRpc(info.damage, transform.position);
+
+        if (eController.currentHealth <= 0)
         {
             if (NetworkHistoryManager.Instance != null)
-            {
                 NetworkHistoryManager.Instance.AddDefeatCountServerRpc(Unity.Netcode.NetworkManager.Singleton.LocalClientId);
-            }
 
             eController.die();
+            return;
         }
-        if (!isHit)//중복처리 방지
+
+        if (info.knockback && info.attackerNetworkObjectId != 0)
+        {
+            var attackerObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[info.attackerNetworkObjectId];
+            if (attackerObj != null)
+                Knockback(attackerObj.transform);
+        }
+
+        if (!isHit)
         {
             isHit = true;
+            HitClientRpc();
+        }
 
+        Debug.Log("TakeDamage");
+    }
+
+    // 기존 OnHit 유지 (하위 호환)
+    public void OnHit(int damage, Transform playerTransform)
+    {
+        var info = new DamageInfo
+        {
+            damage = damage,
+            knockback = true,
+            isCrit = false,
+            attackerNetworkObjectId = 0
+        };
+        // 넉백은 직접 처리
+        TakeDamage(info);
+        if (!isHit)
+        {
+            isHit = true;
             Knockback(playerTransform);
             StartCoroutine(BlinkCoroutine());
         }
-        Debug.Log("TakeDamage");
     }
+
     public void OnHit(int damage)
     {
-        eController.currentHealth -= damage;
-        if (eController.currentHealth <= 0)
+        var info = new DamageInfo { damage = damage };
+        TakeDamage(info);
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void ShowFloatingDamageRpc(int damage, Vector3 position)
+    {
+        FloatingDamageManager.Instance?.Show(damage, position, FloatingDamageType.Normal);
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void HitClientRpc()
+    {
+        if (!isHit)
         {
-            eController.die();
+            isHit = true;
+            StartCoroutine(BlinkCoroutine());
         }
     }
-    void Knockback(Transform playertransform)
+
+    void Knockback(Transform playerTransform)
     {
-        Vector2 dir = (transform.position - playertransform.position).normalized;
+        Vector2 dir = (transform.position - playerTransform.position).normalized;
         rb.linearVelocity = Vector2.zero;//기존 속도 제거
         rb.AddForce(dir * knockbackForce, ForceMode2D.Impulse);
     }
@@ -97,13 +147,11 @@ public class enemyCombat : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         

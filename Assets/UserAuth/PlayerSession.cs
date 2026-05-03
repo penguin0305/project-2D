@@ -69,25 +69,28 @@ public class PlayerSession : MonoBehaviour
         this.Exp += score;
 
         var pItemMap = PlayerItems.ToDictionary(item => item.eid);
-        foreach (var kvp in tmpinventory)
+        if (tmpinventory != null)
         {
-            if (pItemMap.TryGetValue(kvp.Key, out var existingItem)) existingItem.dup_count += kvp.Value;
-            else
+            foreach (var kvp in tmpinventory)
             {
-                PlayerItems.Add(new PlayerItem
+                if (pItemMap.TryGetValue(kvp.Key, out var existingItem)) existingItem.dup_count += kvp.Value;
+                else
                 {
-                    id = this.Id,
-                    iid = 0, // 서버에서 처리
-                    eid = kvp.Key,
-                    type = "tmp", // 서버에서 처리
-                    dup_count = kvp.Value,
-                    enhance_level = 0,
-                    enhance_fail_count = 0,
-                    // 미사용 어트리뷰트지만 일단 0으로 초기화
-                    base_atk = 0,
-                    base_hp = 0,
-                    base_armor = 0
-                });
+                    PlayerItems.Add(new PlayerItem
+                    {
+                        id = this.Id,
+                        iid = 0, // 서버에서 처리
+                        eid = kvp.Key,
+                        type = "tmp", // 서버에서 처리
+                        dup_count = kvp.Value,
+                        enhance_level = 0,
+                        enhance_fail_count = 0,
+                        // 미사용 어트리뷰트지만 일단 0으로 초기화
+                        base_atk = 0,
+                        base_hp = 0,
+                        base_armor = 0
+                    });
+                }
             }
         }
         pDataManager.SaveAndFetch(() => OnPlayerDataUpdated?.Invoke()); // 서버에서 처리하는 로직이 있으므로 저장 및 갱신 & 이벤트 알림
