@@ -62,8 +62,10 @@ public class PlayerDataManager : MonoBehaviour
                 // JSON to PlayerData
                 string jsonResponse = request.downloadHandler.text;
                 PlayerData pData = JsonUtility.FromJson<PlayerData>(jsonResponse);
+               
                 string itemsString = pData.items != null && pData.items.Count > 0 ? string.Join(", ", pData.items.Select(item => item.eid)) : "없음";
                 Debug.Log($"데이터 로드, 닉네임: {pData.username}, 레벨: {pData.level}, 아이템 개수: {(pData.items != null ? pData.items.Count : 0)}개, [아이템 목록: {itemsString}]");
+            
                 PlayerSession.Instance.UpdateSessionData(pData);
             }
             else

@@ -80,7 +80,7 @@ public class PlayerSession : MonoBehaviour
                     iid = 0, // 서버에서 처리
                     eid = kvp.Key,
                     type = "tmp", // 서버에서 처리
-                    dup_count = kvp.Value - 1,
+                    dup_count = kvp.Value,
                     enhance_level = 0,
                     enhance_fail_count = 0,
                     // 미사용 어트리뷰트지만 일단 0으로 초기화
