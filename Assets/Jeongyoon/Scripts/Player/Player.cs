@@ -2,7 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public sealed class Player : NetworkBehaviour
+public sealed class Player : NetworkBehaviour, IDamageable
 {
 	[Header("Modules")]
 	public PlayerInputState Input { get; private set; }
@@ -68,28 +68,31 @@ public sealed class Player : NetworkBehaviour
 			var playerInput = GetComponent<PlayerInput>();
 			if (playerInput != null)
 				playerInput.enabled = false;
- 
+
 			foreach (var cam in GetComponentsInChildren<Camera>())
 				cam.enabled = false;
- 
+
 			foreach (var listener in GetComponentsInChildren<AudioListener>())
 				listener.enabled = false;
 		}
 		else
 		{
-			var items = PlayerSession.Instance?.PlayerItems ?? new System.Collections.Generic.List<PlayerItem>();
-			var itemsNet = new PlayerItemNetwork[items.Count];
-			for (int i = 0; i < items.Count; i++)
+			var items = PlayerSession.Instance?.PlayerItems;
+			if (items != null)
 			{
-				itemsNet[i] = new PlayerItemNetwork
+				var itemsNet = new PlayerItemNetwork[items.Count];
+				for (int i = 0; i < items.Count; i++)
 				{
-					eid = items[i].eid,
-					enhance_level = items[i].enhance_level,
-					dup_count = items[i].dup_count,
-					enhance_fail_count = items[i].enhance_fail_count
-				};
+					itemsNet[i] = new PlayerItemNetwork
+					{
+						eid = items[i].eid,
+						enhance_level = items[i].enhance_level,
+						dup_count = items[i].dup_count,
+						enhance_fail_count = items[i].enhance_fail_count
+					};
+				}
+				SubmitItemsServerRpc(itemsNet);
 			}
-			SubmitItemsServerRpc(itemsNet);
 		}
 	}
 
@@ -125,33 +128,33 @@ public sealed class Player : NetworkBehaviour
 		currentState?.FixedTick(this);
 	}
 
-	public void TakeDamage(int damage, float stunDuration, bool knockback, bool isCrit = false)
+	public void TakeDamage(DamageInfo info)
 	{
 		if (IsServer)
-			ApplyDamage(damage, stunDuration, knockback, isCrit);
+			ApplyDamage(info);
 		else
-			TakeDamageServerRpc(damage, stunDuration, knockback, isCrit);
+			TakeDamageServerRpc(info);
 	}
 
 	[Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
-	public void TakeDamageServerRpc(int damage, float stunDuration, bool knockback, bool isCrit = false)
+	public void TakeDamageServerRpc(DamageInfo info)
 	{
-		ApplyDamage(damage, stunDuration, knockback, isCrit);
+		ApplyDamage(info);
 	}
 
-	private void ApplyDamage(int damage, float stunDuration, bool knockback, bool isCrit = false)
+	private void ApplyDamage(DamageInfo info)
 	{
 		if (currentState == Dead || currentState == Stunned)
 			return;
 
-		int finalDamage = Mathf.Max(1, damage - Status.Armor);
+		int finalDamage = Mathf.Max(1, info.damage - Status.Armor);
 
 		Status.ChangeHealth(-finalDamage);
 		OnCheckHP?.Invoke(Status.CurrentHealth);
 		HistoryManager.Instance?.UpdateHP(Status.CurrentHealth);
 
 		// 데미지 팝업 전파
-		FloatingDamageType popupType = isCrit ? FloatingDamageType.Crit : FloatingDamageType.Normal;
+		FloatingDamageType popupType = info.isCrit ? FloatingDamageType.Crit : FloatingDamageType.Normal;
 		Sync.ShowFloatingDamageRpc(finalDamage, transform.position, (int)popupType);
 
 		DamageAnimClientRpc();
@@ -159,21 +162,18 @@ public sealed class Player : NetworkBehaviour
 		if (Status.CurrentHealth <= 0)
 		{
 			OnDeath?.Invoke();
-			SetDeadClientRpc(); // 변경: 모든 클라이언트에 사망 전파
+			SetDeadClientRpc();
 
-			// player gameover_영웅
 			if (GameOverManager.Instance != null)
-        	{
-            	GameOverManager.Instance.ReportPlayerDeathServerRpc();
-        	}
+				GameOverManager.Instance.ReportPlayerDeathServerRpc();
 
 			return;
 		}
 
-		if (stunDuration > 0f)
-			SetStunnedClientRpc(stunDuration);
+		if (info.stunDuration > 0f)
+			SetStunnedClientRpc(info.stunDuration);
 
-		if (knockback)
+		if (info.knockback)
 		{
 			float dir = Motor.IsFacingRight ? -1f : 1f;
 			KnockbackClientRpc(dir);

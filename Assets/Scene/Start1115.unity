@@ -2666,6 +2666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 3058659472406823714, guid: fc9d470091c3a63409fb1521035f393e,
     type: 3}
+  loadSceneName: NetworkLobby
 --- !u!4 &655410309
 Transform:
   m_ObjectHideFlags: 0
