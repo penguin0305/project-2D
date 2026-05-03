@@ -62,7 +62,7 @@ public class NetworkInventoryManager : NetworkBehaviour
             }
         }
     }
-
+    /*
     public void SendInventoryToSession()
     {
         if (PlayerSession.Instance == null) return;
@@ -74,6 +74,17 @@ public class NetworkInventoryManager : NetworkBehaviour
 
             PlayerSession.Instance.UpdateItem(itemID, 1, count, 0);
         }
+
+        tmpInventory.Clear();
+        itemOrder.Clear();
+    }
+    */
+
+    public void SendInventoryToSession(int score)
+    {
+        if (PlayerSession.Instance == null) return;
+
+        PlayerSession.Instance.UpdateStageData(tmpInventory, score);
 
         tmpInventory.Clear();
         itemOrder.Clear();

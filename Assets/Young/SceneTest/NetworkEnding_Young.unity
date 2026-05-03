@@ -1281,6 +1281,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 3225039236
       objectReference: {fileID: 0}
+    - target: {fileID: 4257233328152861371, guid: 18da617375f5dfc45a16a2f0955b0391,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 911720780
+      objectReference: {fileID: 0}
     - target: {fileID: 9067685661284684364, guid: 18da617375f5dfc45a16a2f0955b0391,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -52944,7 +52949,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
