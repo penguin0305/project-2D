@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
-public class bossTargetRangeController : MonoBehaviour
+using Unity.Netcode;
+public class bossTargetRangeController : NetworkBehaviour
 {
     public List<Transform> playersInRange = new List<Transform>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,14 +17,17 @@ public class bossTargetRangeController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!IsServer) return;
         if (collision.CompareTag("Player"))
         {
-            playersInRange.Add(collision.transform);
+            if (!playersInRange.Contains(collision.transform))
+                playersInRange.Add(collision.transform);
         }
     }//플레이어와trigger충돌하면 인식리스트에 넣음
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (!IsServer) return;
         if (collision.CompareTag("Player"))
         {
             playersInRange.Remove(collision.transform);

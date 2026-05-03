@@ -1,13 +1,18 @@
 using UnityEngine;
-
-public class bossAttacksController : MonoBehaviour
+using Unity.Netcode;
+public class bossAttacksController : NetworkBehaviour
 {
     Animator animator;
     public void playRandomAttack()
     {
+        if (!IsServer) return;
         int rand = Random.Range(0, 2);
-
-        switch (rand)
+        PlayAttackClientRpc(rand);
+    }
+    [ClientRpc]
+    void PlayAttackClientRpc(int attackIndex)
+    {
+        switch (attackIndex)
         {
             case 0:
                 attack1();
@@ -17,7 +22,6 @@ public class bossAttacksController : MonoBehaviour
                 break;
         }
     }
-
     void attack1() 
     {
         animator.SetTrigger("attack1");

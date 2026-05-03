@@ -18482,7 +18482,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 1838775521}
-  BGM: {fileID: 779689661}
 --- !u!1001 &1617526990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19838,7 +19837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  gameSceneName: tScene
+  gameSceneName: Multiplay Demo
 --- !u!1 &2031184984
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,6 +29,12 @@ public class MeleeHitbox : MonoBehaviour
 				enemy.OnHit(damage, transform);
 		}
 
+		if (collision.CompareTag("Boss"))
+		{
+			var boss = collision.GetComponent<bossCombat>();
+			if (boss)
+				boss.OnHit(damage, transform);
+		}
 		// 플레이어 PvP
 		// NetworkMeleeHitbox: var targetNetPlayer = collision.GetComponentInParent<NetworkPlayer>();
 		var targetPlayer = collision.GetComponentInParent<Player>();
