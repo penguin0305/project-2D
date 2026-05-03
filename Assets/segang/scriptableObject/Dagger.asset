@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6feaff97d2cc9b54ca9a83915e03a687, type: 3}
   m_Name: Dagger
   m_EditorClassIdentifier: 
-  itemID: 0
-  canOverlap: 0
-  itemQuantity: 1
+  itemID: 1
+  canOverlap: 1
+  itemQuantity: 0
   isInteractivity: 0
-  isConsumable: 0
+  isConsumable: 1
   itemCooltime: -1
   mItemType: 4
   mItemImage: {fileID: 1559247196, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  collectionInfo: {fileID: 11400000, guid: a399a91274eda5047bcd800ff4d2e86d, type: 2}
+  collectionInfo: {fileID: 11400000, guid: b52cb55f1341bd14c90cc44402efbdb4, type: 2}
