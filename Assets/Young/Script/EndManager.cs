@@ -75,10 +75,6 @@ public class EndingDirector : NetworkBehaviour
 
     public void ExitButton()
     {
-        if (InventoryManager.Instance != null)
-        {
-            NetworkInventoryManager.Instance.SendInventoryToSession();
-        }
 
         if (NetworkManager.Singleton != null)
         {

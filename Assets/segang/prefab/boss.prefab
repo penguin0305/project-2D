@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3055751489261178563}
   - component: {fileID: 5855251894384848678}
+  - component: {fileID: 3596699547535210354}
   - component: {fileID: 4075835652598262185}
   - component: {fileID: 3042870757777669227}
   - component: {fileID: 3233425563514006520}
@@ -17,7 +18,6 @@ GameObject:
   - component: {fileID: 571128522289582579}
   - component: {fileID: 6157175868028392959}
   - component: {fileID: 7587947592004968215}
-  - component: {fileID: 3596699547535210354}
   - component: {fileID: 7839911009344867325}
   - component: {fileID: 6028337896265484779}
   - component: {fileID: 542047368173747483}
@@ -99,6 +99,31 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3596699547535210354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1786733819806214301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1305343528
+  InScenePlacedSourceGlobalObjectIdHash: 1305343528
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &4075835652598262185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,31 +276,6 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &3596699547535210354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786733819806214301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1379754745
-  InScenePlacedSourceGlobalObjectIdHash: 1305343528
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!114 &7839911009344867325
 MonoBehaviour:
   m_ObjectHideFlags: 0

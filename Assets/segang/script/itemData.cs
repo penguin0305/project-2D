@@ -9,7 +9,7 @@ public class itemData : ScriptableObject
         coin,
         key,
         quest,
-        collection_0,
+        collection,
         equipment
 
     }

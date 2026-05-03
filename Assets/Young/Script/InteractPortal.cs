@@ -93,11 +93,19 @@ private void SetPlayerVisibilityClientRpc(ulong clientId, bool isVisible)
     }
 }
 
-public void Interact(PlayerInteraction player)
+    public void Interact(PlayerInteraction player)
     {
         if (IsServer && isActivated.Value)
         {
             Debug.Log($"현재 인원: {playersInPortal.Value}");
+        }
+    }
+
+    public void ActivatePortal()
+    {
+        if (IsServer)
+        {
+            isActivated.Value = true;
         }
     }
 
