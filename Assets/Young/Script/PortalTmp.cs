@@ -39,6 +39,10 @@ public class Portaltmp : MonoBehaviour, IInteractable
             return;
         }
 
+        if (NetworkInventoryManager.Instance != null)
+        {
+            NetworkInventoryManager.Instance.SendInventoryToSession(10);
+        }
 
         GoToEnding();
     }

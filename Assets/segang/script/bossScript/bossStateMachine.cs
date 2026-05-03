@@ -92,6 +92,11 @@ public class bossStateMachine : NetworkBehaviour
                 if (!dieOnce)
                 {
                     DeadClientRpc();
+                    if (IsServer)
+                    {
+                        Portaltmp portal = Object.FindAnyObjectByType<Portaltmp>();
+                        portal.ActivateVisual();
+                    }
                     dieOnce = true;
                 }
                 break;

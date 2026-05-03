@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 981996628124379753}
   - component: {fileID: 2961133936554039637}
   - component: {fileID: 8036357335040733329}
-  - component: {fileID: 1889616666568803515}
   - component: {fileID: 7215020513977688899}
   - component: {fileID: 7962499682784653873}
   - component: {fileID: 6917164918538933663}
@@ -52,7 +51,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 0}
-  BGM: {fileID: 0}
 --- !u!114 &8036357335040733329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,19 +64,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 0}
---- !u!114 &1889616666568803515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8063531291054341864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92feed0d7fba06d4e9602948800fa029, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
 --- !u!114 &7215020513977688899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,9 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f595541bccfe42f45a73adcc146d75f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverUI: {fileID: 0}
-  startSceneName: Start1115
-  BGM: {fileID: 0}
+  LobbySceneName: NetworkLobby
 --- !u!114 &6014983205236451519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: {fileID: 0}
+  timerText: {fileID: 0}
 --- !u!114 &1512369254074523327
 MonoBehaviour:
   m_ObjectHideFlags: 0

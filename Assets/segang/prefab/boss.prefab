@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 6028337896265484779}
   - component: {fileID: 542047368173747483}
   - component: {fileID: 4671028517268597907}
-  - component: {fileID: 3183703777971437005}
+  - component: {fileID: 4898132280677882402}
   m_Layer: 0
   m_Name: boss
   m_TagString: Boss
@@ -378,7 +378,7 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &3183703777971437005
+--- !u!114 &4898132280677882402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -387,15 +387,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1786733819806214301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cf552d189ed01c408a14caaf03f93d2, type: 3}
+  m_Script: {fileID: 11500000, guid: 02a593eeb826d764aa5ee545972bf0c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  moveSpeed: 2
-  detectRange: 5
-  maxHealth: 10
-  currentHealth: 0
-  player: {fileID: 0}
+  dropItems:
+  - itemPrefab: {fileID: 8089094859355405138, guid: 0e510d24d839baf4ab993c3eee576057,
+      type: 3}
+    weight: 100
+  minDropCount: 2
+  maxDropCount: 5
 --- !u!1 &2198005564024409536
 GameObject:
   m_ObjectHideFlags: 0
