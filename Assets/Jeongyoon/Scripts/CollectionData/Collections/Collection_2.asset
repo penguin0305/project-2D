@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Collection_2
   m_EditorClassIdentifier: 
   collectionId: 2
-  collectionName: GreatSword
-  icon: {fileID: 1433700066, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: Melee ATK +3 / level
+  collectionName: Sword
+  icon: {fileID: 1559247196, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
+  description: Melee ATK +2 / level
   bonusMaxHP: 0
-  bonusMeleeATK: 3
+  bonusMeleeATK: 2
   bonusRangeATK: 0
   bonusArmor: 0
   bonusSpeed: 0

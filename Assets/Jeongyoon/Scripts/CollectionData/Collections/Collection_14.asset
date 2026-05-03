@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Collection_14
   m_EditorClassIdentifier: 
   collectionId: 14
-  collectionName: Leather Cap
-  icon: {fileID: -12217541, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: HP +10 / Level
-  bonusMaxHP: 10
+  collectionName: Leather Cloak
+  icon: {fileID: 1505604323, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
+  description: Armor +1.5 / Level
+  bonusMaxHP: 0
   bonusMeleeATK: 0
   bonusRangeATK: 0
-  bonusArmor: 0
+  bonusArmor: 1.5
   bonusSpeed: 0
   bonusCritRate: 0
   bonusCritDamage: 0

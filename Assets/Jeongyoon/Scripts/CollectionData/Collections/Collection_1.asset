@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Collection_1
   m_EditorClassIdentifier: 
   collectionId: 1
-  collectionName: Sword
-  icon: {fileID: 1559247196, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: Melee ATK +2 / level
+  collectionName: Dagger
+  icon: {fileID: -525750756, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
+  description: Melee ATK +1 / level
   bonusMaxHP: 0
-  bonusMeleeATK: 2
+  bonusMeleeATK: 1
   bonusRangeATK: 0
   bonusArmor: 0
   bonusSpeed: 0

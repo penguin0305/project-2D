@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Collection_9
   m_EditorClassIdentifier: 
   collectionId: 9
-  collectionName: Spear
-  icon: {fileID: 1925073780, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: Crit Damage +2% / Level
+  collectionName: Mystic Axe
+  icon: {fileID: 1407749748, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
+  description: Crit Rate +4% / Level
   bonusMaxHP: 0
   bonusMeleeATK: 0
   bonusRangeATK: 0
   bonusArmor: 0
   bonusSpeed: 0
-  bonusCritRate: 0
-  bonusCritDamage: 0.02
+  bonusCritRate: 0.04
+  bonusCritDamage: 0

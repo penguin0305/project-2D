@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Collection_11
   m_EditorClassIdentifier: 
   collectionId: 11
-  collectionName: Mystic Trident
-  icon: {fileID: 1826488818, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: Crit Damage +8% / Level
+  collectionName: Trident
+  icon: {fileID: -686339164, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
+  description: Crit Damage +4% / Level
   bonusMaxHP: 0
   bonusMeleeATK: 0
   bonusRangeATK: 0
   bonusArmor: 0
   bonusSpeed: 0
   bonusCritRate: 0
-  bonusCritDamage: 0.08
+  bonusCritDamage: 0.04

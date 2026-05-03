@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Collection_3
   m_EditorClassIdentifier: 
   collectionId: 3
-  collectionName: Long Bow
-  icon: {fileID: -1265119008, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: Range ATK +0.5 / Level
+  collectionName: GreatSword
+  icon: {fileID: 1433700066, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
+  description: Melee ATK +3 / level
   bonusMaxHP: 0
-  bonusMeleeATK: 0
-  bonusRangeATK: 0.5
+  bonusMeleeATK: 3
+  bonusRangeATK: 0
   bonusArmor: 0
   bonusSpeed: 0
   bonusCritRate: 0

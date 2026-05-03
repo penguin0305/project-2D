@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Collection_8
   m_EditorClassIdentifier: 
   collectionId: 8
-  collectionName: Mystic Axe
-  icon: {fileID: 1407749748, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: Crit Rate +4% / Level
+  collectionName: Double-Edged Axe
+  icon: {fileID: 976054918, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
+  description: Crit Rate +2% / Level
   bonusMaxHP: 0
   bonusMeleeATK: 0
   bonusRangeATK: 0
   bonusArmor: 0
   bonusSpeed: 0
-  bonusCritRate: 0.04
+  bonusCritRate: 0.02
   bonusCritDamage: 0
