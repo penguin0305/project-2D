@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using Unity.Netcode;
-public class bossCombat : NetworkBehaviour
+
+public class bossCombat : NetworkBehaviour, IDamageable
 {
     private bossStateMachine stateMachine;
     [Header("AttackPower")]
@@ -41,21 +42,57 @@ public class bossCombat : NetworkBehaviour
         }
     }
 
-    public void OnHit(int damage, Transform playerTransform)
+    // IDamageable 구현
+    public void TakeDamage(DamageInfo info)
     {
-        if (!IsServer) return;//고쳐야 될거 같음
-        if (bossHP <= 0) return; // 죽으면 이후 데미지 무시
-        bossHP -= damage;
+        if (!IsServer) return;
+        if (bossHP <= 0) return;
+
+        bossHP -= info.damage;
         Debug.Log("TakeDamage");
+
+        // FloatingDamage 전파
+        ShowFloatingDamageRpc(info.damage, transform.position, info.isCrit);
+
         if (bossHP <= 0)
         {
             bossDie();
             return;
         }
-        Knockback(playerTransform.position);
+
+        if (info.knockback && info.attackerNetworkObjectId != 0)
+        {
+            var attackerObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[info.attackerNetworkObjectId];
+            if (attackerObj != null)
+                Knockback(attackerObj.transform.position);
+        }
+
         HitClientRpc();
     }
-    [ClientRpc]
+
+    // 기존 OnHit 유지 (하위 호환)
+    public void OnHit(int damage, Transform playerTransform)
+    {
+        var info = new DamageInfo
+        {
+            damage = damage,
+            knockback = true,
+            isCrit = false,
+            attackerNetworkObjectId = 0
+        };
+        TakeDamage(info);
+        if (IsServer)
+            Knockback(playerTransform.position);
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void ShowFloatingDamageRpc(int damage, Vector3 position, bool isCrit)
+    {
+        FloatingDamageType type = isCrit ? FloatingDamageType.Crit : FloatingDamageType.Normal;
+        FloatingDamageManager.Instance?.Show(damage, position, type);
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
     void HitClientRpc()
     {
         if (!isHit)
@@ -64,20 +101,14 @@ public class bossCombat : NetworkBehaviour
             StartCoroutine(BlinkCoroutine());
         }
     }
-    /*public void OnHit(int damage)
-    {
-        bossHP -= damage;
-        if (bossHP <= 0)
-        {
-            bossDie();
-        }
-    }*/
+
     void Knockback(Vector3 playerPos)
     {
         Vector2 dir = (transform.position - playerPos).normalized;
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(dir * knockbackForce, ForceMode2D.Impulse);
     }
+
     void bossDie()
     {
         if (stateMachine == null) return;
@@ -108,13 +139,11 @@ public class bossCombat : NetworkBehaviour
         stateMachine = GetComponent<bossStateMachine>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
 
     }
 
-    // Update is called once per frame
     void Update()
     {
 

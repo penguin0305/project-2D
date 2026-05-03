@@ -5,7 +5,6 @@ public class PlayerAirborneState : PlayerBaseState
 	private bool isJumpLatched;
 	private int currentJumpCount;
 
-	private const float AirMoveSpeed = 5f;
 	private const float JumpForce = 12f;
 	private const int MaxJumpCount = 2;
 
@@ -29,7 +28,7 @@ public class PlayerAirborneState : PlayerBaseState
 			Jump(player);
 	}
 
-        public override void Exit(Player player)
+	public override void Exit(Player player)
 	{
 		currentJumpCount = 0;
 	}
@@ -56,7 +55,8 @@ public class PlayerAirborneState : PlayerBaseState
 
 	private void Move(Player player)
 	{
-		player.Motor.SetVelocityX(player.Input.Move.x * AirMoveSpeed);
+		// 기존: AirMoveSpeed 상수 → player.Status.Speed 사용
+		player.Motor.SetVelocityX(player.Input.Move.x * player.Status.Speed);
 		player.Motor.UpdateFacingDirection(player.Input.Move.x);
 	}
 
@@ -67,7 +67,6 @@ public class PlayerAirborneState : PlayerBaseState
 			player.Motor.SetVelocityY(JumpForce);
 			currentJumpCount++;
 			player.Audio.PlayJump();
-
 		}
 		isJumpLatched = false;
 	}
