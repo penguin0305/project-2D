@@ -11,7 +11,8 @@ public class Network_Boss : enemyController
         InteractPortal[] portals = Object.FindObjectsByType<InteractPortal>(FindObjectsSortMode.None);
         
         Portaltmp portal = Object.FindAnyObjectByType<Portaltmp>();
-
+        if (portal != null)
+            Debug.Log("Found Portal");
         portal.ActivateVisual();
         /*
         foreach (var portal in portals)
