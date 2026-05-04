@@ -2,14 +2,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
 
-public class Portaltmp : MonoBehaviour, IInteractable
+public class Portaltmp : NetworkBehaviour, IInteractable
 {
     public string EndingSceneName = "EndScene1217";
     public Sprite PortalSprite;
 
     private SpriteRenderer spriteRenderer;
-    private bool isVisible = false;
 
+    private NetworkVariable<bool> isVisible = new NetworkVariable<bool>(false);
+    /*
+    private NetworkVariable<int> playersInteracted = new NetworkVariable<int>(0);
+    private HashSet<ulong> confirmedPlayers = new HashSet<ulong>();
+    */
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -46,6 +50,32 @@ public class Portaltmp : MonoBehaviour, IInteractable
 
         GoToEnding();
     }
+    /*
+    [ServerRpc(RequireOwnership = false)]
+    private void ConfirmPortalEntryServerRpc(ulong clientId)
+    {
+        if (confirmedPlayers.Contains(clientId)) return;
+
+        confirmedPlayers.Add(clientId);
+        playersInteracted.Value++;
+
+        SetPlayerVisibilityClientRpc(clientId, false);
+
+        CheckAllPlayersIn();
+    }
+
+    private void CheckAllPlayersIn()
+    {
+        if (!IsServer) return;
+
+        int totalPlayers = NetworkManager.Singleton.ConnectedClients.Count;
+
+        if (playersInteracted.Value >= totalPlayers)
+        {
+            ToEnding();
+        }
+    }
+    */
 
     private void GoToEnding()
     {
