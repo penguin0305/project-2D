@@ -7,7 +7,7 @@ public class StageLifetimeScope : LifetimeScope
 {
     //[SerializeField] private CameraFollow CameraFollow;
     [SerializeField] private StageManager StageManager;
-    [SerializeField] private SceneSetup SceneSetup;
+    //[SerializeField] private SceneSetup SceneSetup;
     [SerializeField] private MapLoader MapLoader;
     //[SerializeField] private EndPortal EndPortal;
     //[SerializeField] private Boss Boss;
@@ -24,6 +24,6 @@ public class StageLifetimeScope : LifetimeScope
         builder.RegisterComponent(MapLoader);
         builder.RegisterComponent(CameraFollow);
         builder.RegisterComponent(StageManager);
-        builder.RegisterComponent(SceneSetup);
+        //builder.RegisterComponent(SceneSetup);
     }
 }
