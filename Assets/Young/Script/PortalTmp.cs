@@ -9,11 +9,13 @@ public class Portaltmp : NetworkBehaviour, IInteractable
 
     private SpriteRenderer spriteRenderer;
 
-    private NetworkVariable<bool> isVisible = new NetworkVariable<bool>(false);
+    private bool isVisible;
     /*
-    private NetworkVariable<int> playersInteracted = new NetworkVariable<int>(0);
-    private HashSet<ulong> confirmedPlayers = new HashSet<ulong>();
-    */
+private NetworkVariable<bool> isVisible = new NetworkVariable<bool>(false);
+
+private NetworkVariable<int> playersInteracted = new NetworkVariable<int>(0);
+private HashSet<ulong> confirmedPlayers = new HashSet<ulong>();
+*/
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
