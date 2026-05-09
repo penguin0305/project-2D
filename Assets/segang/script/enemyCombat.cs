@@ -32,10 +32,18 @@ public class enemyCombat : NetworkBehaviour, IDamageable
         if (collision.CompareTag("Player"))
         {
             Debug.Log("충돌");
-            var status = collision.GetComponent<PlayerStatus>();
-            if (status != null)
+            var player = collision.GetComponent<Player>();
+            if (player != null)
             {
-                status.ChangeHealth(-monserAttackPower);
+                var info = new DamageInfo
+                {
+                    damage = monserAttackPower,
+                    stunDuration = 0f,
+                    knockback = true,
+                    isCrit = false,
+                    attackerNetworkObjectId = NetworkObjectId
+                };
+                player.TakeDamage(info);
             }
         }
     }

@@ -21,6 +21,7 @@ public sealed class PlayerInputState : MonoBehaviour
 	private bool interactPressed;
 	private bool useItem1Pressed;
 	private bool useItem2Pressed;
+	private bool toggleStatPressed;
 
 	public void OnMove(InputAction.CallbackContext context)
 	{
@@ -65,6 +66,12 @@ public sealed class PlayerInputState : MonoBehaviour
 			useItem2Pressed = true;
 	}
 
+	public void OnToggleStat(InputAction.CallbackContext context)
+	{
+		if (context.performed)
+			toggleStatPressed = true;
+	}
+
 	// Event-Consume API (call from player.cs once per frame - polling)
 
 	public bool ConsumeJumpPressed()	=> Consume(ref jumpPressed);
@@ -72,6 +79,7 @@ public sealed class PlayerInputState : MonoBehaviour
 	public bool ConsumeInteractPressed()	=> Consume(ref interactPressed);
 	public bool ConsumeUseItem1Pressed()	=> Consume(ref useItem1Pressed);
 	public bool ConsumeUseItem2Pressed()	=> Consume(ref useItem2Pressed);
+	public bool ConsumeToggleStatPressed()	=> Consume(ref toggleStatPressed);
 
 	private static bool Consume(ref bool flag)
 	{
