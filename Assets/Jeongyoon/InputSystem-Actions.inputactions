@@ -69,27 +69,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pause",
+                    "name": "ToggleStat",
                     "type": "Button",
-                    "id": "952693bd-320e-4ece-b4c6-d0078fee1169",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Used",
-                    "type": "Button",
-                    "id": "20ba22de-2454-4295-a2ea-a46078aee57b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Skill",
-                    "type": "Button",
-                    "id": "760b9bb8-8123-4212-badc-0ac5becfc834",
+                    "id": "f910996c-238d-471c-a6b5-6a54b449986c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -231,34 +213,12 @@
                 },
                 {
                     "name": "",
-                    "id": "8d6f7b7e-c77d-4b64-8303-0b6890bce6e2",
-                    "path": "<Keyboard>/escape",
+                    "id": "235e33ef-ab1f-4c79-a56c-a020cdd77689",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2d0dc80d-d21a-42bb-8e3c-672f63db45e6",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Used",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "37b8d834-a94a-45ef-a00b-37e7e5033d82",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Skill",
+                    "action": "ToggleStat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
