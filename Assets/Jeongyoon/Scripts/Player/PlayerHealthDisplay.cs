@@ -3,13 +3,21 @@ using UnityEngine;
 
 public class PlayerHealthDisplay : MonoBehaviour
 {
-	[SerializeField] private TextMeshProUGUI healthText;
+	[SerializeField] private TextMeshPro healthText;
+	[SerializeField] private Vector3 offset = new Vector3(0f, 1.5f, 0f);
+	[SerializeField] private float fontSize = 0.5f;
 
 	private Player player;
 
 	private void Awake()
 	{
 		player = GetComponentInParent<Player>();
+
+		if (healthText != null)
+		{
+			healthText.fontSize = fontSize;
+			healthText.alignment = TextAlignmentOptions.Center;
+		}
 	}
 
 	private void OnEnable()
@@ -36,6 +44,10 @@ public class PlayerHealthDisplay : MonoBehaviour
 
 	private void LateUpdate()
 	{
+		// 플레이어 머리 위에 고정
+		transform.position = player.transform.position + offset;
+
+		// 항상 카메라를 향하도록
 		if (Camera.main != null)
 			transform.forward = Camera.main.transform.forward;
 	}
