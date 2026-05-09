@@ -132,10 +132,9 @@ public class PlayerStatus : MonoBehaviour
 		sync.health.Value = nextHealth;
 		CurrentHealth = nextHealth;
 
-		if (sync.IsOwner)
-		{
-			if (NetworkHistoryManager.Instance != null)
-				NetworkHistoryManager.Instance.UpdateHPServerRpc(sync.OwnerClientId, CurrentHealth);
-		}
+		if (NetworkHistoryManager.Instance != null && NetworkHistoryManager.Instance.IsSpawned)
+        {
+            NetworkHistoryManager.Instance.UpdateHPServerRpc(sync.OwnerClientId, CurrentHealth);
+        }
 	}
 }

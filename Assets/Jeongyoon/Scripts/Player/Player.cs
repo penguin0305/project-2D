@@ -148,7 +148,9 @@ public sealed class Player : NetworkBehaviour, IDamageable
 
 		Status.ChangeHealth(-finalDamage);
 		OnCheckHP?.Invoke(Status.CurrentHealth);
+		/*영웅
 		HistoryManager.Instance?.UpdateHP(Status.CurrentHealth);
+		*/
 
 		// 데미지 팝업 전파
 		FloatingDamageType popupType = info.isCrit ? FloatingDamageType.Crit : FloatingDamageType.Normal;
@@ -161,9 +163,14 @@ public sealed class Player : NetworkBehaviour, IDamageable
 			OnDeath?.Invoke();
 			SetDeadClientRpc();
 
-			if (GameOverManager.Instance != null)
-				GameOverManager.Instance.ReportPlayerDeathServerRpc();
-
+			if (IsOwner) 
+    		{
+				var resultUI = Object.FindAnyObjectByType<ResultUIManager>();
+            	if (resultUI != null)
+            	{
+                	resultUI.ShowResultUI();
+            	}
+			}
 			return;
 		}
 

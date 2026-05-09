@@ -1,50 +1,82 @@
 using UnityEngine;
 using TMPro;
-using System.Collections;
+using Unity.Netcode;
 
 public class ResultUIManager : MonoBehaviour
 {
-    public TextMeshProUGUI timeText;
-    public TextMeshProUGUI DefeatText;
-    public TextMeshProUGUI hpText;
-    public TextMeshProUGUI coinText;
-    public TextMeshProUGUI totalScoreText;
+    [Header("UI Panels")]
+    [SerializeField] private GameObject gameOverUI;
 
-    public int WeightsTime = 10;
-    public int WeightsDefeat = 1000;
-    public int WeightsHP = 100;
-    public int WeightsCoin = 500;
+    [Header("Score UI (History Data)")]
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI coinText;
+    [SerializeField] private TextMeshProUGUI defeatCountText;
 
-    void Start()
+    /*
+    [Header("Exit Status UI (Stacking)")]
+    [SerializeField] private TextMeshProUGUI currentPlayersText;
+    [SerializeField] private TextMeshProUGUI totalPlayersText;
+    */
+    public static ResultUIManager Instance;
+    private void Awake() 
+    { 
+        Instance = this; 
+    }
+    
+    private void Start()
     {
-
-        float time = HistoryManager.Instance.playTime;
-        int Defeat = HistoryManager.Instance.DefeatCount;
-        int hp = HistoryManager.Instance.currentHP;
-        int coin = HistoryManager.Instance.coinCount;
-        int timeLimit = 300;
-
-        int timeScore = Mathf.Max(0, (timeLimit - (int)time) * WeightsTime);
-        int DefeatScore = Defeat * WeightsDefeat;
-        int hpScore = hp * WeightsHP;
-        int coinScore = coin * WeightsCoin;
-
-
-        int totalScore = timeScore + DefeatScore + hpScore + coinScore;
-
-        int minutes = (int)time / 60;
-        int seconds = (int)time % 60;
-        timeText.text = $"{minutes}:{seconds}";
-
-        DefeatText.text = $"{Defeat,6}";
-        hpText.text = $"{hp,6}";
-        coinText.text = $"{coin,6}";
-
-        totalScoreText.text = $"{totalScore,6}";
-
-        if (NetworkInventoryManager.Instance != null)
+        if (gameOverUI != null) gameOverUI.SetActive(false);
+        /*
+        if (GameOverManager.Instance != null)
         {
-            NetworkInventoryManager.Instance.SendInventoryToSession(totalScore);
+            GameOverManager.Instance.PlayersReadyToExit.OnValueChanged += (prev, next) => UpdateExitStatusUI();
         }
+        */
+    }
+
+    public void ShowResultUI()
+    {
+            gameOverUI.SetActive(true);
+            UpdateScoreUI();
+            /*
+            UpdateExitStatusUI();
+            */
+    }
+
+    private void UpdateScoreUI()
+    {
+        var data = NetworkHistoryManager.Instance.mySessionData;
+        scoreText.SetText(data.coinCount.ToString()); 
+        coinText.SetText(data.tempcoinCount.ToString());
+        defeatCountText.SetText(data.DefeatCount.ToString());
+    }
+
+/*
+    private void UpdateExitStatusUI()
+    {
+        if (GameOverManager.Instance == null) return;
+
+        currentPlayersText.SetText(GameOverManager.Instance.PlayersReadyToExit.Value.ToString());
+
+	int total = NetworkManager.Singleton.ConnectedClients.Count;
+        totalPlayersText.SetText(total.ToString());
+    }
+*/
+    public void OnExitBtnClick()
+    {
+        if (GameOverManager.Instance != null)
+        {
+            GameOverManager.Instance.RequestExit();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        /*
+        if (GameOverManager.Instance != null)
+        {
+            GameOverManager.Instance.PlayersReadyToExit.OnValueChanged -= (prev, next) => UpdateExitStatusUI();
+        }
+        */
     }
 }

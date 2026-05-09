@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2933980373240474861}
   - component: {fileID: 4457275803617805328}
   - component: {fileID: 6379913330318220967}
+  - component: {fileID: 7386824828496362547}
   - component: {fileID: 4701081043186151870}
   m_Layer: 0
   m_Name: TmpPortal
@@ -135,6 +136,31 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7386824828496362547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638726443183577089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3111262014
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &4701081043186151870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,5 +173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170c559dc9a943b46a9e034c94a49237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   EndingSceneName: NetworkLobby
   PortalSprite: {fileID: -989737037, guid: dfb160ddc5596284f90ba86a88c8316c, type: 3}

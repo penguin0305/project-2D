@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
+using System.Collections.Generic;
 
 public class Portaltmp : NetworkBehaviour, IInteractable
 {
@@ -9,13 +10,10 @@ public class Portaltmp : NetworkBehaviour, IInteractable
 
     private SpriteRenderer spriteRenderer;
 
-    private bool isVisible;
-    /*
-private NetworkVariable<bool> isVisible = new NetworkVariable<bool>(false);
+    private NetworkVariable<bool> isVisible = new NetworkVariable<bool>(false);
+    private NetworkVariable<int> playersInteracted = new NetworkVariable<int>(0);
+    private HashSet<ulong> confirmedPlayers = new HashSet<ulong>();
 
-private NetworkVariable<int> playersInteracted = new NetworkVariable<int>(0);
-private HashSet<ulong> confirmedPlayers = new HashSet<ulong>();
-*/
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -27,71 +25,88 @@ private HashSet<ulong> confirmedPlayers = new HashSet<ulong>();
         }
     }
 
-    public void ActivateVisual()
+    public override void OnNetworkSpawn()
+    {
+        isVisible.OnValueChanged += (prev, next) => RefreshVisual(next);
+        RefreshVisual(isVisible.Value);
+    }
+
+    private void RefreshVisual(bool visible)
     {
         if (spriteRenderer != null)
         {
-            spriteRenderer.enabled = true;
-            isVisible = true;
+            spriteRenderer.enabled = visible;
         }
     }
 
+    public void ActivatePortal()
+    {
+        if (!IsServer) return;
+        isVisible.Value = true;
+        playersInteracted.Value = 0;
+        confirmedPlayers.Clear();
+    }
 
     public void Interact(PlayerInteraction player)
     {
-        if (!isVisible)
-        {
-            Debug.Log("��Ȱ��ȭ");
-            return;
-        }
+        if (!isVisible.Value) return;
 
         if (NetworkInventoryManager.Instance != null)
         {
             NetworkInventoryManager.Instance.SendInventoryToSession(10);
         }
 
-        GoToEnding();
+        SubmitPortalInteractionServerRpc(NetworkManager.Singleton.LocalClientId);
     }
-    /*
+
     [ServerRpc(RequireOwnership = false)]
-    private void ConfirmPortalEntryServerRpc(ulong clientId)
+    private void SubmitPortalInteractionServerRpc(ulong clientId)
     {
         if (confirmedPlayers.Contains(clientId)) return;
 
         confirmedPlayers.Add(clientId);
         playersInteracted.Value++;
 
-        SetPlayerVisibilityClientRpc(clientId, false);
+        Debug.Log($"상호작용 인원: {playersInteracted.Value} / {NetworkManager.Singleton.ConnectedClients.Count}");
 
-        CheckAllPlayersIn();
+
+        CheckAllPlayersConfirmed();
     }
 
-    private void CheckAllPlayersIn()
+    private void CheckAllPlayersConfirmed()
     {
         if (!IsServer) return;
 
-        int totalPlayers = NetworkManager.Singleton.ConnectedClients.Count;
+        int connectedCount = NetworkManager.Singleton.ConnectedClients.Count;
 
-        if (playersInteracted.Value >= totalPlayers)
+        if (playersInteracted.Value >= connectedCount)
         {
-            ToEnding();
+            GoToEndingClientRpc();
         }
     }
-    */
 
-    private void GoToEnding()
+    [ClientRpc]
+    private void GoToEndingClientRpc()
+    {
+        ExecuteFinalExit();
+    }
+
+    private void ExecuteFinalExit()
     {
         if (NetworkManager.Singleton != null)
         {
             NetworkManager.Singleton.Shutdown();
-
-            if (NetworkManager.Singleton.gameObject != null)
-            {
-                Destroy(NetworkManager.Singleton.gameObject);
-            }
+        if (IsServer && NetworkManager.Singleton.gameObject != null)
+        {
+            Destroy(NetworkManager.Singleton.gameObject);
+        }
         }
         SceneManager.LoadScene(EndingSceneName);
-
     }
 
+    public override void OnNetworkDespawn()
+    {
+        if (isVisible != null)
+            isVisible.OnValueChanged -= (prev, next) => RefreshVisual(next);
+    }
 }

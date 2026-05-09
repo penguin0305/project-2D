@@ -149,6 +149,9 @@ public class NetworkHistoryManager : NetworkBehaviour
     [ClientRpc]
     private void ResetLocalDataClientRpc()
     {
-        mySessionData = new PlayerSessionData();
+        mySessionData.currentHP = 0;
+        mySessionData.coinCount = 0;
+        mySessionData.tempcoinCount = 0;
+        mySessionData.DefeatCount = 0;
     }
 }

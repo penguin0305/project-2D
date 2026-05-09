@@ -14,9 +14,9 @@ public class bossStateMachine : NetworkBehaviour
 
     internal itemDropController dropper;
     public BossState currentState;
-    private bool targetTest = false;//Å×½ºÆ®¿ë º¯¼ö
-    private bool isDead = false;//Å×½ºÆ®¿ë º¯¼ö
-    private bool dieOnce = false;//Á×´Â ¾Ö´Ï¸ÞÀÌ¼Ç 1¹ø ³ª¿À´Â ¿ëµµ
+    private bool targetTest = false;//ï¿½×½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private bool isDead = false;//ï¿½×½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private bool dieOnce = false;//ï¿½×´ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ëµµ
     private Animator animator;
     private bossTargetSelector targetSelector;
     private bossMovement movement;

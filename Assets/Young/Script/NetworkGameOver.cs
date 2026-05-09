@@ -1,81 +1,59 @@
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class GameOverManager : NetworkBehaviour
 {
     public static GameOverManager Instance;
-    [SerializeField] private GameObject gameOverUI;
     [SerializeField] private string lobbySceneName = "NetworkLobby";
 
-    private int currentDeadPlayers = 0;
+    public NetworkVariable<int> PlayersReadyToExit = new NetworkVariable<int>(0);
+    private HashSet<ulong> confirmedExitPlayers = new HashSet<ulong>();
 
     private void Awake()
     {
-        if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        if (gameOverUI != null) gameOverUI.SetActive(false);
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
+
+    public void RequestExit()
+    {
+        SubmitExitRequestServerRpc(NetworkManager.Singleton.LocalClientId);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void ReportPlayerDeathServerRpc()
+    private void SubmitExitRequestServerRpc(ulong clientId)
     {
-        if (!IsServer) return;
+        if (confirmedExitPlayers.Contains(clientId)) return;
 
-        currentDeadPlayers++;
-        CheckGameOver();
-    }
+        confirmedExitPlayers.Add(clientId);
+        PlayersReadyToExit.Value = confirmedExitPlayers.Count;
 
-    private void CheckGameOver()
-    {
-        int totalPlayers = NetworkManager.Singleton.ConnectedClients.Count;
-
-        if (currentDeadPlayers >= totalPlayers && totalPlayers > 0)
+        int total = NetworkManager.Singleton.ConnectedClients.Count;
+        if (PlayersReadyToExit.Value >= total && total > 0)
         {
-            ShowGameOverUIClientRpc();
+            GoToLobbyClientRpc();
         }
     }
 
     [ClientRpc]
-    private void ShowGameOverUIClientRpc()
+    private void GoToLobbyClientRpc()
     {
-        if (gameOverUI != null)
-        {
-            gameOverUI.SetActive(true);
-        }
-    }
-
-    public void OnExitToLobbyButtonClicked()
-    {
-        if (NetworkHistoryManager.Instance != null)
-        {
-            NetworkHistoryManager.Instance.ResetData();
-        }
-
         if (NetworkInventoryManager.Instance != null)
-        {
             NetworkInventoryManager.Instance.DontSendInventoryToSession();
-        }
+
+        if (NetworkHistoryManager.Instance != null)
+            NetworkHistoryManager.Instance.ResetData();
 
         if (NetworkManager.Singleton != null)
         {
             NetworkManager.Singleton.Shutdown();
-        }
-
-        SceneManager.LoadScene(lobbySceneName);
-    }
-
-    public void ResetDeathCount()
-    {
-        if (IsServer)
+        if (IsServer && NetworkManager.Singleton.gameObject != null)
         {
-            currentDeadPlayers = 0;
+            Destroy(NetworkManager.Singleton.gameObject);
         }
+        }
+        SceneManager.LoadScene(lobbySceneName);
     }
 }
