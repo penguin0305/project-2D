@@ -12,6 +12,7 @@ public class bossStateMachine : NetworkBehaviour
         Dead
     }
 
+    internal itemDropController dropper;
     public BossState currentState;
     private bool targetTest = false;//테스트용 변수
     private bool isDead = false;//테스트용 변수
@@ -28,6 +29,7 @@ public class bossStateMachine : NetworkBehaviour
     void Start()
     {
         animator = GetComponentInParent<Animator>();
+        dropper = GetComponent<itemDropController>();
         targetSelector = GetComponent<bossTargetSelector>();
         movement = GetComponent<bossMovement>();
         bossAttacksController = GetComponent<bossAttacksController>();
@@ -96,6 +98,8 @@ public class bossStateMachine : NetworkBehaviour
                     {
                         Portaltmp portal = Object.FindAnyObjectByType<Portaltmp>();
                         portal.ActivateVisual();
+                        if (dropper != null)
+                            dropper.DropItems();
                     }
                     dieOnce = true;
                 }
