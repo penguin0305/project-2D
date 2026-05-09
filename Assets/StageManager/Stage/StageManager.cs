@@ -1,160 +1,46 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using JetBrains.Annotations;
-/*
-using UnityEngine.Rendering.Universal;
-using UnityEditorInternal.Profiling.Memory.Experimental;
-using UnityEditor.Build.Content;
-*/
+using Unity.Netcode;
 
 
-public class StageManager : MonoBehaviour
+public class StageManager : NetworkBehaviour
 {
+    private Dictionary<ulong, int> targetCountDict = new Dictionary<ulong, int>();
+    private Dictionary<ulong, int> currentCountDict = new Dictionary<ulong, int>();
 
-    //��ũ��Ʈ ����
-    [Header("References")]
-    public Player player;
-
-
-    //�̺�Ʈ ����
-    public event System.Action OnStageFail;
-    public event System.Action<List<itemData>> OnStageClear;
-    public event System.Action OnStageEscape;
-    public event System.Action<int> OnAddScore;
-
-    //�������� ������ �ʿ��� ����
-    bool IsClear = false;
-    bool CheckTrigger = false;
-    int StageScore = 0;
-
-    // �������� �����ϴ� �ӽ� �κ��丮 ����   ItemData Ŭ���� ��������� �װſ� �°� ���� 
-    private List<itemData> tmpinventory = new List<itemData>(); // ��Ƽ�÷����� ��� ��ųʸ� ��� <PID, List<ItemData>>
- 
-    private void OnEnable()
+    public void SetupNewMap(int target, ulong mapId)
     {
-        
-        /*
-        enemy.OnDeath += CalcPoint;
-        Object.OnGetItem += GetItem;
-        */
+        targetCountDict[mapId] = target;
+        currentCountDict[mapId] = 0;
     }
 
-    void Start()
+    public void AddProgress(ulong mapId)
     {
-        IsClear = false; CheckTrigger = false;
-    }
+        if (!IsServer) return;
 
+        // 없는 맵이라면 무시
+        if (!currentCountDict.ContainsKey(mapId)) return;
 
-    //�Լ� �̸�: CalcPoint
-    //���: ���� óġ���� �� ������ ȹ���带 �޾ƿͼ� ó���ϴ� �Լ�
-    //�Ķ����: int score -> �ش� ���������� ���� ������
-    //��ȯ��: X (�̺�Ʈ�� �����ϴ� ��ũ��Ʈ���� �������� ������ ����)
-    public void CalcPoint(int score)
-    {
-        StageScore += score;
-        OnAddScore?.Invoke(StageScore);
-    }
-   
-    public void ClearAssurance()
-    {
-        Debug.Log("CA");
-        IsClear = true;
-        StageEnd();
-    }
+        currentCountDict[mapId]++;
+        Debug.Log($"맵 {mapId} 진행도: {currentCountDict[mapId]} / {targetCountDict[mapId]}");
 
-    //�Լ� �̸�: StageEnd
-    //���: �������� ���Ḧ �˸��� �Լ�
-    //�Ķ����: bool IsClear -> IsClear == true�̸� Ŭ����
-    //��ȯ��: X
-    public void StageEnd()
-    {
-        if(IsClear) // Ŭ���� ������ ����������,
+        if (currentCountDict[mapId] >= targetCountDict[mapId])
         {
-            Debug.Log("Stage Clear");
-            OnStageClear?.Invoke(tmpinventory); // �̺�Ʈ�� �������� ��ũ��Ʈ�� tmpinventory�� ���ڷ� ����
-        }
-        else
-        {
-            OnStageFail?.Invoke();
-            Debug.Log("Game Over");
-            tmpinventory.Clear(); // tmpinventory �ʱ�ȭ
+            OpenWallRpc(mapId);
         }
     }
 
-    /*
-    //�Լ� �̸�: StageEscape
-    //���: ������ �߰��� �ߴܵǾ����� �˸��� �Լ�
-    //�Ķ����: bool trigger -> player�κ��� '������ ���'���� true�� �ްų� �׷��� ������ false
-    //��ȯ��: X (�̺�Ʈ ���ް��� ����)
-    public void StageEscape(bool trigger)
+    [Rpc(SendTo.Everyone)]
+    private void OpenWallRpc(ulong mapId)
     {
-        OnStageEscape?.Invoke();
-        Debug.Log("Stage Escape");
-        if(!trigger) tmpinventory.Clear();
-        
-    }
-    */
-
-
-    //�Լ� �̸�: GetItem
-    //���: ȹ���� �������� �ӽ� �κ��丮�� �߰�
-    //�Ķ����: ItemData item -> �κ��丮�� �߰��� ������
-    //��ȯ��: X
-    public void GetItem(itemData item)
-    {
-        itemData Existing = tmpinventory.Find(x => x.itemID == item.itemID);
-        if (Existing != null)
+        if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(mapId, out NetworkObject mapObj))
         {
-            //Existing.itemQuantity += item.itemQuantity;
-            Existing.itemQuantity++;
-        }
-        else if (item.itemID != 1234)
-        {
-            tmpinventory.Add(item);
-            item.itemQuantity = 1;//���ο� �������� ����Ʈ�� �߰����� �� ���� 1�� ����(����)
-        }
-
-        Debug.Log(item.itemID + " ȹ��");
-        Debug.Log(item.itemQuantity + "��");
-        if (item.itemID == 1234)
-            CheckTrigger = true; // ��ȣ�ۿ��� ���� Ʈ���� üũ
-        /*
-        if (item.itemID == 12345) // Ŭ���� ó�� �׽�Ʈ��
-        {
-            IsClear = true;
-            StageEnd();
-        }
-        */
-
-        if (item.itemID == 1001)
-        {
-            if (HistoryManager.Instance != null)
+            var puzzleData = mapObj.GetComponent<MapControl>();
+            if (puzzleData != null && puzzleData.targetWall != null)
             {
-                HistoryManager.Instance.AddcoinCount();
+                Destroy(puzzleData.targetWall);
+                Debug.Log($"맵 {mapId}의 벽이 파괴되었습니다!");
             }
         }
     }
-
-    /*   �̺�Ʈ ü�̴� ��    */
-
-    void Update()
-    {
-        /*
-         //���� �ֻ������ �̵� �� Ż�� �õ����� Ȯ��
-         if (PlayerTransform.position.y > -Threshold)
-         {
-             StageEscape(false); // �÷��̸� �ߴ��ϵ�, ȹ���� �������� �ʱ�ȭ
-         }
-         */
-    }
-
- 
-    private void OnDisable()
-    {
-        // �̺�Ʈ ���� ����
-        //enemy.OnDeath -= CalcPoint;
-        //Object.OnGetItem -= GetItem;
-    }
-    
 }

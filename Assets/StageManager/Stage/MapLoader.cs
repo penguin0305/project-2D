@@ -1,16 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using Unity.Netcode;
-#if UNITY_EDITOR
-using UnityEditor;
-using UnityEngine.Rendering.Universal;
-using UnityEditorInternal.Profiling.Memory.Experimental;
-using UnityEditor.Build.Content;
-#endif
 using VContainer;
 using VContainer.Unity;
-using YoungCameraFollow;
 
 public class MapLoader : NetworkBehaviour
 {
@@ -130,6 +122,14 @@ public class MapLoader : NetworkBehaviour
         if (networkObject != null)
         {
             networkObject.Spawn();
+
+            var playData = map.GetComponent<MapControl>();
+            var stageManager = FindAnyObjectByType<StageManager>();
+
+            if (playData != null)
+            {
+                stageManager.SetupNewMap(playData.requiredNodesCount, networkObject.NetworkObjectId);
+            }
         }
         else
         {

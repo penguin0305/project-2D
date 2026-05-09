@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1705767125240015379}
   - component: {fileID: 2788888230022864116}
   - component: {fileID: 6615196416981018511}
+  - component: {fileID: -255708161886176133}
   - component: {fileID: 3449169330278735944}
-  - component: {fileID: 659219534814503256}
   - component: {fileID: 7742866409022256303}
   m_Layer: 0
   m_Name: treasureBox
@@ -137,6 +137,31 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-255708161886176133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8025151294749361821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 4215059915
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &3449169330278735944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,22 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fba9077ce32b654fab87ed14035ceeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3058659472406823714, guid: 5d5b863d209410741b16c62ef4e8b47e, type: 3}
---- !u!114 &659219534814503256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8025151294749361821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02a593eeb826d764aa5ee545972bf0c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropItems: []
-  minDropCount: 1
-  maxDropCount: 3
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!95 &7742866409022256303
 Animator:
   serializedVersion: 7

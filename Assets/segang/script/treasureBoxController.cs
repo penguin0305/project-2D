@@ -1,43 +1,50 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public class treasureBoxController : MonoBehaviour, IInteractable
+public class treasureBoxController : NetworkBehaviour, IInteractable
 {
-    private bool isOpened = false;
-    public GameObject player;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private bool isActivated = false;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    /*private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (isOpened) return;
-
-        // 플레이어가 트리거 안에 있고 F키를 누르면
-        if (collision.CompareTag("Player") && Input.GetKeyDown(KeyCode.F)&& player.GetComponent<playerKeyController>().returnOwnedKey()>0)
-        {
-            player.GetComponent<playerKeyController>().removeKey();
-            OpenChest();
-        }
-    }*/
-
-    void OpenChest()
-    {
-        isOpened = true;
-        Debug.Log("상자 열림!");
-        GetComponent<itemDropController>().DropItems();
-        Destroy(this.gameObject);
-        // 열리는 애니메이션, 스프라이트 변경, 아이템 드롭 등 추가 가능
-    }
     public void Interact(PlayerInteraction player)
     {
-        Debug.Log("ddd");
-        OpenChest();
+        if (isActivated) return;
+
+        // 상호작용을 시도한 플레이어 검증 후 요청
+        var networkObject = player.GetComponentInParent<NetworkObject>();
+        if (networkObject != null && networkObject.IsLocalPlayer)
+        {
+            ActivateRpc();
+        }
+    }
+
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+    private void ActivateRpc()
+    {
+        var stageManager = FindAnyObjectByType<StageManager>();
+        if (isActivated) return;
+        isActivated = true;
+
+        VisualUpdateRpc();
+
+        if (stageManager != null)
+        {
+           
+            var mapControl = GetComponentInParent<MapControl>();
+
+            if (mapControl != null)
+            {
+                stageManager.AddProgress(mapControl.NetworkObjectId);
+            }
+        }
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void VisualUpdateRpc()
+    {
+        var spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = Color.gray;
+        }
     }
 }
