@@ -1,0 +1,42 @@
+using UnityEngine;
+using Unity.Netcode;
+
+public class Network_Boss : enemyController
+{
+
+    public override void die()
+    {
+        if (!IsServer) return;
+
+        InteractPortal[] portals = Object.FindObjectsByType<InteractPortal>(FindObjectsSortMode.None);
+        
+        Portaltmp portal = Object.FindAnyObjectByType<Portaltmp>();
+        Debug.Log("Found Portal");
+        portal.ActivateVisual();
+        /*
+        foreach (var portal in portals)
+        {
+            portal.ActivatePortal();
+        }
+        */
+
+        if (NetworkInventoryManager.Instance != null)
+        {
+            NetworkInventoryManager.Instance.SendInventoryToSession(10);
+        }
+
+        if (dropper != null)
+        {
+            dropper.DropItems();
+        }
+
+        if (NetworkObject != null && NetworkObject.IsSpawned)
+        {
+            NetworkObject.Despawn(true);
+        }
+        else
+        {
+            Destroy(gameObject, 0.1f);
+        }
+    }
+}

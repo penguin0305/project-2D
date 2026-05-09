@@ -57,11 +57,11 @@ EditorBuildSettings:
     path: Assets/Young/SceneTest/Start1115_Young.unity
     guid: 468d203467aa27b4cb8a121900f0ec60
   - enabled: 1
-    path: Assets/Young/SceneTest/NetworkLobby_Young.unity
-    guid: 71ae6fcc8ffb8a343be2da9610d8e34c
-  - enabled: 1
     path: Assets/Young/SceneTest/NetworkMain_Young.unity
     guid: 40f659c5fa7d34c4a9e1c7f727eb106b
+  - enabled: 1
+    path: Assets/Young/SceneTest/NetworkLobby_Young.unity
+    guid: 71ae6fcc8ffb8a343be2da9610d8e34c
   - enabled: 1
     path: Assets/Young/SceneTest/NetworkEnding_Young.unity
     guid: 1dc346302da8de64da594cc750e1076c

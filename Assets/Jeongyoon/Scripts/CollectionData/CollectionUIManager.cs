@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class CollectionUIManager : MonoBehaviour
     private Dictionary<int, CollectionState> stateDict;
     private List<int> allIds;
     private IEnhanceService enhanceService;
+    private int currentSelectedId = -1;
 
     void Awake()
     {
@@ -108,7 +110,9 @@ public class CollectionUIManager : MonoBehaviour
         BuildStateFromSession();
         Populate();
 
-        if (allIds.Count > 0)
+        if (currentSelectedId >= 0)
+            OnClickSlot(currentSelectedId);
+        else if (allIds.Count > 0)
             OnClickSlot(allIds[0]);
     }
 
@@ -150,6 +154,8 @@ public class CollectionUIManager : MonoBehaviour
     // =========================
     void OnClickSlot(int collectionId)
     {
+        currentSelectedId = collectionId;
+
         var data = CollectionDatabase.Instance.Get(collectionId);
         var state = GetState(collectionId);
 
@@ -161,6 +167,8 @@ public class CollectionUIManager : MonoBehaviour
     // =========================
     void OnEnhance(int collectionId)
     {
+        detailUI.enhanceButton.interactable = false;
+
         var state = GetState(collectionId);
 
         enhanceService.Enhance(collectionId, state, (updatedState) =>
@@ -172,12 +180,16 @@ public class CollectionUIManager : MonoBehaviour
             }
 
             stateDict[collectionId] = updatedState;
-
-            ApplyToSession(collectionId, updatedState);
-
-            OnClickSlot(collectionId);
-            Populate();
+            StartCoroutine(SaveAndReEnable(collectionId, updatedState));
         });
+    }
+
+    IEnumerator SaveAndReEnable(int collectionId, CollectionState updatedState)
+    {
+        yield return new WaitForSeconds(1f);
+        ApplyToSession(collectionId, updatedState);
+        OnClickSlot(collectionId);
+        detailUI.enhanceButton.interactable = true;
     }
 
     // =========================

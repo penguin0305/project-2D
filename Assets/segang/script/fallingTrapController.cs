@@ -74,7 +74,7 @@ public class fallingTrapController : MonoBehaviour
             if (p != null)
             {
                 // p.ApplyDamage(damage, 0.2f, true);
-                p.TakeDamage(damage, 0.2f, true);
+                p.TakeDamage(new DamageInfo { damage = damage, stunDuration = 0.2f, knockback = true });
                 Destroy(gameObject);
             }
         }

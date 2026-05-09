@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Collection_5
   m_EditorClassIdentifier: 
   collectionId: 5
-  collectionName: Mystic Bow
-  icon: {fileID: -1192989531, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: Range ATK +1.5 / Level
+  collectionName: Hunting Bow
+  icon: {fileID: 61451684, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
+  description: Range ATK +1 / Level
   bonusMaxHP: 0
   bonusMeleeATK: 0
-  bonusRangeATK: 1.5
+  bonusRangeATK: 1
   bonusArmor: 0
   bonusSpeed: 0
   bonusCritRate: 0

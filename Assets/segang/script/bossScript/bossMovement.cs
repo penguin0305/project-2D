@@ -1,12 +1,13 @@
 using UnityEngine;
-
-public class bossMovement : MonoBehaviour
+using Unity.Netcode;
+public class bossMovement : NetworkBehaviour
 {
     public float speed = 3f;
     private bool movingRight = true;
     Animator animator;
     public void MoveToTarget(Transform target)
     {
+        if (!IsServer) return;
         if (target == null) return;
         else if(target.transform.position.x>this.transform.position.x)//타겟이 오른쪽에 있을때 오른쪽으로 이동 
         {
@@ -30,6 +31,7 @@ public class bossMovement : MonoBehaviour
     }
     public bool IsInAttackRange(Transform target)
     {
+        if (!IsServer) return false;
         if (target == null) return false;
 
         return Vector2.Distance(transform.position, target.position) < 5;

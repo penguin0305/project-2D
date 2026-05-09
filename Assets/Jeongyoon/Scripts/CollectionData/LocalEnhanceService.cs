@@ -35,8 +35,11 @@ public class LocalEnhanceService : IEnhanceService
         {
             state.failCount++;
         }
+        /*
         EnhanceLogDto log = PlayerSession.Instance.MakeLogData(state, success, level_before, state.level);
         pDataManager.SendLog(log);
+        */
+        
 
         onComplete?.Invoke(state);
     }

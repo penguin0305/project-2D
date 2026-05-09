@@ -11314,7 +11314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  itemOrder: 
+  itemOrder: 0000000000000000000000000000000000000000
 --- !u!114 &1613667519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11328,7 +11328,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 1838775521}
-  BGM: {fileID: 779689661}
 --- !u!1001 &1617526990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12276,6 +12275,11 @@ PrefabInstance:
     - target: {fileID: 6768513942199702648, guid: 3816babf605171243abe0a8263ebc140,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7307698882347845099, guid: 3816babf605171243abe0a8263ebc140,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7563462790737814642, guid: 3816babf605171243abe0a8263ebc140,

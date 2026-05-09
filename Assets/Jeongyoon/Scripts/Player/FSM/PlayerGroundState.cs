@@ -5,7 +5,6 @@ public class PlayerGroundState : PlayerBaseState
 	private bool isJumpLatched;
 	private float stepTimer;
 
-	private const float MoveSpeed = 5f;
 	private const float DashSpeedMultiplier = 1.5f;
 	private const float JumpForce = 12f;
 	private const float WalkStepInterval = 0.4f;
@@ -52,7 +51,8 @@ public class PlayerGroundState : PlayerBaseState
 
 	private void Move(Player player)
 	{
-		float speed = MoveSpeed;
+		// 기존: MoveSpeed 상수 → player.Status.Speed 사용
+		float speed = player.Status.Speed;
 		if (player.Input.DashHeld)
 			speed *= DashSpeedMultiplier;
 		
@@ -65,8 +65,8 @@ public class PlayerGroundState : PlayerBaseState
 		player.Motor.SetVelocityY(JumpForce);
 		player.Audio.PlayJump();
 		
-		PlayerAirborneState ariborne = (PlayerAirborneState)player.Airborne;
-		ariborne.SetPreviousJump();
+		PlayerAirborneState airborne = (PlayerAirborneState)player.Airborne;
+		airborne.SetPreviousJump();
 
 		isJumpLatched = false;
 	}
@@ -94,7 +94,7 @@ public class PlayerGroundState : PlayerBaseState
 			return;
 		}
 
-		stepTimer  += Time.fixedDeltaTime;
+		stepTimer += Time.fixedDeltaTime;
 		float interval = player.Input.DashHeld ? DashStepInterval : WalkStepInterval;
 
 		if (stepTimer >= interval)

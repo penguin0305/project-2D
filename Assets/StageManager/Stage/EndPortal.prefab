@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3154996981590331281}
   - component: {fileID: 4136415013584426652}
   - component: {fileID: 7316082310735927999}
-  - component: {fileID: 7815614279294805731}
+  - component: {fileID: 7592069580275902329}
   m_Layer: 0
   m_Name: EndPortal
   m_TagString: TreasureBox
@@ -136,7 +136,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7815614279294805731
+--- !u!114 &7592069580275902329
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,9 +145,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 8455504608704918152}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb2dc66fced4f5a4097d2ce063b76998, type: 3}
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnPortal: {fileID: -989737037, guid: dfb160ddc5596284f90ba86a88c8316c, type: 3}
-  OffPortal: {fileID: -1231127125, guid: dfb160ddc5596284f90ba86a88c8316c, type: 3}
-  EndingSceneName: EndScene1217
+  GlobalObjectIdHash: 3410055130
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0

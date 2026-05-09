@@ -3,7 +3,6 @@ using Unity.Netcode;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 
 public class EndingDirector : NetworkBehaviour
 {
@@ -20,8 +19,6 @@ public class EndingDirector : NetworkBehaviour
     [Header("LoadScene")]
     public string LoadSceneName;
 
-    private List<GameObject> players = new List<GameObject>();
-    
     public override void OnNetworkSpawn()
     {
         if (endingUI != null) endingUI.SetActive(false);
@@ -30,62 +27,75 @@ public class EndingDirector : NetworkBehaviour
 
     IEnumerator EndingSequence()
     {
-        var playerObjects = GameObject.FindGameObjectsWithTag("Player");
-        bool allReached = false;
+        GameObject[] playerObjects;
+        while (true)
+        {
+            playerObjects = GameObject.FindGameObjectsWithTag("Player");
+            if (playerObjects.Length > 0) break;
+            yield return new WaitForSeconds(0.2f);
+        }
 
         for (int i = 0; i < playerObjects.Length; i++)
         {
             var p = playerObjects[i];
-            players.Add(p);
 
-            if (i < SpawnPoints.Length)
+            var inputState = p.GetComponent<PlayerInputState>();
+            if (inputState != null) inputState.enabled = false;
+
+            if (i < SpawnPoints.Length && SpawnPoints[i] != null)
+            {
                 p.transform.position = SpawnPoints[i].position;
-
-            var inputHandler = p.GetComponent<PlayerInputState>();
-            if (inputHandler != null) inputHandler.enabled = false;
+            }
         }
-                while (!allReached)
+
+        bool allReached = false;
+        while (!allReached)
         {
             allReached = true;
             for (int i = 0; i < playerObjects.Length; i++)
             {
-                if (i >= TargetPoints.Length) continue;
+                if (i >= TargetPoints.Length || TargetPoints[i] == null) continue;
 
                 var p = playerObjects[i];
-                var movement = p.GetComponent<PlayerMovement>();
-                
-                float dist = Mathf.Abs(p.transform.position.x - TargetPoints[i].position.x);
-                if (dist > 0.1f)
+                var motor = p.GetComponent<PlayerMotor>();
+                if (motor == null) continue;
+
+                var rb = p.GetComponent<Rigidbody2D>();
+                if (rb != null)
                 {
-                    Vector2 dir = new Vector2(Speed, 0);
-                    movement.RequestMove(dir);
+                    rb.simulated = true;
+                    rb.isKinematic = false;
+                    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                }
+
+                float distanceX = TargetPoints[i].position.x - p.transform.position.x;
+
+                if (Mathf.Abs(distanceX) > 0.1f)
+                {
+                    float moveDir = distanceX > 0 ? 1f : -1f;
+                    motor.SetVelocityX(moveDir * Speed);
+                    motor.UpdateFacingDirection(moveDir);
                     allReached = false;
                 }
                 else
                 {
-                    movement.RequestMove(Vector2.zero);
+                    motor.StopHorizontal();
                 }
             }
             yield return null;
         }
 
-        endingUI.SetActive(true);
+        if (endingUI != null) endingUI.SetActive(true);
     }
-
 
     public void ExitButton()
     {
-        if (InventoryManager.Instance != null)
-        {
-            NetworkInventoryManager.Instance.SendInventoryToSession();
-        }
+
 
         if (NetworkManager.Singleton != null)
         {
-            NetworkManager.Singleton.Shutdown(); 
+            NetworkManager.Singleton.Shutdown();
         }
-        
-        Time.timeScale = 1f;
 
         SceneManager.LoadScene(LoadSceneName);
     }

@@ -1,6 +1,6 @@
 using UnityEngine;
-
-public class bossStateMachine : MonoBehaviour
+using Unity.Netcode;
+public class bossStateMachine : NetworkBehaviour
 {
     public enum BossState
     {
@@ -8,11 +8,15 @@ public class bossStateMachine : MonoBehaviour
         SelectTarget,
         Move,
         Attack,
-        Wait
+        Wait,
+        Dead
     }
 
     public BossState currentState;
     private bool targetTest = false;//테스트용 변수
+    private bool isDead = false;//테스트용 변수
+    private bool dieOnce = false;//죽는 애니메이션 1번 나오는 용도
+    private Animator animator;
     private bossTargetSelector targetSelector;
     private bossMovement movement;
     private bossAttacksController bossAttacksController;
@@ -23,12 +27,14 @@ public class bossStateMachine : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponentInParent<Animator>();
         targetSelector = GetComponent<bossTargetSelector>();
         movement = GetComponent<bossMovement>();
         bossAttacksController = GetComponent<bossAttacksController>();
         //pattern = GetComponent<BossPatternController>();
 
-        ChangeState(BossState.Idle);
+        if (IsServer)
+            ChangeState(BossState.Idle);
     }
     private void Update()
     {
@@ -40,6 +46,14 @@ public class bossStateMachine : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!IsServer) return;
+
+        if (isDead && currentState != BossState.Dead)
+        {
+            ChangeState(BossState.Dead);
+            return;
+        }
+
         switch (currentState)
         {
             case BossState.Idle:
@@ -74,6 +88,18 @@ public class bossStateMachine : MonoBehaviour
                 if (timer > waitTime)
                     ChangeState(BossState.SelectTarget);
                 break;*/
+            case BossState.Dead:
+                if (!dieOnce)
+                {
+                    DeadClientRpc();
+                    if (IsServer)
+                    {
+                        Portaltmp portal = Object.FindAnyObjectByType<Portaltmp>();
+                        portal.ActivateVisual();
+                    }
+                    dieOnce = true;
+                }
+                break;
         }
     }
 
@@ -81,5 +107,25 @@ public class bossStateMachine : MonoBehaviour
     {
         currentState = newState;
         timer = 0f;
+        UpdateStateClientRpc(newState);
+    }
+    [ClientRpc]
+    void UpdateStateClientRpc(BossState newState)
+    {
+        currentState = newState;
+    }
+    [ClientRpc]
+    void DeadClientRpc()
+    {
+        animator.SetTrigger("isDead");
+    }
+    public void deadSignal()
+    {
+        if (!IsServer) return;
+        isDead = true;
+    }
+    public void despawnForAnimation()
+    {
+        NetworkObject.Despawn();
     }
 }

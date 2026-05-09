@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Dagger
   m_EditorClassIdentifier: 
   itemID: 1
-  canOverlap: 0
+  canOverlap: 1
   itemQuantity: 0
   isInteractivity: 0
-  isConsumable: 0
+  isConsumable: 1
   itemCooltime: -1
   mItemType: 4
   mItemImage: {fileID: 1559247196, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
+  collectionInfo: {fileID: 11400000, guid: b52cb55f1341bd14c90cc44402efbdb4, type: 2}

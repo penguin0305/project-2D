@@ -41,5 +41,10 @@ public class ResultUIManager : MonoBehaviour
         coinText.text = $"{coin,6}";
 
         totalScoreText.text = $"{totalScore,6}";
+
+        if (NetworkInventoryManager.Instance != null)
+        {
+            NetworkInventoryManager.Instance.SendInventoryToSession(totalScore);
+        }
     }
 }

@@ -21,21 +21,11 @@ public class MeleeHitbox : MonoBehaviour
 		if (isCrit)
 			damage = Mathf.Max(1, Mathf.RoundToInt(damage * player.Status.CritDamage));
 
-		// 기존 적 처리
-		if (collision.CompareTag("Enemy"))
-		{
-			var enemy = collision.GetComponent<enemyCombat>();
-			if (enemy)
-				enemy.OnHit(damage, transform);
-		}
+		ulong attackerId = player.NetworkObjectId;
+		var info = DamageInfo.Melee(damage, isCrit, attackerId);
 
-		// 플레이어 PvP
-		// NetworkMeleeHitbox: var targetNetPlayer = collision.GetComponentInParent<NetworkPlayer>();
-		var targetPlayer = collision.GetComponentInParent<Player>();
-		if (targetPlayer != null && targetPlayer != player)
-		{
-			// NetworkMeleeHitbox: targetNetPlayer.TakeDamageServerRpc(...)
-			targetPlayer.TakeDamageServerRpc(damage, 0.3f, true, isCrit);
-		}
+		var damageable = collision.GetComponentInParent<IDamageable>();
+		if (damageable != null && !ReferenceEquals(damageable, player))
+			damageable.TakeDamage(info);
 	}
 }

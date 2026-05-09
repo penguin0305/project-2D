@@ -57,26 +57,18 @@ public class Projectile : NetworkBehaviour
 		if (!IsServer) return;
 		if (alreadyHit) return;
 
-		// 기존: Enemy 처리
-		if (collision.CompareTag("Enemy"))
-		{
-			var dummy = collision.GetComponent<enemyCombat>();
-			if (dummy)
-			{
-				alreadyHit = true;
-				dummy.OnHit(damage, transform);
-				// Destroy(gameObject);
-				GetComponent<NetworkObject>().Despawn();
-			}
-		}
+		var info = DamageInfo.Range(damage, isCrit);
 
-		// 추가: 플레이어 PvP 처리
-		var targetPlayer = collision.GetComponentInParent<Player>();
-		if (targetPlayer != null && targetPlayer.NetworkObjectId != shooterNetworkObjectId)
+		var damageable = collision.GetComponentInParent<IDamageable>();
+		if (damageable != null)
 		{
+			// 발사한 플레이어 제외
+			var targetPlayer = damageable as Player;
+			if (targetPlayer != null && targetPlayer.NetworkObjectId == shooterNetworkObjectId)
+				return;
+
 			alreadyHit = true;
-			// targetPlayer.TakeDamageServerRpc(damage, 0f, true); // 서버에서 ServerRpc 호출 불가
-			targetPlayer.TakeDamage(damage, 0f, true, isCrit);
+			damageable.TakeDamage(info);
 			GetComponent<NetworkObject>().Despawn();
 		}
 	}

@@ -1,17 +1,20 @@
 using UnityEngine;
 using System.Collections.Generic;
-public class bossTargetSelector : MonoBehaviour
+using Unity.Netcode;
+public class bossTargetSelector : NetworkBehaviour
 {
     [Header("Target")]
     public bossTargetRangeController targetRange;
     public Transform target;
     public bool HasTarget()
     {
+        if (!IsServer) return false;
         return targetRange.playersInRange.Count > 0;
     }
 
     public void SelectRandomTarget()
     {
+        if (!IsServer) return;
         var list = targetRange.playersInRange;
         list.RemoveAll(p => p == null);
 

@@ -94,7 +94,8 @@ public class enemyController : NetworkBehaviour
 
         if (!IsServer) return;
 
-        dropper.DropItems();//아이템 드랍 함수 인스펙터창에서 프리팹과 드랍가중치 설정가능
+        if (dropper != null)
+            dropper.DropItems();//아이템 드랍 함수 인스펙터창에서 프리팹과 드랍가중치 설정가능
         GetComponent<NetworkObject>().Despawn();
         Debug.Log($"{gameObject.name} 사망");
     }

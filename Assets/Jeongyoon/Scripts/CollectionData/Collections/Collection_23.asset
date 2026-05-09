@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9ca7b57268c0fe4bb53673f6bf578e9, type: 3}
-  m_Name: Collection_0
+  m_Name: Collection_23
   m_EditorClassIdentifier: 
-  collectionId: 0
-  collectionName: Dagger
-  icon: {fileID: -525750756, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: Melee ATK +1 / level
+  collectionId: 23
+  collectionName: Gold Ring
+  icon: {fileID: -11124159, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
+  description: Crit Rate +0.5%, Crit Damage +1% / Level
   bonusMaxHP: 0
-  bonusMeleeATK: 1
+  bonusMeleeATK: 0
   bonusRangeATK: 0
   bonusArmor: 0
   bonusSpeed: 0
-  bonusCritRate: 0
-  bonusCritDamage: 0
+  bonusCritRate: 0.005
+  bonusCritDamage: 0.01

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Collection_15
   m_EditorClassIdentifier: 
   collectionId: 15
-  collectionName: Leather Helmet
-  icon: {fileID: -2101905279, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
-  description: HP + 15 / Level
-  bonusMaxHP: 15
+  collectionName: Leather Cap
+  icon: {fileID: -12217541, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
+  description: HP +5 / Level
+  bonusMaxHP: 5
   bonusMeleeATK: 0
   bonusRangeATK: 0
   bonusArmor: 0
