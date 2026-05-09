@@ -97,7 +97,7 @@ public class bossStateMachine : NetworkBehaviour
                     if (IsServer)
                     {
                         Portaltmp portal = Object.FindAnyObjectByType<Portaltmp>();
-                        portal.ActivateVisual();
+                        portal.ActivatePortal();
                         if (dropper != null)
                             dropper.DropItems();
                     }
