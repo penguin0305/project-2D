@@ -111,10 +111,18 @@ public class bossCombat : NetworkBehaviour, IDamageable
 
     void bossDie()
     {
+        if (!IsServer) return;
+
         if (stateMachine == null) return;
         rb.linearVelocity = Vector2.zero;
         rb.simulated = false; //물리 끄기
         stateMachine.deadSignal();
+
+        Portaltmp portal = Object.FindAnyObjectByType<Portaltmp>();
+        if (portal != null)
+        {
+            portal.ActivatePortal(); 
+        }
     }
 
     IEnumerator BlinkCoroutine()

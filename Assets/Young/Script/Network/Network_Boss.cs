@@ -12,7 +12,6 @@ public class Network_Boss : enemyController
         
         Portaltmp portal = Object.FindAnyObjectByType<Portaltmp>();
         Debug.Log("Found Portal");
-        portal.ActivateVisual();
         /*
         foreach (var portal in portals)
         {
