@@ -29,10 +29,12 @@ public class NetworkInventoryManager : NetworkBehaviour
 
         if (tmpInventory.ContainsKey(item.itemID))
         {
+            Debug.Log("additem");
             tmpInventory[item.itemID] += 1;
         }
         else
         {
+            Debug.Log("additem");
             tmpInventory.Add(item.itemID, 1);
             itemOrder.Add(item.itemID);
         }

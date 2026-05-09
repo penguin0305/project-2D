@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class itemDropController : MonoBehaviour
+public class itemDropController : NetworkBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +31,7 @@ public class itemDropController : MonoBehaviour
 
     public void DropItems()
     {
+        if (!IsServer) return;
         if (dropItems.Count == 0)
             return;
 
@@ -47,8 +49,9 @@ public class itemDropController : MonoBehaviour
                     Random.Range(0.3f, 0.4f),
                     0
                 );
-
-                Instantiate(selected, transform.position + offset, Quaternion.identity);
+                var obj = Instantiate(selected, transform.position + offset, Quaternion.identity);
+                obj.GetComponent<NetworkObject>().Spawn(true);
+                //Instantiate(selected, transform.position + offset, Quaternion.identity);
             }
         }
     }

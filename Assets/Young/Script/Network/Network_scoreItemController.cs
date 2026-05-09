@@ -28,7 +28,7 @@ public class NetworkscoreItemController : NetworkBehaviour
 
         if (collision.CompareTag("Player"))
         {
-                if (playerNetObj != null && playerNetObj.IsOwner) 
+            if (playerNetObj != null && playerNetObj.IsOwner) 
                 {
                 //data.itemQuantity++;//>>나중에 데이터를 복사본으로 받아서 따로 관리 필요
                 //Debug.Log(data.itemQuantity);
