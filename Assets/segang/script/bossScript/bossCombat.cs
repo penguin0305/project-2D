@@ -34,7 +34,7 @@ public class bossCombat : NetworkBehaviour, IDamageable
         if (collision.CompareTag("Player"))
         {
             Debug.Log("충돌");
-            var player = collision.GetComponent<Player>();
+            var player = collision.GetComponentInParent<Player>();
             if (player != null)
             {
                 var info = new DamageInfo
@@ -53,7 +53,23 @@ public class bossCombat : NetworkBehaviour, IDamageable
     // IDamageable 구현
     public void TakeDamage(DamageInfo info)
     {
-        if (!IsServer) return;
+        if (!IsServer)
+        {
+            TakeDamageServerRpc(info);
+            return;
+        }
+
+        ApplyDamage(info);
+    }
+
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+    private void TakeDamageServerRpc(DamageInfo info)
+    {
+        ApplyDamage(info);
+    }
+
+    private void ApplyDamage(DamageInfo info)
+    {
         if (bossHP <= 0) return;
 
         bossHP -= info.damage;
@@ -89,8 +105,6 @@ public class bossCombat : NetworkBehaviour, IDamageable
             attackerNetworkObjectId = 0
         };
         TakeDamage(info);
-        if (IsServer)
-            Knockback(playerTransform.position);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
@@ -119,18 +133,10 @@ public class bossCombat : NetworkBehaviour, IDamageable
 
     void bossDie()
     {
-        if (!IsServer) return;
-
         if (stateMachine == null) return;
         rb.linearVelocity = Vector2.zero;
         rb.simulated = false; //물리 끄기
         stateMachine.deadSignal();
-
-        Portaltmp portal = Object.FindAnyObjectByType<Portaltmp>();
-        if (portal != null)
-        {
-            portal.ActivatePortal(); 
-        }
     }
 
     IEnumerator BlinkCoroutine()
@@ -155,13 +161,6 @@ public class bossCombat : NetworkBehaviour, IDamageable
         stateMachine = GetComponent<bossStateMachine>();
     }
 
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
+    void Start() { }
+    void Update() { }
 }

@@ -20,10 +20,11 @@ public class PlayerHealthDisplay : MonoBehaviour
 		}
 	}
 
-	private void OnEnable()
+	private void Start()
 	{
 		player.Sync.health.OnValueChanged += OnHealthChanged;
-		UpdateText(player.Sync.health.Value);
+		if (player.Sync.health.Value > 0)
+			UpdateText(player.Sync.health.Value);
 	}
 
 	private void OnDisable()
