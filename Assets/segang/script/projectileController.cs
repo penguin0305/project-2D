@@ -18,7 +18,7 @@ public class projectileController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time >= spawnTime + lifeTime)
+        if (IsServer && Time.time >= spawnTime + lifeTime)
         {
             NetworkObject.Despawn();
         }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7742866409022256303}
   - component: {fileID: 8862406815528846611}
   - component: {fileID: 8390303336077112572}
+  - component: {fileID: 8932327151464087327}
   m_Layer: 0
   m_Name: treasureBox
   m_TagString: Untagged
@@ -263,3 +264,18 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0039134026, y: -0.37570667}
   m_Size: {x: 0.10769558, y: 0.24858665}
   m_Direction: 0
+--- !u!114 &8932327151464087327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8025151294749361821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c39c123ff6513674ab0cd0b2bca3c833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  rb: {fileID: 8862406815528846611}
+  solidCollider: {fileID: 8390303336077112572}

@@ -7,7 +7,7 @@ public class enemyCombat : NetworkBehaviour, IDamageable
     public enemyController eController;
     [Header("AttackPower")]
     public int monserAttackPower = 0;//피격데미지=몬스터 공격력
-    
+
     [Header("Knockback")]
     public float knockbackForce = 5f;//넉백 힘
 
@@ -51,7 +51,23 @@ public class enemyCombat : NetworkBehaviour, IDamageable
     // IDamageable 구현
     public void TakeDamage(DamageInfo info)
     {
-        if (!IsServer) return;
+        if (!IsServer)
+        {
+            TakeDamageServerRpc(info);
+            return;
+        }
+
+        ApplyDamage(info);
+    }
+
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+    private void TakeDamageServerRpc(DamageInfo info)
+    {
+        ApplyDamage(info);
+    }
+
+    private void ApplyDamage(DamageInfo info)
+    {
         if (eController.currentHealth <= 0) return;
 
         eController.currentHealth -= info.damage;
@@ -94,14 +110,7 @@ public class enemyCombat : NetworkBehaviour, IDamageable
             isCrit = false,
             attackerNetworkObjectId = 0
         };
-        // 넉백은 직접 처리
         TakeDamage(info);
-        if (!isHit)
-        {
-            isHit = true;
-            Knockback(playerTransform);
-            StartCoroutine(BlinkCoroutine());
-        }
     }
 
     public void OnHit(int damage)
@@ -145,7 +154,7 @@ public class enemyCombat : NetworkBehaviour, IDamageable
         }
 
         sr.enabled = true;//깜빡임 종료후 렌더러 활성화
-        isHit = false; 
+        isHit = false;
     }
 
     private void Awake()
@@ -155,13 +164,6 @@ public class enemyCombat : NetworkBehaviour, IDamageable
         sr = GetComponent<SpriteRenderer>();
     }
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+    void Start() { }
+    void Update() { }
 }

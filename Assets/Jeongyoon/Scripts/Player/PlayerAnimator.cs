@@ -15,6 +15,11 @@ public class PlayerAnimator : MonoBehaviour
 
 	private void LateUpdate()
 	{
+		CheckDeath();
+
+		if (player.Status.CurrentHealth <= 0)
+			return;
+
 		if (player.IsOwner)
 		{
 			// 기존: 로컬 입력 직접 읽기 (그대로 유지)
@@ -30,16 +35,11 @@ public class PlayerAnimator : MonoBehaviour
 		else
 		{
 			// 기존: 로컬 입력만 읽어서 비소유자 애니메이션 안 됐음
-			// float moveInputX = Mathf.Abs(player.Input.Move.x);
-			// animator.SetFloat("Speed", moveInputX);
-			// animator.SetBool("IsGrounded", player.Motor.IsGrounded);
 			// → PlayerSync에서 동기화된 값 읽기
 			animator.SetFloat("Speed", Mathf.Abs(player.Sync.moveX.Value));
 			animator.SetBool("IsGrounded", player.Sync.isGrounded.Value);
 			spriteRenderer.flipX = player.Sync.isFacingLeft.Value;
 		}
-
-		CheckDeath();
 	}
 
 	public void DoMeleeAttack()
