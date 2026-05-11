@@ -28,7 +28,7 @@ public class creatingProjectile : NetworkBehaviour
         if (target == null) return;
         Vector2 direction = (target.position - firePoint.position).normalized;
 
-        GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);//네트워크 스폰 추가
         proj.GetComponent<NetworkObject>().Spawn(true);
         // 투사체 이동 방향 전달
         proj.GetComponent<projectileController>().Init(direction, projectileSpeed);
