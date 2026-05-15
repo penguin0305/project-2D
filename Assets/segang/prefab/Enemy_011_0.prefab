@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 3211546207161415448}
   - component: {fileID: 5186981049706896685}
   - component: {fileID: 1164000022416387785}
+  - component: {fileID: 3498150390426089469}
   m_Layer: 0
   m_Name: Enemy_011_0
   m_TagString: Untagged
@@ -578,3 +579,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.18545294, y: 0.3838737}
   m_EdgeRadius: 0
+--- !u!114 &3498150390426089469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068772173258210070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a593eeb826d764aa5ee545972bf0c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  dropItems:
+  - itemPrefab: {fileID: 8385633326275416789, guid: 250feee8b3e78114f90e5f82cd5e85ee,
+      type: 3}
+    weight: 70
+  - itemPrefab: {fileID: 8640896708452057271, guid: b497ad6fbdd5c1a4bac5f38da00a84cc,
+      type: 3}
+    weight: 20
+  - itemPrefab: {fileID: 1113773679168354895, guid: 908111f7ffe6bc1438f6c584ac357029,
+      type: 3}
+    weight: 10
+  minDropCount: 0
+  maxDropCount: 2

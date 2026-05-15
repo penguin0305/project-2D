@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1217440241
+  GlobalObjectIdHash: 641182173
   InScenePlacedSourceGlobalObjectIdHash: 641182173
   DeferredDespawnTick: 0
   Ownership: 1
@@ -200,15 +200,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a593eeb826d764aa5ee545972bf0c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   dropItems:
-  - itemPrefab: {fileID: 8089094859355405138, guid: cd47321b7b03ed945ad5b7919d553343,
+  - itemPrefab: {fileID: 3518620323782418623, guid: d01e710b01e6415499a473458b7dafa9,
       type: 3}
-    weight: 100
-  - itemPrefab: {fileID: 4205575513936358651, guid: 4c77f775fc016334bb70928c1edaa038,
+    weight: 4
+  - itemPrefab: {fileID: 1245830878018832077, guid: 77d4cac0b31e02b458dc624f70e5216a,
       type: 3}
-    weight: 100
-  minDropCount: 1
-  maxDropCount: 1
+    weight: 1
+  - itemPrefab: {fileID: 4989340548033435004, guid: f9135ef52951f8743b7f045c2bc9e9f5,
+      type: 3}
+    weight: 4
+  - itemPrefab: {fileID: 2481855321065008703, guid: 90da66a89c7c1fd4e9ee4746f1d79167,
+      type: 3}
+    weight: 1
+  minDropCount: 0
+  maxDropCount: 2
 --- !u!70 &2065581200095053505
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -258,6 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b93d6cacd20a994597694560bed879a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   eController: {fileID: 0}
   monserAttackPower: 3
   knockbackForce: 5

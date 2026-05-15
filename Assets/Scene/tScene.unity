@@ -10250,6 +10250,22 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 2736736944
       objectReference: {fileID: 0}
+    - target: {fileID: 8033596409476871501, guid: 2701852f8b5b7174cb53d1e2108f9381,
+        type: 3}
+      propertyPath: dropItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8033596409476871501, guid: 2701852f8b5b7174cb53d1e2108f9381,
+        type: 3}
+      propertyPath: dropItems.Array.data[0].weight
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8033596409476871501, guid: 2701852f8b5b7174cb53d1e2108f9381,
+        type: 3}
+      propertyPath: dropItems.Array.data[0].itemPrefab
+      value: 
+      objectReference: {fileID: 3735147460293202273, guid: 75d26aebbf93c5c4e9cf79cc4c6e24da,
+        type: 3}
     - target: {fileID: 8205915178261775071, guid: 2701852f8b5b7174cb53d1e2108f9381,
         type: 3}
       propertyPath: GlobalObjectIdHash

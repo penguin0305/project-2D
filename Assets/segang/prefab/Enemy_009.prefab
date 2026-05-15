@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 4986708989185285025}
   - component: {fileID: 2636409983318720894}
   - component: {fileID: 4402572341513203689}
+  - component: {fileID: -5589278548309153452}
   m_Layer: 0
   m_Name: Enemy_009
   m_TagString: Enemy
@@ -376,6 +377,28 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0028159618, y: -0.38313088}
   m_Size: {x: 0.17896748, y: 0.3169574}
   m_Direction: 0
+--- !u!114 &-5589278548309153452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2133723496018177879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a593eeb826d764aa5ee545972bf0c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  dropItems:
+  - itemPrefab: {fileID: 2481855321065008703, guid: 90da66a89c7c1fd4e9ee4746f1d79167,
+      type: 3}
+    weight: 4
+  - itemPrefab: {fileID: 2868870084966536505, guid: 98a93721418cd554b882ece6db4b1bec,
+      type: 3}
+    weight: 1
+  minDropCount: 0
+  maxDropCount: 1
 --- !u!1 &3007861181095947126
 GameObject:
   m_ObjectHideFlags: 0

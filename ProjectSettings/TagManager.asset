@@ -12,6 +12,7 @@ TagManager:
   - StageManager
   - Projectile
   - Boss
+  - DeathZone
   layers:
   - Default
   - TransparentFX
