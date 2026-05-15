@@ -6,24 +6,24 @@ using VContainer.Unity;
 
 public class MapLoader : NetworkBehaviour
 {
-    // ¸Ê ÇÁ¸®¼Â¿¡ ´ëÇÑ µñ¼Å³Ê¸®<³­ÀÌµµ, ÇÁ¸®¼Â>
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³Ê¸ï¿½<ï¿½ï¿½ï¿½Ìµï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>
     private Dictionary<string, List<GameObject>> mapPool = new Dictionary<string, List<GameObject>>();
-    private string key; // ¸Ê ÇÁ¸®¼ÂÀÇ ³­ÀÌµµ¸¦ °áÁ¤ÇÏ±â À§ÇÑ Å°
-    private Queue<GameObject> usedMap = new Queue<GameObject>(); // ¸Ê »ý¼ºÀ» °ü¸®ÇÏ±â À§ÇÑ Å¥
+    private string key; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ Å°
+    private Queue<GameObject> usedMap = new Queue<GameObject>(); // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¥
     
 
-    //¸Ê »ý¼ºÀ» À§ÇÑ ÇÁ¸®ÆÕ ¸®½ºÆ® ÁöÁ¤
+    //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
     [Header("Pooling Candidate")]
     public List<GameObject> BeginningPreset;
     public List<GameObject> FirstHPreset;
     public List<GameObject> SecondHPreset;
     public List<GameObject> EndingPreset;
 
-    //¸Ê »ý¼º À§Ä¡ °áÁ¤À» À§ÇÑ ¸ÊÀÇ Å©±â¿Í ´ÙÀ½ ¸Ê »ý¼º À§Ä¡º¯¼ö. YÃà¸¸ °í·Á. XÃà ÇÊ¿ä ½Ã Ãß°¡(¿¹Á¤¾øÀ½)
-    private float mapHeight = 16f; //½ÇÁ¦ ¸Ê Å©±â¿¡ µû¶ó Á¶Á¤ ÇÊ¿ä. 1Ä­ = 1f
-    private float nextMapY = 0f; // ´ÙÀ½¿¡ ºÒ·¯¿Ã ¸ÊÀÇ À§Ä¡º¯¼ö
-    private float Threshold = 14f; // ¸Ê »ý¼º Å¸ÀÌ¹Ö °¨Áö¸¦ À§ÇÑ ÀÓ°è°ª ¼³Á¤
-    private int mapCount = 0; // ¸¸µé¾îÁø ¸ÊÀÇ ¼ö. ³­ÀÌµµ Á¶Àý¿¡ »ç¿ë
+    //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½. Yï¿½à¸¸ ï¿½ï¿½ï¿½ï¿½. Xï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+    private float mapHeight = 16f; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Å©ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½. 1Ä­ = 1f
+    private float nextMapY = 0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½
+    private float Threshold = 14f; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ó°è°ª ï¿½ï¿½ï¿½ï¿½
+    private int mapCount = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½. ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     private int stageDepth = 5;
 
     private IObjectResolver _objectResolver;
@@ -36,55 +36,55 @@ public class MapLoader : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if(!IsServer) return; // ¼­¹ö¿¡¼­¸¸ ¸Ê ·Îµù °ü¸®
+        if(!IsServer) return; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½
         key = "beginning";
-        mapCount += 1; // ³­ÀÌµµ ¼³Á¤À» À§ÇÑ ¸Ê Ä«¿îÆ® Áõ°¡
-        nextMapY = -mapHeight; // ´ÙÀ½ ¸ÊÀÌ ·ÎµåµÉ À§Ä¡ Á¶Á¤
+        mapCount += 1; // ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ä«ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+        nextMapY = -mapHeight; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
         Debug.Log("nextMapY: " + nextMapY);
     }
 
 
-    // ÇÔ¼ö ÀÌ¸§: SetMapPool
-    // ±â´É: ¸ÊÀÇ ±íÀÌ¿¡ µû¶ó ¸ÊÀÇ ³­ÀÌµµ¸¦ °áÁ¤ÇÏ´Â ÇÔ¼ö
-    // ÆÄ¶ó¹ÌÅÍ: X
-    // ¹ÝÈ¯°ª: X
+    // ï¿½Ô¼ï¿½ ï¿½Ì¸ï¿½: SetMapPool
+    // ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
+    // ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½: X
+    // ï¿½ï¿½È¯ï¿½ï¿½: X
     public void SetMapPool()
     {
         if (mapCount < stageDepth)
         {
-            mapPool[key] = BeginningPreset; // ÃÊ¹ÝºÎ´Â BeginningPreset¿¡¼­ ¸Ê ¼±ÅÃ
+            mapPool[key] = BeginningPreset; // ï¿½Ê¹ÝºÎ´ï¿½ BeginningPresetï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
         /*
         else if (mapCount < stageDepth * 2)
         {
             key = "firstH";
-            mapPool[key] = FirstHPreset; // Àü¹ÝºÎ´Â FirstHPreset¿¡¼­ ¼±ÅÃ
+            mapPool[key] = FirstHPreset; // ï¿½ï¿½ï¿½ÝºÎ´ï¿½ FirstHPresetï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
         else if (mapCount < stageDepth * 3)
         {
             key = "secondH";
-            mapPool[key] = SecondHPreset; // ÈÄ¹ÝºÎ´Â SecondHPreset¿¡¼­ ¼±ÅÃ
+            mapPool[key] = SecondHPreset; // ï¿½Ä¹ÝºÎ´ï¿½ SecondHPresetï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
         */
         else
         {
             key = "ending";
-            mapPool[key] = EndingPreset; // °ÔÀÓÀÇ ¿£µùÀ» À§ÇÑ ½ºÅ×ÀÌÁö´Â EndingPreset¿¡¼­ ¼±ÅÃ
+            mapPool[key] = EndingPreset; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ EndingPresetï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
 
-    // ÇÔ¼ö ÀÌ¸§: GetMap
-    // ±â´É: ÇÁ¸®¼Â ³»¿¡¼­ Áßº¹µÇÁö ¾Ê°Ô ·£´ýÇÑ ¸ÊÀ» °áÁ¤ÇÏ´Â ÇÔ¼ö
-    // ÆÄ¶ó¹ÌÅÍ: X
-    // ¹ÝÈ¯°ª: ºÒ·¯¿À±â·Î °áÁ¤µÈ ¸Ê ÇÁ¸®ÆÕ
+    // ï¿½Ô¼ï¿½ ï¿½Ì¸ï¿½: GetMap
+    // ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
+    // ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½: X
+    // ï¿½ï¿½È¯ï¿½ï¿½: ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public GameObject GetMap()
     {
-        bool isUsed = false; // »ç¿ëµÈ ¸ÊÀÓÀ» È®ÀÎÇÏ±â À§ÇÑ º¯¼ö
+        bool isUsed = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         while(true)
         {
 
-            //·£´ýÇÏ°Ô ¸ÊÀ» °áÁ¤
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             int mapIndex = Random.Range(0, mapPool[key].Count);
             GameObject SelectedMap = mapPool[key][mapIndex];
 
@@ -95,7 +95,7 @@ public class MapLoader : NetworkBehaviour
                     isUsed = true;
             }
 
-            //»ç¿ëµÈ ¸ÊÀÌ ¾Æ´Ï¶ó¸é usedMap¿¡ ³Ö°í ¸®ÅÏ
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ usedMapï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½
             if(!isUsed)
             {
                 usedMap.Enqueue(SelectedMap);
@@ -106,17 +106,17 @@ public class MapLoader : NetworkBehaviour
         }
     }
 
-    // ÇÔ¼ö ÀÌ¸§: SpawnMapPool
-    // ±â´É: ½ÇÁúÀûÀ¸·Î ¾À¿¡ ¸ÊÀ» ºÒ·¯¿À´Â ±â´ÉÀ» ÇÏ´Â ÇÔ¼ö
-    // ÆÄ¶ó¹ÌÅÍ: X
-    // ¹ÝÈ¯°ª: X
+    // ï¿½Ô¼ï¿½ ï¿½Ì¸ï¿½: SpawnMapPool
+    // ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
+    // ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½: X
+    // ï¿½ï¿½È¯ï¿½ï¿½: X
     public void SpawnMapPool()
     {
-        mapCount += 1; // ³­ÀÌµµ ¼³Á¤À» À§ÇÑ ¸Ê Ä«¿îÆ® º¯°æ
-        SetMapPool(); // ³­ÀÌµµ ¼³Á¤
-        GameObject selectedMap = GetMap(); // ºÒ·¯¿Ã ¸ÊÀ» ¼±ÅÃ
-        Vector3 spawnLoc = new Vector3(0, nextMapY, 0); // ¼±ÅÃÇÑ ¸ÊÀ» ·ÎµåÇÒ À§Ä¡ ¼³Á¤
-        GameObject map = Instantiate(selectedMap, spawnLoc, Quaternion.identity); // ´ÙÀ½ ¸ÊÀ» ·Îµå
+        mapCount += 1; // ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ä«ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+        SetMapPool(); // ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
+        GameObject selectedMap = GetMap(); // ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        Vector3 spawnLoc = new Vector3(0, nextMapY, 0); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+        GameObject map = Instantiate(selectedMap, spawnLoc, Quaternion.identity); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½
         _objectResolver.InjectGameObject(map);
         var networkObject = map.GetComponent<NetworkObject>();
         if (networkObject != null)
@@ -133,12 +133,12 @@ public class MapLoader : NetworkBehaviour
         }
         else
         {
-            Debug.LogError("¸Ê ÇÁ¸®ÆÕ¿¡ ³×Æ®¿öÅ© ¿ÀºêÁ§Æ® ÇÊ¿ä");
+            Debug.LogError("ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ¿ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ê¿ï¿½");
         }
 
         Debug.Log("nextMap Loaded");
 
-        // ¸¶Áö¸· ½ºÅ×ÀÌÁö°¡ ¾Æ´Ï¶ó¸é ´ÙÀ½ ½ºÆù À§Ä¡¸¦ Àç¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ç¼³ï¿½ï¿½
         if (key != "ending")
         {
             nextMapY -= mapHeight;
@@ -151,11 +151,15 @@ public class MapLoader : NetworkBehaviour
     void Update()
     {
         if (!IsServer) return;
-        float playerLoc = float.MaxValue; // ÇÃ·¹ÀÌ¾î À§Ä¡¸¦ ´ã±â À§ÇØ ÃÊ±âÈ­
+        
+        // ë²„ê·¸ ì•ˆì „ìž¥ì¹˜
+        if (NetworkManager.Singleton == null || NetworkManager.Singleton.ConnectedClientsList == null) return;
+
+        float playerLoc = float.MaxValue; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 
         foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
         {
-            // ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+            // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
             if (client.PlayerObject != null)
             {
                 float playerY = client.PlayerObject.transform.position.y;
@@ -166,10 +170,10 @@ public class MapLoader : NetworkBehaviour
             }
         }
 
-        // ÇÃ·¹ÀÌ¾î°¡ ¾ø´Â °æ¿ì(À§Ä¡¸¦ ¸ø¹ÞÀ½) ¸®ÅÏ
+        // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½
         if (playerLoc == float.MaxValue) return;
 
-        // °¡Àå ¾Æ·¡¿¡ ÀÖ´Â ÇÃ·¹ÀÌ¾î°¡ ¸ÊÀÇ Æ¯Á¤ ±íÀÌ¿¡ µµ´ÞÇÏ¸é ´ÙÀ½ ¸ÊÀ» ºÒ·¯¿È
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½
         while (playerLoc < nextMapY + Threshold)
         {
             SpawnMapPool();

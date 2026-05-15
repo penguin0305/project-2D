@@ -244,9 +244,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  monserAttackPower: 3
+  monserAttackPower: 10
   knockbackForce: 2
-  bossHP: 5
+  bossHP: 30
   blinkDuration: 0.2
   blinkInterval: 0.05
 --- !u!70 &6028337896265484779

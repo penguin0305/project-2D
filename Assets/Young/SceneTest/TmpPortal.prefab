@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4457275803617805328}
   - component: {fileID: 6379913330318220967}
   - component: {fileID: 7386824828496362547}
-  - component: {fileID: 4701081043186151870}
+  - component: {fileID: 3776860909662360919}
   m_Layer: 0
   m_Name: TmpPortal
   m_TagString: TreasureBox
@@ -161,7 +161,7 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &4701081043186151870
+--- !u!114 &3776860909662360919
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,5 +174,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  EndingSceneName: NetworkLobby
   PortalSprite: {fileID: -989737037, guid: dfb160ddc5596284f90ba86a88c8316c, type: 3}

@@ -14,6 +14,7 @@ public class NetworkInventoryManager : NetworkBehaviour
     {
         if (Instance == null) Instance = this;
 
+/*
         int testItemID = 2;
         int testQuantity = 1;
 
@@ -22,6 +23,7 @@ public class NetworkInventoryManager : NetworkBehaviour
             tmpInventory.Add(testItemID, testQuantity);
             itemOrder.Add(testItemID);
         }
+*/
     }
 
     public void AddItem(itemData item)
