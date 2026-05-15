@@ -588,6 +588,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -14.763611
       objectReference: {fileID: 0}
+    - target: {fileID: 8619919858368452316, guid: 6a99e8c00035a524a9bace559005aeb5,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9057758194150316578, guid: 6a99e8c00035a524a9bace559005aeb5,
         type: 3}
       propertyPath: m_Spacing
@@ -10806,6 +10811,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Follow Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 1998865633040249085, guid: 18da617375f5dfc45a16a2f0955b0391,
+        type: 3}
+      propertyPath: offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1998865633040249085, guid: 18da617375f5dfc45a16a2f0955b0391,
+        type: 3}
+      propertyPath: offset.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989510502228961126, guid: 18da617375f5dfc45a16a2f0955b0391,
+        type: 3}
+      propertyPath: orthographic size
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4257233328152861371, guid: 18da617375f5dfc45a16a2f0955b0391,
         type: 3}

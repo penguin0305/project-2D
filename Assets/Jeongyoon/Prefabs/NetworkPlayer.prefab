@@ -334,10 +334,6 @@ MonoBehaviour:
     m_ActionId: 0209e5ac-e43a-4611-8a29-4af0b1f19a44
     m_ActionName: 'Player/Use Item 2[/Keyboard/e]'
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d63bbe3d-8022-41af-9e3e-9a9718eaebfc
-    m_ActionName: 'UI/ToggleStat[/Keyboard/c]'
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1272831585399129031}
         m_TargetAssemblyTypeName: PlayerInputState, Assembly-CSharp

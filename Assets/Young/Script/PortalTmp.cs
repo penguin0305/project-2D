@@ -85,24 +85,33 @@ public class Portaltmp : NetworkBehaviour, IInteractable
         }
     }
 
-    [ClientRpc]
-    private void GoToEndingClientRpc()
-    {
-        ExecuteFinalExit();
-    }
+[ClientRpc]
+private void GoToEndingClientRpc()
+{
+    StartCoroutine(LeaveSequence());
+}
 
-    private void ExecuteFinalExit()
+private System.Collections.IEnumerator LeaveSequence()
+{
+    bool isHost = IsServer;
+
+    if (NetworkInventoryManager.Instance != null)
+        NetworkInventoryManager.Instance.DontSendInventoryToSession();
+
+    if (NetworkManager.Singleton != null)
     {
-        if (NetworkManager.Singleton != null)
-        {
-            NetworkManager.Singleton.Shutdown();
-        if (IsServer && NetworkManager.Singleton.gameObject != null)
+        NetworkManager.Singleton.Shutdown();
+        
+        if (isHost && NetworkManager.Singleton.gameObject != null)
         {
             Destroy(NetworkManager.Singleton.gameObject);
         }
-        }
-        SceneManager.LoadScene(EndingSceneName);
     }
+
+    yield return null;
+
+    SceneManager.LoadScene(EndingSceneName);
+}
 
     public override void OnNetworkDespawn()
     {

@@ -20,6 +20,9 @@ public class ProjectSpellGameLobby : MonoBehaviour
 
     public event EventHandler<OnLobbyListChangedEventArgs> OnLobbyListChanged;
 
+    private float _heartbeatTimer;
+    private const float MaxHeartbeatTimer = 15f;
+
     public class OnLobbyListChangedEventArgs : EventArgs
     {
         public List<Lobby> Lobbies;
@@ -48,6 +51,7 @@ public class ProjectSpellGameLobby : MonoBehaviour
     private void Update()
     {
         HandlePeriodicListLobbies();
+        HandleLobbyHeartbeat();
     }
 
     private void HandlePeriodicListLobbies()
@@ -62,6 +66,27 @@ public class ProjectSpellGameLobby : MonoBehaviour
             _ = ListLobbies();
         }
     }
+
+    private async void HandleLobbyHeartbeat()
+{
+    if (_joinedLobby == null || _joinedLobby.HostId != AuthenticationService.Instance.PlayerId) return;
+
+    _heartbeatTimer -= Time.deltaTime;
+    if (_heartbeatTimer <= 0f)
+    {
+        _heartbeatTimer = MaxHeartbeatTimer;
+        try
+        {
+            await LobbyService.Instance.SendHeartbeatPingAsync(_joinedLobby.Id);
+            // Debug.Log("Lobby Heartbeat Sent");
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.LogException(e);
+        }
+    }
+}    
+
 
     private async Task<Allocation> AllocateRelay()
     {
@@ -121,6 +146,9 @@ public class ProjectSpellGameLobby : MonoBehaviour
         try
         {
             _joinedLobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, MaxPlayerInLobby);
+            
+            _heartbeatTimer = MaxHeartbeatTimer;
+
             var allocation = await AllocateRelay();
             string relayJoinCode = await GetRelayJoinCode(allocation);
 
