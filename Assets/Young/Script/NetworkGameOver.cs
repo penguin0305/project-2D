@@ -53,29 +53,16 @@ public class GameOverManager : NetworkBehaviour
     [ClientRpc]
     private void GoToLobbyClientRpc()
     {
-        ExecuteLeaveLobby();
-    }
+        bool isHost = IsServer; 
 
-    private void ExecuteLeaveLobby()
-    {
-        if (NetworkInventoryManager.Instance != null)
-            NetworkInventoryManager.Instance.DontSendInventoryToSession();
-
-        if (NetworkHistoryManager.Instance != null)
-            NetworkHistoryManager.Instance.ResetData();
-
-        bool isHost = IsServer;
-
-        if (NetworkManager.Singleton != null)
+        if (SceneExit.Instance != null)
+        {
+            SceneExit.Instance.ShutdownScene(lobbySceneName, isHost);
+        }
+        else
         {
             NetworkManager.Singleton.Shutdown();
-            
-            if (isHost && NetworkManager.Singleton.gameObject != null)
-            {
-                Destroy(NetworkManager.Singleton.gameObject);
-            }
+            UnityEngine.SceneManagement.SceneManager.LoadScene(lobbySceneName);
         }
-
-        SceneManager.LoadScene(lobbySceneName);
     }
 }
