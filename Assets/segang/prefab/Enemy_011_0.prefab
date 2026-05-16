@@ -460,7 +460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   eController: {fileID: 0}
-  monserAttackPower: 0
+  monserAttackPower: 1
   knockbackForce: 5
   blinkDuration: 0.2
   blinkInterval: 0.05
@@ -484,7 +484,7 @@ MonoBehaviour:
     m_Bits: 256
   moveSpeed: 2
   detectRange: 5
-  maxHealth: 10
+  maxHealth: 20
   currentHealth: 0
   player: {fileID: 0}
 --- !u!114 &3211546207161415448

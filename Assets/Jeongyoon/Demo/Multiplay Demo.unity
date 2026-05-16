@@ -1063,6 +1063,11 @@ PrefabInstance:
       propertyPath: monserAttackPower
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 8665905151582553200, guid: 238cdcff901f8374392f51d2e6dd09d2,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 730517160
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
