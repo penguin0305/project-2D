@@ -1,30 +1,33 @@
 using UnityEngine;
 using Unity.Netcode;
+
 public class attackHitboxController : NetworkBehaviour
 {
     public int attackPower;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Start() { }
+    void Update() { }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!Unity.Netcode.NetworkManager.Singleton.IsServer)
         {
-            Debug.Log("º≠πˆæ¯¿Ω");
+            Debug.Log("ÏÑúÎ≤ÑÏóÜÏùå");
             return;
         }
-        var status = collision.GetComponent<PlayerStatus>();
-        if (status != null)
+
+        var player = collision.GetComponentInParent<Player>();
+        if (player != null)
         {
-            status.ChangeHealth(-attackPower);
+            var info = new DamageInfo
+            {
+                damage = attackPower,
+                stunDuration = 0f,
+                knockback = true,
+                isCrit = false,
+                attackerNetworkObjectId = NetworkObjectId
+            };
+            player.TakeDamage(info);
         }
     }
 }
