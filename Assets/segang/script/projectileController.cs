@@ -10,6 +10,7 @@ public class projectileController : NetworkBehaviour
     public float lifeTime = 5f;         // 발사체 생존 시간
     public int projectileDamage;
     private float spawnTime;
+    private bool alreadyHit = false;
 
     void Start() { }
 
@@ -43,6 +44,7 @@ public class projectileController : NetworkBehaviour
         {
             return;
         }
+        if (alreadyHit) return;
 
         var player = collision.GetComponentInParent<Player>();
         if (player != null)
@@ -56,6 +58,7 @@ public class projectileController : NetworkBehaviour
                 isCrit = false,
                 attackerNetworkObjectId = NetworkObjectId
             };
+            alreadyHit = true;
             player.TakeDamage(info);
             NetworkObject.Despawn();
         }

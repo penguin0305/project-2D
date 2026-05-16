@@ -7,6 +7,7 @@ public class projectileForBoss : NetworkBehaviour
     public float lifeTime = 5f;         // 투사체 유지 시간
     public int projectileDamage;
     private float spawnTime;
+    private bool alreadyHit = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -39,7 +40,7 @@ public class projectileForBoss : NetworkBehaviour
         {
             return;
         }
-
+        if (alreadyHit) return;
         var player = collision.GetComponentInParent<Player>();
         if (player != null)
         {
@@ -52,6 +53,7 @@ public class projectileForBoss : NetworkBehaviour
                 isCrit = false,
                 attackerNetworkObjectId = NetworkObjectId
             };
+            alreadyHit = true;
             player.TakeDamage(info);
             NetworkObject.Despawn();
         }
