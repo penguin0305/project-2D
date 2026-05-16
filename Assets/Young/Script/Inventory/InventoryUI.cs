@@ -35,7 +35,7 @@ public class InventoryUI : MonoBehaviour
             int id = item.Key;
             int amount = item.Value;
 
-            itemData data = ItemList.Find(x => x.itemID == id);
+            itemData data = ItemList.Find(x => x.collectionInfo.collectionId == id);
 
             if (data != null && slotIndex < slot.Length)
             {

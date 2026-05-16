@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6feaff97d2cc9b54ca9a83915e03a687, type: 3}
   m_Name: Item_7
   m_EditorClassIdentifier: 
-  itemID: 7
+  itemID: 0
   canOverlap: 0
   itemQuantity: 0
   isInteractivity: 0
   isConsumable: 0
   itemCooltime: -1
   mItemType: 4
-  mItemImage: {fileID: 1862495017, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
+  mItemImage: {fileID: 0}
   collectionInfo: {fileID: 11400000, guid: db079130dbd7db7459e75f91a6cbab8d, type: 2}

@@ -13,7 +13,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         item = newitemData;
 
-        Image.sprite = newitemData.mItemImage;
+        Image.sprite = newitemData.collectionInfo.icon;
         Image.enabled = true;
 
         if (amount >= 1)
@@ -38,13 +38,13 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if (item != null)
         {
-            // ÅøÆÁ º¸ÀÌ±â
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // ÅøÆÁ ¼û±â±â
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -53,7 +53,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         {
             if (eventData.button == PointerEventData.InputButton.Right)
             {
-                // Àåºñ ¾ÆÀÌÅÛ ÀåÂø
+                // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             }
         }
     }

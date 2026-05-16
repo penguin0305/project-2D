@@ -20,17 +20,32 @@ public class InventoryManager : MonoBehaviour
 
     public void AddItem(itemData item)
     {
-        if (tmpInventory.ContainsKey(item.itemID))
+        if (item.mItemType == itemData.itemType.collection)
         {
-            tmpInventory[item.itemID] += 1;
+            if (tmpInventory.ContainsKey(item.collectionInfo.collectionId))
+            {
+                tmpInventory[item.collectionInfo.collectionId] += 1;
+            }
+            else
+            {
+                tmpInventory.Add(item.collectionInfo.collectionId, 1);
+                itemOrder.Add(item.collectionInfo.collectionId);
+            }
         }
         else
         {
-            tmpInventory.Add(item.itemID, 1);
-            itemOrder.Add(item.itemID);
+            if (tmpInventory.ContainsKey(item.itemID))
+            {
+                tmpInventory[item.itemID] += 1;
+            }
+            else
+            {
+                tmpInventory.Add(item.itemID, 1);
+                itemOrder.Add(item.itemID);
+            }
         }
 
-        Debug.Log($"{item.mItemType} È¹µæ");
+        Debug.Log($"{item.mItemType} È¹ï¿½ï¿½");
 
         if (HistoryManager.Instance != null)
         {
@@ -55,7 +70,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    /* Æ¯Á¤ »óÈ£ÀÛ¿ë °¹¼ö È®ÀÎ¿ë
+    /* Æ¯ï¿½ï¿½ ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½
 public int GetItemCount(int id)
 {
     if (tmpInventory.ContainsKey(id))

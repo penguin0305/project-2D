@@ -29,16 +29,31 @@ public class NetworkInventoryManager : NetworkBehaviour
     public void AddItem(itemData item)
     {
 
-        if (tmpInventory.ContainsKey(item.itemID))
+        if (item.mItemType == itemData.itemType.collection)
         {
-            Debug.Log("additem");
-            tmpInventory[item.itemID] += 1;
+            if (tmpInventory.ContainsKey(item.collectionInfo.collectionId))
+            {
+                Debug.Log("additem");
+                tmpInventory[item.collectionInfo.collectionId] += 1;
+            }
+            else
+            {
+                Debug.Log("additem");
+                tmpInventory.Add(item.collectionInfo.collectionId, 1);
+                itemOrder.Add(item.collectionInfo.collectionId);
+            }
         }
         else
         {
-            Debug.Log("additem");
-            tmpInventory.Add(item.itemID, 1);
-            itemOrder.Add(item.itemID);
+            if (tmpInventory.ContainsKey(item.itemID))
+            {
+                tmpInventory[item.itemID] += 1;
+            }
+            else
+            {
+                tmpInventory.Add(item.itemID, 1);
+                itemOrder.Add(item.itemID);
+            }
         }
 
         foreach (KeyValuePair<int, int> entry in tmpInventory)

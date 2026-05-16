@@ -393,8 +393,14 @@ MonoBehaviour:
   dropItems:
   - itemPrefab: {fileID: 2481855321065008703, guid: 90da66a89c7c1fd4e9ee4746f1d79167,
       type: 3}
-    weight: 4
+    weight: 6
   - itemPrefab: {fileID: 2868870084966536505, guid: 98a93721418cd554b882ece6db4b1bec,
+      type: 3}
+    weight: 2
+  - itemPrefab: {fileID: 3398704446146093004, guid: cce03d131b2fc3e4e9c741549534069d,
+      type: 3}
+    weight: 1
+  - itemPrefab: {fileID: 6192789143391854373, guid: 8953ab2309c8afc47946579c11643a69,
       type: 3}
     weight: 1
   minDropCount: 0

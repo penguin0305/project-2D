@@ -76,7 +76,7 @@ public class bossCombat : NetworkBehaviour, IDamageable
         Debug.Log("TakeDamage");
 
         // FloatingDamage 전파
-        ShowFloatingDamageRpc(info.damage, transform.position, info.isCrit);
+        ShowFloatingDamageRpc(info);
 
         if (bossHP <= 0)
         {
@@ -108,10 +108,10 @@ public class bossCombat : NetworkBehaviour, IDamageable
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    private void ShowFloatingDamageRpc(int damage, Vector3 position, bool isCrit)
+    private void ShowFloatingDamageRpc(DamageInfo info)
     {
-        FloatingDamageType type = isCrit ? FloatingDamageType.Crit : FloatingDamageType.Normal;
-        FloatingDamageManager.Instance?.Show(damage, position, type);
+        FloatingDamageType type = info.isCrit ? FloatingDamageType.Crit : FloatingDamageType.Normal;
+        FloatingDamageManager.Instance?.Show(info.damage, transform.position, type);
     }
 
     [Rpc(SendTo.ClientsAndHost)]

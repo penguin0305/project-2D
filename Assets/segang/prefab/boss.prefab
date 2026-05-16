@@ -392,26 +392,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   dropItems:
-  - itemPrefab: {fileID: 3518620323782418623, guid: d01e710b01e6415499a473458b7dafa9,
-      type: 3}
-    weight: 100
   - itemPrefab: {fileID: 1245830878018832077, guid: 77d4cac0b31e02b458dc624f70e5216a,
       type: 3}
     weight: 50
   - itemPrefab: {fileID: 7548351556846527829, guid: 3e99e979f6f833246870a1b2fd9c858a,
       type: 3}
     weight: 25
-  - itemPrefab: {fileID: 4989340548033435004, guid: f9135ef52951f8743b7f045c2bc9e9f5,
-      type: 3}
-    weight: 100
   - itemPrefab: {fileID: 2481855321065008703, guid: 90da66a89c7c1fd4e9ee4746f1d79167,
       type: 3}
     weight: 50
   - itemPrefab: {fileID: 2868870084966536505, guid: 98a93721418cd554b882ece6db4b1bec,
       type: 3}
     weight: 25
-  minDropCount: 2
-  maxDropCount: 5
+  - itemPrefab: {fileID: 8640896708452057271, guid: b497ad6fbdd5c1a4bac5f38da00a84cc,
+      type: 3}
+    weight: 50
+  - itemPrefab: {fileID: 1113773679168354895, guid: 908111f7ffe6bc1438f6c584ac357029,
+      type: 3}
+    weight: 25
+  - itemPrefab: {fileID: 3545708597058026402, guid: 419081712fce21641b26a2df5c3e2a96,
+      type: 3}
+    weight: 50
+  - itemPrefab: {fileID: 4640037518445698784, guid: 239013e72e187e54986fd9ed7a968b01,
+      type: 3}
+    weight: 25
+  - itemPrefab: {fileID: 7561568417965435529, guid: 99765ceebe4289c4bba04917b256645e,
+      type: 3}
+    weight: 37
+  - itemPrefab: {fileID: 5147543540479152284, guid: e7988614e3122ff4bbff9907ec5f78dd,
+      type: 3}
+    weight: 37
+  minDropCount: 1
+  maxDropCount: 4
 --- !u!1 &2198005564024409536
 GameObject:
   m_ObjectHideFlags: 0

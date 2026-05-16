@@ -18,6 +18,6 @@ MonoBehaviour:
   isInteractivity: 0
   isConsumable: 0
   itemCooltime: -1
-  mItemType: 5
+  mItemType: 4
   mItemImage: {fileID: -1192989531, guid: 9c0515aa853318a4381516ea891988c3, type: 3}
   collectionInfo: {fileID: 11400000, guid: 6f94c0b3633a22645bba2c76be6bb913, type: 2}

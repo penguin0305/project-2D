@@ -214,6 +214,24 @@ MonoBehaviour:
   - itemPrefab: {fileID: 2481855321065008703, guid: 90da66a89c7c1fd4e9ee4746f1d79167,
       type: 3}
     weight: 1
+  - itemPrefab: {fileID: 9158971007669608079, guid: 250feee8b3e78114f90e5f82cd5e85ee,
+      type: 3}
+    weight: 4
+  - itemPrefab: {fileID: 8640896708452057271, guid: b497ad6fbdd5c1a4bac5f38da00a84cc,
+      type: 3}
+    weight: 1
+  - itemPrefab: {fileID: 925351985375099343, guid: e184035ca758b6845843a8e4fa72f393,
+      type: 3}
+    weight: 4
+  - itemPrefab: {fileID: 3545708597058026402, guid: 419081712fce21641b26a2df5c3e2a96,
+      type: 3}
+    weight: 1
+  - itemPrefab: {fileID: 3398704446146093004, guid: cce03d131b2fc3e4e9c741549534069d,
+      type: 3}
+    weight: 3
+  - itemPrefab: {fileID: 6192789143391854373, guid: 8953ab2309c8afc47946579c11643a69,
+      type: 3}
+    weight: 3
   minDropCount: 0
   maxDropCount: 2
 --- !u!70 &2065581200095053505

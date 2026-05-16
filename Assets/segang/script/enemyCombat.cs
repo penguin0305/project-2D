@@ -73,7 +73,7 @@ public class enemyCombat : NetworkBehaviour, IDamageable
         eController.currentHealth -= info.damage;
 
         // FloatingDamage 전파
-        ShowFloatingDamageRpc(info.damage, transform.position);
+        ShowFloatingDamageRpc(info);
 
         if (eController.currentHealth <= 0)
         {
@@ -120,9 +120,10 @@ public class enemyCombat : NetworkBehaviour, IDamageable
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    private void ShowFloatingDamageRpc(int damage, Vector3 position)
+    private void ShowFloatingDamageRpc(DamageInfo info)
     {
-        FloatingDamageManager.Instance?.Show(damage, position, FloatingDamageType.Normal);
+        FloatingDamageType type = info.isCrit ? FloatingDamageType.Crit : FloatingDamageType.Normal;
+        FloatingDamageManager.Instance?.Show(info.damage, transform.position, type);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
