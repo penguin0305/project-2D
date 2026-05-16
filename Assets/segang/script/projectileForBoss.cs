@@ -37,18 +37,23 @@ public class projectileForBoss : NetworkBehaviour
     {
         if (!Unity.Netcode.NetworkManager.Singleton.IsServer)
         {
-            Debug.Log("서버없음");
             return;
         }
 
-        if (collision.CompareTag("Player"))
+        var player = collision.GetComponentInParent<Player>();
+        if (player != null)
         {
             Debug.Log("충돌");
-            var status = collision.GetComponent<PlayerStatus>();
-            if (status != null)
+            var info = new DamageInfo
             {
-                status.ChangeHealth(-projectileDamage);
-            }
+                damage = projectileDamage,
+                stunDuration = 0f,
+                knockback = true,
+                isCrit = false,
+                attackerNetworkObjectId = NetworkObjectId
+            };
+            player.TakeDamage(info);
+            NetworkObject.Despawn();
         }
     }
 }

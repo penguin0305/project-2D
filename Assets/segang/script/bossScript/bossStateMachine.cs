@@ -29,7 +29,7 @@ public class bossStateMachine : NetworkBehaviour
 
     void Start()
     {
-        animator = GetComponentInParent<Animator>();
+        animator = GetComponent<Animator>();
         dropper = GetComponent<itemDropController>();
         targetSelector = GetComponent<bossTargetSelector>();
         movement = GetComponent<bossMovement>();
@@ -41,10 +41,7 @@ public class bossStateMachine : NetworkBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            targetTest = true;
-        }
+
     }
 
     void FixedUpdate()
@@ -82,7 +79,6 @@ public class bossStateMachine : NetworkBehaviour
                     isAttacking = true;
                     bossAttacksController.playRandomAttack();
                 }
-                ChangeState(BossState.Idle);
                 break;
 
             /*case BossState.Pattern:
