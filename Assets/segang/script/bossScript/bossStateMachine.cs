@@ -142,6 +142,7 @@ public class bossStateMachine : NetworkBehaviour
     }
     public void despawnForAnimation()
     {
+        if (!IsServer) return;
         NetworkObject.Despawn();
     }
 }

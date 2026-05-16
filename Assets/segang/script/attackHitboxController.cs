@@ -16,9 +16,8 @@ public class attackHitboxController : NetworkBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!Unity.Netcode.NetworkManager.Singleton.IsServer)
+        if (!IsServer)
         {
-            Debug.Log("서버없음");
             return;
         }
         var status = collision.GetComponent<PlayerStatus>();
