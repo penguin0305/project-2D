@@ -146,7 +146,7 @@ namespace Multiplay
             _playerInfos[index] = playerInfo;
         }
 
-        public void StartMultiplayerGame()
+        public async void StartMultiplayerGame()
         {
             if (!IsServer) return;
 
@@ -163,11 +163,16 @@ namespace Multiplay
 
             if (isClientReady)
             {
+                if (ProjectSpellGameLobby.Singleton != null)
+                {
+                    await ProjectSpellGameLobby.Singleton.DisableLobbyPublicVisible();
+                }
+                
                 NetworkManager.Singleton.SceneManager.LoadScene(gameSceneName, LoadSceneMode.Single);
             }
             else
             {
-                Debug.Log("¾ÆÁ÷ ·¹µðÇÏÁö ¾ÊÀº ÇÃ·¹ÀÌ¾î°¡ ÀÖ½À´Ï´Ù!");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ö½ï¿½ï¿½Ï´ï¿½!");
             }
 
         }

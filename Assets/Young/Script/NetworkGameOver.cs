@@ -55,6 +55,14 @@ public class GameOverManager : NetworkBehaviour
     {
         bool isHost = IsServer; 
 
+        if (ProjectSpellGameLobby.Singleton != null)
+        {
+            if (isHost)
+            {
+                ProjectSpellGameLobby.Singleton.DeleteLobby();
+            }
+        }
+        
         if (SceneExit.Instance != null)
         {
             SceneExit.Instance.ShutdownScene(lobbySceneName, isHost);

@@ -230,6 +230,16 @@ public class ProjectSpellGameLobby : MonoBehaviour
         }
     }
 
+    public async Task DisableLobbyPublicVisible()
+    {
+        if (_joinedLobby == null) return;
+        try
+        {
+            _joinedLobby = await LobbyService.Instance.UpdateLobbyAsync(_joinedLobby.Id, new UpdateLobbyOptions { IsPrivate = true });
+        }
+        catch (Exception e) { Debug.LogException(e); }
+    }
+
     public async void DeleteLobby()
     {
         if (_joinedLobby != null)

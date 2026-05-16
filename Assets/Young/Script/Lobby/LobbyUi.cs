@@ -94,38 +94,17 @@ namespace Gameplay.UI.Main
 
             ProjectSpellGameMultiplayer.Singleton.OnPlayerInfosChanged += UpdateRoomUI;
 
-            NetworkManager.Singleton.OnServerStarted += () =>
-            {
-                if (NetworkManager.Singleton.IsServer)
-                {
-                    ShowLobbyRoomPopup();
-                }
-            };
-
-            if (NetworkManager.Singleton.IsServer || NetworkManager.Singleton.IsHost)
-            {
-                ShowLobbyRoomPopup();
-            }
-
-            NetworkManager.Singleton.OnClientConnectedCallback += (clientId) =>
-            {
-                if (clientId == NetworkManager.Singleton.LocalClientId)
-                {
-                    ShowLobbyRoomPopup();
-                }
-            };
-
-            NetworkManager.Singleton.OnClientDisconnectCallback += (clientId) =>
-            {
-                if (clientId == NetworkManager.Singleton.LocalClientId || clientId == NetworkManager.ServerClientId)
-                {
-                    HideLobbyRoomPopup();
-                }
-            };
-
-
+            NetworkManager.Singleton.OnServerStarted += HandleOnServerStarted;
+            NetworkManager.Singleton.OnClientConnectedCallback += HandleOnClientConnected;
+            NetworkManager.Singleton.OnClientDisconnectCallback += HandleOnClientDisconnected;
+            
+            if (NetworkManager.Singleton.IsServer || NetworkManager.Singleton.IsHost) ShowLobbyRoomPopup();
             HideLobbyRoomPopup();
         }
+
+        private void HandleOnServerStarted() { if (NetworkManager.Singleton.IsServer) ShowLobbyRoomPopup(); }
+        private void HandleOnClientConnected(ulong clientId) { if (clientId == NetworkManager.Singleton.LocalClientId) ShowLobbyRoomPopup(); }
+        private void HandleOnClientDisconnected(ulong clientId) { if (clientId == NetworkManager.Singleton.LocalClientId || clientId == NetworkManager.ServerClientId) HideLobbyRoomPopup(); }
 
         private void ProjectSpellGameLobby_OnOnLobbyListChanged(object sender, ProjectSpellGameLobby.OnLobbyListChangedEventArgs e)
         {
@@ -208,11 +187,21 @@ namespace Gameplay.UI.Main
             }
 
         }
+        
         private void OnDestroy()
         {
-            ProjectSpellGameLobby.Singleton.OnLobbyListChanged -= ProjectSpellGameLobby_OnOnLobbyListChanged;
+            if (ProjectSpellGameLobby.Singleton != null)
+                ProjectSpellGameLobby.Singleton.OnLobbyListChanged -= ProjectSpellGameLobby_OnOnLobbyListChanged;
 
-            ProjectSpellGameMultiplayer.Singleton.OnPlayerInfosChanged -= UpdateRoomUI;
+            if (ProjectSpellGameMultiplayer.Singleton != null)
+                ProjectSpellGameMultiplayer.Singleton.OnPlayerInfosChanged -= UpdateRoomUI;
+
+            if (NetworkManager.Singleton != null)
+            {
+                NetworkManager.Singleton.OnServerStarted -= HandleOnServerStarted;
+                NetworkManager.Singleton.OnClientConnectedCallback -= HandleOnClientConnected;
+                NetworkManager.Singleton.OnClientDisconnectCallback -= HandleOnClientDisconnected;
+            }
         }
     }
 }
