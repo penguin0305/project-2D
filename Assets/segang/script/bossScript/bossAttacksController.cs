@@ -55,7 +55,7 @@ public class bossAttacksController : NetworkBehaviour
             GameObject proj = Instantiate(
                 projectilePrefab,
                 transform.position,
-                Quaternion.identity);
+                rot); //rot√ﬂ∞°
 
             projectileForBoss projectile =
                 proj.GetComponent<projectileForBoss>();
