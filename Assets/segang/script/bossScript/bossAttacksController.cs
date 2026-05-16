@@ -3,6 +3,10 @@ using Unity.Netcode;
 public class bossAttacksController : NetworkBehaviour
 {
     Animator animator;
+    [Header("보스용Projectile")]
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 5f;
+    public int projectileCount = 8;
     public void playRandomAttack()
     {
         if (!IsServer) return;
@@ -31,6 +35,35 @@ public class bossAttacksController : NetworkBehaviour
     {
         animator.SetTrigger("attack2");
         Debug.Log("공격2번");
+    }
+    void Fire8Directions()
+    {
+        if (!IsServer) return;
+        float angleStep = 360f / projectileCount;
+
+        for (int i = 0; i < projectileCount; i++)
+        {
+            float angle = angleStep * i;
+
+            float rad = angle * Mathf.Deg2Rad;
+
+            Vector2 dir = new Vector2(
+                Mathf.Cos(rad),
+                Mathf.Sin(rad));
+            float rotZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            Quaternion rot = Quaternion.Euler(0, 0, rotZ);
+            GameObject proj = Instantiate(
+                projectilePrefab,
+                transform.position,
+                Quaternion.identity);
+
+            projectileForBoss projectile =
+                proj.GetComponent<projectileForBoss>();
+
+            projectile.Init(dir, projectileSpeed);
+
+            proj.GetComponent<NetworkObject>().Spawn();
+        }
     }
     private void Awake()
     {

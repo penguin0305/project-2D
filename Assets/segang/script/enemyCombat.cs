@@ -9,7 +9,7 @@ public class enemyCombat : NetworkBehaviour, IDamageable
     public int monserAttackPower = 0;//피격데미지=몬스터 공격력
 
     [Header("Knockback")]
-    public float knockbackForce = 5f;//넉백 힘
+    public float knockbackForce = 0f;//넉백 힘
 
     [Header("Blink")]
     public float blinkDuration = 0.2f;//깜빡임 지속시간

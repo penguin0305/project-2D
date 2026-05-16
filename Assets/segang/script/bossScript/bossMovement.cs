@@ -11,6 +11,7 @@ public class bossMovement : NetworkBehaviour
         if (target == null) return;
         else if(target.transform.position.x>this.transform.position.x)//타겟이 오른쪽에 있을때 오른쪽으로 이동 
         {
+            animator.SetBool("isIdling", false);
             animator.SetBool("isWalking",true);
             movingRight = true;
             float dir = movingRight ? 1f : -1f;
@@ -20,6 +21,7 @@ public class bossMovement : NetworkBehaviour
         }
         else //타겟이 왼쪽일때 왼쪽으로 이동
         {
+            animator.SetBool("isIdling", false);
             animator.SetBool("isWalking", true);
             movingRight = false;
             float dir = movingRight ? 1f : -1f;

@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 9125666836932771238}
   - component: {fileID: 4390259166546566844}
   - component: {fileID: 892398482194987606}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: NetworkPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}

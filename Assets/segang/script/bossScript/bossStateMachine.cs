@@ -17,6 +17,7 @@ public class bossStateMachine : NetworkBehaviour
     private bool targetTest = false;//�׽�Ʈ�� ����
     private bool isDead = false;//�׽�Ʈ�� ����
     private bool dieOnce = false;//�״� �ִϸ��̼� 1�� ������ �뵵
+    private bool isAttacking;
     private Animator animator;
     private bossTargetSelector targetSelector;
     private bossMovement movement;
@@ -76,20 +77,26 @@ public class bossStateMachine : NetworkBehaviour
                 break;
 
             case BossState.Attack:
-                bossAttacksController.playRandomAttack();
+                if (!isAttacking)
+                {
+                    isAttacking = true;
+                    bossAttacksController.playRandomAttack();
+                }
                 ChangeState(BossState.Idle);
                 break;
 
             /*case BossState.Pattern:
                 pattern.PlayRandomPattern();
                 ChangeState(BossState.Wait);
-                break;
+                break;*/
 
             case BossState.Wait:
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isIdling",true);
                 timer += Time.deltaTime;
                 if (timer > waitTime)
                     ChangeState(BossState.SelectTarget);
-                break;*/
+                break;
             case BossState.Dead:
                 if (!dieOnce)
                 {
@@ -111,7 +118,12 @@ public class bossStateMachine : NetworkBehaviour
     {
         currentState = newState;
         timer = 0f;
+        isAttacking = false;
         UpdateStateClientRpc(newState);
+    }
+    public void EndAttack()
+    {
+        ChangeState(BossState.Wait);
     }
     [ClientRpc]
     void UpdateStateClientRpc(BossState newState)

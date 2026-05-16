@@ -16,6 +16,9 @@ public class enemyController : NetworkBehaviour
     private float idleTime = 0.5f;     //x축 이동 바꾸기전 가만히 있는 시간
     private bool movingRight = true;
     private bool isWalking = true;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckDistance = 0.2f;
+    [SerializeField] private LayerMask groundLayer;
     [Header("기본 설정")]
     public float moveSpeed = 2f;         // 이동 속도
     public float detectRange = 5f;       // 플레이어 감지 거리
@@ -65,8 +68,14 @@ public class enemyController : NetworkBehaviour
             float dir = movingRight ? 1f : -1f;
             transform.rotation = movingRight ? Quaternion.Euler(new Vector3(0, 0, 0)) : Quaternion.Euler(new Vector3(0, 180, 0));
             transform.position += new Vector3(dir * moveSpeed * Time.deltaTime, 0, 0);
+            RaycastHit2D groundHit = Physics2D.Raycast(
+            groundCheck.position,
+            Vector2.down,
+            groundCheckDistance,
+            groundLayer
+        );//레이캐스트 이용해서 순찰 중 떨어짐 방지
 
-            if (timer >= walkTime)        // 걷는 시간 끝
+            if (timer >= walkTime || groundHit.collider == null)        // 걷는 시간 끝 혹은 앞에 바닥이 없을시
             {
                 isWalking = false;        // Idle 상태로 변경
                 timer = 0f;

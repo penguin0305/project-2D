@@ -10264,6 +10264,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 1216814798
       objectReference: {fileID: 0}
+    - target: {fileID: 3343868863322771045, guid: 2701852f8b5b7174cb53d1e2108f9381,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3727756959242019207, guid: 2701852f8b5b7174cb53d1e2108f9381,
         type: 3}
       propertyPath: m_CompositeOperation
