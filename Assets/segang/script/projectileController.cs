@@ -1,21 +1,18 @@
 using UnityEngine;
 using Unity.Netcode;
+
 public class projectileController : NetworkBehaviour
 {
     private Vector2 direction;
     private float speed;
-    [Header("¿˚ ≈ıªÁ√ºøÎ Ω∫≈©∏≥∆Æ »∏¿¸ø¿«¡º¬¿∫ ±‚∫ª ¿ÃπÃ¡ˆ∞° ø¿∏•¬ πÊ«‚¿Ã∏È 0")]
-    public float rotationOffset = 0f;   // ø°º¬ πÊ«‚ ∫∏¡§
-    public float lifeTime = 5f;         // ≈ıªÁ√º ¿Ø¡ˆ Ω√∞£
+    [Header("Ïù¥ Î∞úÏÇ¨Ï≤¥Ïùò Ïä§ÌÅ¨Î¶ΩÌä∏ ÌöåÏ†ÑÏò§ÌîÑÏÖãÏúºÎ°ú Í∏∞Î≥∏ Ïù¥ÎØ∏ÏßÄÍ∞Ä Ïò§Î•∏Ï™ΩÏùÑ Î∞îÎùºÎ≥¥Î©¥ 0")]
+    public float rotationOffset = 0f;   // ÌöåÏ†Ñ Î≥¥Ï†ï Ïò§ÌîÑÏÖã
+    public float lifeTime = 5f;         // Î∞úÏÇ¨Ï≤¥ ÏÉùÏ°¥ ÏãúÍ∞Ñ
     public int projectileDamage;
     private float spawnTime;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+    void Start() { }
+
     void Update()
     {
         if (IsServer && Time.time >= spawnTime + lifeTime)
@@ -23,37 +20,44 @@ public class projectileController : NetworkBehaviour
             NetworkObject.Despawn();
         }
     }
+
     private void FixedUpdate()
     {
         if (!IsServer) return;
         transform.position += (Vector3)(direction * speed * Time.deltaTime);
     }
+
     public void Init(Vector2 dir, float spd)
     {
         direction = dir.normalized;
         speed = spd;
         spawnTime = Time.time;
-        // πÊ«‚ø° ∏¬∞‘ »∏¿¸
+
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle + rotationOffset);
-
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!Unity.Netcode.NetworkManager.Singleton.IsServer)
         {
-            Debug.Log("º≠πˆæ¯¿Ω");
             return;
         }
 
-        if (collision.CompareTag("Player"))
+        var player = collision.GetComponentInParent<Player>();
+        if (player != null)
         {
-            Debug.Log("√Êµπ");
-            var status = collision.GetComponent<PlayerStatus>();
-            if (status != null)
+            Debug.Log("Ï∂©Îèå");
+            var info = new DamageInfo
             {
-                status.ChangeHealth(-projectileDamage);
-            }
+                damage = projectileDamage,
+                stunDuration = 0f,
+                knockback = true,
+                isCrit = false,
+                attackerNetworkObjectId = NetworkObjectId
+            };
+            player.TakeDamage(info);
+            NetworkObject.Despawn();
         }
     }
 }
