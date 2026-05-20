@@ -279,7 +279,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   eController: {fileID: 0}
   monserAttackPower: 5
-  knockbackForce: 5
+  knockbackForce: 0
   blinkDuration: 0.2
   blinkInterval: 0.05
 --- !u!50 &4986708989185285025
