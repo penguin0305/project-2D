@@ -53,9 +53,49 @@ namespace Multiplay
             _playerInfos.OnListChanged += PlayerDataNetworkList_OnOnListChanged;
         }
 
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+
+            if (IsServer)
+            {
+                _playerInfos.Clear();
+
+                NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnected;
+            }
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
+
+            if (IsServer)
+            {
+                if (NetworkManager.Singleton != null)
+                {
+                    NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnected;
+                }
+
+                // [핵심 2] 방이 터질 때도 깔끔하게 리스트 비우기
+                _playerInfos.Clear();
+            }
+        }
+
         private void PlayerDataNetworkList_OnOnListChanged(NetworkListEvent<NetworkPlayerInfo> changeEvent)
         {
             OnPlayerInfosChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void HandleClientDisconnected(ulong clientId)
+        {
+            if (IsServer)
+            {
+                int index = GetIndexFromClientId(clientId);
+                if (index != -1)
+                {
+                    _playerInfos.RemoveAt(index);
+                }
+            }
         }
 
         #region Host
@@ -68,6 +108,8 @@ namespace Multiplay
 
         private void NetworkManager_Server_OnClientConnectedCallback(ulong clientId)
         {
+            if (!IsServer) return;
+
             _playerInfos.Add(new NetworkPlayerInfo()
             {
                 ClientId = clientId,

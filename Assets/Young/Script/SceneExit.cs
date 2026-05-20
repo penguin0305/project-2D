@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class SceneExit : MonoBehaviour
 {
@@ -11,8 +12,10 @@ public class SceneExit : MonoBehaviour
         Instance = this;
     }
 
-    public void ShutdownScene(string sceneName, bool isHost)
+    public async void ShutdownScene(string sceneName, bool isHost)
     {
+        await Task.Delay(500);
+
         if (NetworkInventoryManager.Instance != null)
             NetworkInventoryManager.Instance.DontSendInventoryToSession();
 
@@ -21,8 +24,15 @@ public class SceneExit : MonoBehaviour
 
         if (ProjectSpellGameLobby.Singleton != null)
         {
-            if (isHost) ProjectSpellGameLobby.Singleton.DeleteLobby();
-            else ProjectSpellGameLobby.Singleton.LeaveLobby();
+            if (isHost)
+            {
+                await ProjectSpellGameLobby.Singleton.DeleteLobby();
+            }
+            else
+            {
+                await ProjectSpellGameLobby.Singleton.LeaveLobby();
+            }
+
         }
 
         if (NetworkManager.Singleton != null)

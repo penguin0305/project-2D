@@ -163,15 +163,12 @@ public sealed class Player : NetworkBehaviour, IDamageable
 			OnDeath?.Invoke();
 			SetDeadClientRpc();
 
-			if (IsOwner) 
-    		{
-				var resultUI = Object.FindAnyObjectByType<ResultUIManager>();
-            	if (resultUI != null)
-            	{
-                	resultUI.ShowResultUI();
-            	}
-			}
-			return;
+            if (GameOverManager.Instance != null)
+            {
+                GameOverManager.Instance.NotifyAllPlayersClearServer();
+            }
+
+            return;
 		}
 
 		if (info.stunDuration > 0f)

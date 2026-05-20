@@ -20,14 +20,27 @@ public class GameOverManager : NetworkBehaviour
 
     public void NotifyAllPlayersClearServer()
     {
-        if (!IsServer) return;
+        if (IsServer)
+        {
+            ShowResultUIClientRpc();
+        }
+        else
+        {
+            RequestShowUIServerRpc();
+        }
+
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RequestShowUIServerRpc()
+    {
         ShowResultUIClientRpc();
     }
 
     [ClientRpc]
     private void ShowResultUIClientRpc()
     {
-        Object.FindAnyObjectByType<ResultUIManager>()?.ShowResultUI();
+        ResultUIManager.Instance.ShowResultUI();
     }
 
     public void RequestExit()
@@ -55,14 +68,6 @@ public class GameOverManager : NetworkBehaviour
     {
         bool isHost = IsServer; 
 
-        if (ProjectSpellGameLobby.Singleton != null)
-        {
-            if (isHost)
-            {
-                ProjectSpellGameLobby.Singleton.DeleteLobby();
-            }
-        }
-        
         if (SceneExit.Instance != null)
         {
             SceneExit.Instance.ShutdownScene(lobbySceneName, isHost);

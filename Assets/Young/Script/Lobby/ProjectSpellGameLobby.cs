@@ -240,7 +240,7 @@ public class ProjectSpellGameLobby : MonoBehaviour
         catch (Exception e) { Debug.LogException(e); }
     }
 
-    public async void DeleteLobby()
+    public async Task DeleteLobby()
     {
         if (_joinedLobby != null)
         {
@@ -254,7 +254,7 @@ public class ProjectSpellGameLobby : MonoBehaviour
     }
 
 
-    public async void LeaveLobby()
+    public async Task LeaveLobby()
     {
         if (_joinedLobby != null)
         {
